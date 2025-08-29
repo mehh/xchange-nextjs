@@ -6,7 +6,7 @@ const socialIcons = "/assets/6a30b3ccdebfd665dd1f1b3627a2663a195c81e1.png";
 
 export default function Footer() {
   return (
-    <footer className="w-screen bg-[#272719] text-white mt-16 border-t border-white/5">
+    <footer className="w-screen bg-[#272719] text-white border-t border-white/5">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 py-10">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
           <nav className="flex flex-wrap gap-6 text-sm">

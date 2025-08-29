@@ -1,10 +1,5 @@
-import Health from "./tmod/Health";
+import LP from "./lp/page";
 
 export default function Home() {
-  return (
-    <div className="relative min-h-screen">
-      {/* Render TMOD Health homepage */}
-      <Health />
-    </div>
-  );
+  return <LP />;
 }

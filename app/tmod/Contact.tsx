@@ -1,58 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import Parallax from "../components/Parallax";
 
 // Map Framer figma:asset imports to Next.js public assets
-const imgSocialMediaIcons1 = "/assets/6a30b3ccdebfd665dd1f1b3627a2663a195c81e1.png";
-const imgTmodLogo1 = "/assets/424fe691d2e133bf65723770b2e18f23ba6d8069.png";
 const imgGettyImages14122890251 = "/assets/12ee3548fe7cb77bf66faeb8b3af5a1edf87ddc4.png";
 
-function Footer() {
-  return (
-    <div className="absolute contents left-0 top-[1253px]">
-      <div className="absolute bg-[#272719] h-[372px] left-0 top-[1253px] w-[1440px]" />
-      <Link
-        href="/homes"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-40 not-italic text-[13px] text-nowrap text-white top-[1340px]"
-      >
-        Homes
-      </Link>
-      <Link
-        href="/health"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-40 not-italic text-[13px] text-nowrap text-white top-[1362px]"
-      >
-        Health
-      </Link>
-      <Link
-        href="/team"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-40 not-italic text-[13px] text-nowrap text-white top-[1384px]"
-      >
-        Team
-      </Link>
-      <div className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-[161px] not-italic text-[13px] text-nowrap text-white top-[1524px]">
-        <p className="leading-[normal] whitespace-pre">© 2025 TMOD, Inc. All rights reserved</p>
-      </div>
-      <Link
-        href="/privacy"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-[675px] not-italic text-[13px] text-nowrap text-white top-[1524px]"
-      >
-        Privacy Policy
-      </Link>
-      <Link
-        href="/terms"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-[1199px] not-italic text-[13px] text-nowrap text-white top-[1524px]"
-      >
-        Terms of Use
-      </Link>
-      <div
-        className="absolute bg-[1.53%_0%] bg-no-repeat bg-size-[126.78%_100%] h-8 left-[1190px] top-[1334px] w-[104px]"
-        data-name="SocialMedia_Icons 1"
-        style={{ backgroundImage: `url('${imgSocialMediaIcons1}')` }}
-      />
-    </div>
-  );
-}
+ 
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -217,7 +171,6 @@ function ContactForm() {
           ))}
         </div>
       )}
-
       {/* Message Field */}
       <div className="absolute font-['Montserrat:Regular',_sans-serif] h-6 leading-[0] left-[757px] not-italic opacity-50 text-[18px] text-white top-[743px] w-[216px]">
         <p className="leading-[normal]">Your Message</p>
@@ -253,6 +206,128 @@ function ContactForm() {
 
 
 
+function MobileContactForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    userType: "I'm a landowner",
+    message: "",
+  });
+
+  const userTypes = [
+    "I'm a landowner",
+    "I'm a developer",
+    "I'm an investor",
+    "Other",
+  ];
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Thank you for your message! We will get back to you soon.");
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+      <div>
+        <label className="block text-sm/6 opacity-80" htmlFor="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          value={formData.name}
+          onChange={handleChange}
+          className="mt-1 w-full rounded-md border border-white/30 bg-transparent px-3 py-2 text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"
+          placeholder="Your full name"
+        />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm/6 opacity-80" htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            className="mt-1 w-full rounded-md border border-white/30 bg-transparent px-3 py-2 text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"
+            placeholder="you@example.com"
+          />
+        </div>
+        <div>
+          <label className="block text-sm/6 opacity-80" htmlFor="phone">Phone</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            className="mt-1 w-full rounded-md border border-white/30 bg-transparent px-3 py-2 text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"
+            placeholder="(555) 555-5555"
+          />
+        </div>
+      </div>
+      <div>
+        <label className="block text-sm/6 opacity-80" htmlFor="company">Company</label>
+        <input
+          id="company"
+          name="company"
+          type="text"
+          value={formData.company}
+          onChange={handleChange}
+          className="mt-1 w-full rounded-md border border-white/30 bg-transparent px-3 py-2 text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"
+          placeholder="Company name"
+        />
+      </div>
+      <div>
+        <label className="block text-sm/6 opacity-80" htmlFor="userType">I&apos;m a...</label>
+        <select
+          id="userType"
+          name="userType"
+          value={formData.userType}
+          onChange={handleChange}
+          className="mt-1 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-base text-white focus:outline-none focus:ring-2 focus:ring-white/40"
+        >
+          {userTypes.map((t) => (
+            <option key={t} value={t} className="bg-[#43432d] text-white">{t}</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label className="block text-sm/6 opacity-80" htmlFor="message">Your Message</label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={6}
+          value={formData.message}
+          onChange={handleChange}
+          className="mt-1 w-full rounded-md border border-white/30 bg-transparent px-3 py-2 text-base placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40 resize-y"
+          placeholder="Tell us a bit about your needs"
+        />
+      </div>
+      <div>
+        <button
+          type="submit"
+          className="inline-flex items-center justify-center rounded-full border border-white bg-white px-5 py-2 text-[#43432d] text-base font-medium hover:bg-gray-100 transition-colors"
+        >
+          Learn more
+        </button>
+      </div>
+    </form>
+  );
+}
+
 export default function Contact() {
   const [scale, setScale] = useState(1);
   const outerRef = useRef<HTMLDivElement>(null);
@@ -264,73 +339,110 @@ export default function Contact() {
       const s = w / 1440;
       setScale(s);
       if (outerRef.current && innerRef.current) {
-        const h = innerRef.current.scrollHeight * s;
-        outerRef.current.style.height = `${h}px`;
+        // Measure after the transform is applied, include absolutely positioned descendants
+        requestAnimationFrame(() => {
+          const outer = outerRef.current;
+          const inner = innerRef.current;
+          if (!outer || !inner) return;
+          const innerRect = inner.getBoundingClientRect();
+          let maxBottom = innerRect.bottom;
+          const all = inner.querySelectorAll("*");
+          all.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              const r = node.getBoundingClientRect();
+              if (!Number.isNaN(r.bottom)) {
+                if (r.bottom > maxBottom) maxBottom = r.bottom;
+              }
+            }
+          });
+          const height = Math.max(0, maxBottom - innerRect.top);
+          outer.style.height = `${height}px`;
+        });
       }
     };
     update();
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+      window.removeEventListener("scroll", update);
+    };
   }, []);
 
   return (
-    <div ref={outerRef} className="relative w-screen overflow-x-hidden bg-white">
-      <div
-        ref={innerRef}
-        className="relative origin-top-left"
-        style={{ width: 1440, transform: `scale(${scale})` }}
-        data-name="Contact"
-      >
-        {/* Canvas height */}
-        <div className="absolute inset-0 h-[1625px] w-[1440px]" />
-
-        {/* Background blocks */}
-        <div className="absolute bg-[#43432d] h-[1141px] left-[-42px] top-28 w-[1529px]" />
-
-        {/* Footer */}
-        <Footer />
-
-        {/* Contact Section Title */}
-        <div
-          className="absolute font-['Oswald:Medium',_sans-serif] font-medium leading-[0] text-[19px] text-center text-nowrap text-white top-[304px] translate-x-[-50%]"
-          style={{ left: "calc(50% - 437px)" }}
-        >
-          <p className="leading-[normal] whitespace-pre">CONTACT</p>
+    <>
+      {/* Mobile layout */}
+      <div className="md:hidden w-screen bg-[#43432d] text-white">
+        <div className="mx-auto max-w-[640px] px-4 sm:px-6 py-10">
+          <div className="text-xs tracking-[0.2em] opacity-80">CONTACT</div>
+          <h1 className="mt-2 text-4xl sm:text-5xl font-medium font-heading">Let&apos;s get started</h1>
+          <p className="mt-4 text-base/7 max-w-prose opacity-90">
+            Welcome to TMod. We&apos;re excited to be on this journey together. Fill out the
+            info below to get the process going.
+          </p>
+          <MobileContactForm />
         </div>
-
-        {/* Main Heading */}
-        <div
-          className="absolute contents top-[335px] translate-x-[-50%]"
-          style={{ left: "calc(50% - 355px)" }}
-        >
-          <div
-            className="absolute font-['Montserrat:Medium',_sans-serif] leading-[normal] not-italic text-[56px] text-nowrap text-white top-[335px] whitespace-pre"
-            style={{ left: "calc(50% - 476px)" }}
-          >
-            <p className="mb-0">Let&apos;s get</p>
-            <p>started</p>
-          </div>
-        </div>
-
-        {/* Welcome Text */}
-        <div className="absolute font-['Montserrat:Regular',_sans-serif] h-[172px] leading-[normal] left-[249px] not-italic text-[19px] text-white top-[559px] w-[281px]">
-          <p className="mb-0">{`Welcome to TMod. `}</p>
-          <p className="mb-0">&nbsp;</p>
-          <p className="mb-0">{`We\'re excited to be on this journey together. `}</p>
-          <p className="mb-0">&nbsp;</p>
-          <p className="whitespace-pre-wrap">{`Fill out the info on the right to get the process going.  `}</p>
-        </div>
-
-        {/* Contact Form */}
-        <ContactForm />
-
-        {/* Background Image */}
-        <div
-          className="absolute bg-[70.8%_44.14%] bg-no-repeat bg-size-[905.77%_103.21%] h-[1141px] left-[-42px] top-28 w-[195px]"
-          data-name="GettyImages-1412289025 1"
-          style={{ backgroundImage: `url('${imgGettyImages14122890251}')` }}
-        />
       </div>
-    </div>
+
+      {/* Desktop/tablet (original scaled layout) */}
+      <div ref={outerRef} className="hidden md:block relative w-screen overflow-x-hidden bg-white">
+        <div
+          ref={innerRef}
+          className="relative origin-top-left"
+          style={{ width: 1440, transform: `scale(${scale})` }}
+          data-name="Contact"
+        >
+          {/* Background blocks */}
+          <div className="absolute bg-[#43432d] h-[1141px] left-[-42px] top-0 w-[1529px]" />
+
+          {/* Contact Section Title */}
+          <div
+            className="absolute font-['Oswald:Medium',_sans-serif] font-medium leading-[0] text-[19px] text-center text-nowrap text-white top-[304px] translate-x-[-50%] z-10"
+            style={{ left: "calc(50% - 437px)" }}
+          >
+            <p className="leading-[normal] whitespace-pre">CONTACT</p>
+          </div>
+
+          {/* Main Heading */}
+          <div
+            className="absolute contents top-[335px] translate-x-[-50%]"
+            style={{ left: "calc(50% - 355px)" }}
+          >
+            <div
+              className="absolute font-['Montserrat:Medium',_sans-serif] leading-[normal] not-italic text-[56px] text-nowrap text-white top-[335px] whitespace-pre z-10"
+              style={{ left: "calc(50% - 476px)" }}
+            >
+              <p className="mb-0">Let&apos;s get</p>
+              <p>started</p>
+            </div>
+          </div>
+
+          {/* Welcome Text */}
+          <div className="absolute font-['Montserrat:Regular',_sans-serif] h-[172px] leading-[normal] left-[249px] not-italic text-[19px] text-white top-[559px] w-[281px] z-10">
+            <p className="mb-0">{`Welcome to TMod. `}</p>
+            <p className="mb-0">&nbsp;</p>
+            <p className="mb-0">{`We\\'re excited to be on this journey together. `}</p>
+            <p className="mb-0">&nbsp;</p>
+            <p className="whitespace-pre-wrap">{`Fill out the info on the right to get the process going.  `}</p>
+          </div>
+
+          {/* Contact Form */}
+          <div className="absolute inset-0 z-10">
+            <ContactForm />
+          </div>
+
+          {/* Background Image */}
+          <Parallax
+            speed={0.12}
+            scale={scale}
+            className="absolute bg-[70.8%_44.14%] bg-no-repeat bg-size-[905.77%_103.21%] h-[1141px] left-[-42px] top-0 w-[195px] z-0 pointer-events-none"
+            data-name="GettyImages-1412289025 1"
+            style={{ backgroundImage: `url('${imgGettyImages14122890251}')` }}
+          />
+        </div>
+      </div>
+    </>
   );
 }

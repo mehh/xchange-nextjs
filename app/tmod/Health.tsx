@@ -1,20 +1,96 @@
 'use client';
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import svgPaths from "./svg-2w5m10i2ti";
+import Parallax from "../components/Parallax";
 
 // Adapted Vite 'figma:asset' imports to Next.js public assets
-const imgSocialMediaIcons1 = "/assets/6a30b3ccdebfd665dd1f1b3627a2663a195c81e1.png";
 const imgTModSustainabilityComesStandard1 = "/assets/9fab228098d8a44a5ca62df78dc268fdf5e8cb0a.png";
 const imgTModSustainabilityClimateFriendly11 = "/assets/5e620e15764a47847a9a0398c3ce77398a76459e.png";
 const imgTModSustainabilityHero1 = "/assets/ad9acda577c86e2dd823bbc0d2ad947c2cddca84.png";
 const imgTModSustainabilityClimateFriendly21 = "/assets/6e98b085ecffad9d16a2aa984758c0da0d498f7d.png";
 const imgTModSustainabilityModernApproach1 = "/assets/f79b9c0a2f1a65591c12fce25ff74ef3c1c9334c.png";
 const imgTModSustainabilityClimateFriendly31 = "/assets/7bc427118ad5f88fa7ce46dab6e16416862c7800.png";
-const imgTmodLogo1 = "/assets/424fe691d2e133bf65723770b2e18f23ba6d8069.png";
 
+function MobileHealth() {
+  const features = [
+    "Models meet or exceed LEED-certification requirements",
+    "Energy-efficient manufacturing methods including steel-frame and structural insulated panels (SIPs)",
+    "HFO spray foam insulation with 80% lower Global Warming Potential (GWP) compared to HFC",
+    "Energy-efficient windows with low-emissivity coating",
+    "Double-pane argon gas filled windows",
+    "LED lighting for additional energy savings",
+    "High efficiency heating and cooling system with mini-splits",
+    "Optional solar panels, battery storage, and electric vehicle charging equipment",
+  ];
 
+  const results = [
+    { value: "84%", label: "More energy efficient than conventional construction" },
+    { value: "12x", label: "More energy efficient than traditional homes" },
+    { value: "10K", label: "Pounds of nitric oxide (NOx) avoided in the atmosphere" },
+    { value: "5K", label: "Pounds of sulfuric acid (SOx) avoided in the atmosphere" },
+    { value: "80%", label: "Faster construction time compared to local construction" },
+    { value: "2.7M", label: "Pounds of carbon dioxide (CO2) avoided in the atmosphere" },
+  ] as const;
+
+  return (
+    <div className="md:hidden">
+      {/* Hero */}
+      <section className="relative w-full text-white min-h-[220px] sm:min-h-[280px] overflow-hidden">
+        <div
+          className="absolute inset-0 bg-center bg-cover z-0 pointer-events-none"
+          style={{ backgroundImage: `url('${imgTModSustainabilityHero1}')` }}
+        />
+        <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-t from-black/35 via-black/15 to-transparent" />
+        <div className="relative z-10 mx-auto max-w-[720px] px-4 py-14 sm:py-16">
+          <h1 className="font-heading text-3xl sm:text-4xl leading-tight">The Gold Standard of Healthy, Affordable Living</h1>
+        </div>
+      </section>
+
+      {/* Climate Friendly */}
+      <section className="mx-auto max-w-[720px] px-4 py-8 grid gap-6">
+        <h2 className="text-2xl font-semibold">Climate Friendly Means Healthier Living</h2>
+        <div className="aspect-[4/3] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModSustainabilityClimateFriendly11}')` }} />
+        <p className="text-sm text-black/80">The home construction industry contributes to 42% of global emissions. Traditional methods lead to millions of tons of CO₂ and other harmful chemicals. We believe there&apos;s a better way.</p>
+        <p className="text-sm text-black/80">Using intelligent manufacturing, automation, advanced materials, and innovative systems, we build homes that improve occupant health, support the grid with clean energy, and dramatically reduce waste.</p>
+      </section>
+
+      {/* Standard Features */}
+      <section className="mx-auto max-w-[720px] px-4 py-8">
+        <h3 className="font-heading text-xl mb-4">Health & Sustainability Comes Standard</h3>
+        <ul className="grid grid-cols-1 gap-3 list-disc pl-5 text-sm text-black/80">
+          {features.map((f, i) => (
+            <li key={i}>{f}</li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Learn more */}
+      <section className="mx-auto max-w-[720px] px-4 pb-8">
+        <button className="inline-flex items-center rounded-full border border-black/20 px-4 py-2 text-sm">Learn more</button>
+      </section>
+
+      {/* Modern Approach */}
+      <section className="mx-auto max-w-[720px] px-4 pb-8">
+        <h3 className="font-heading text-xl mb-4">A Modern Approach to Clean Living</h3>
+        <div className="aspect-[16/9] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModSustainabilityModernApproach1}')` }} />
+      </section>
+
+      {/* Results */}
+      <section className="mx-auto max-w-[720px] px-4 pb-12">
+        <h4 className="font-heading text-lg mb-4">The Results</h4>
+        <div className="grid grid-cols-2 gap-4">
+          {results.map((r, i) => (
+            <div key={i} className="rounded-md border border-black/10 p-4">
+              <div className="text-3xl font-semibold text-black">{r.value}</div>
+              <p className="mt-2 text-xs text-black/80">{r.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
 
 export default function Health() {
   const [scale, setScale] = useState(1);
@@ -27,23 +103,51 @@ export default function Health() {
       const s = w / 1440; // scale-to-fill: grow and shrink with viewport
       setScale(s);
       if (outerRef.current && innerRef.current) {
-        const h = innerRef.current.scrollHeight * s;
-        outerRef.current.style.height = `${h}px`;
+        // Measure after the transform is applied, including absolutely positioned descendants
+        requestAnimationFrame(() => {
+          const outer = outerRef.current;
+          const inner = innerRef.current;
+          if (!outer || !inner) return;
+          const innerRect = inner.getBoundingClientRect();
+          let maxBottom = innerRect.bottom;
+          const all = inner.querySelectorAll("*");
+          all.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              const r = node.getBoundingClientRect();
+              if (!Number.isNaN(r.bottom)) {
+                if (r.bottom > maxBottom) maxBottom = r.bottom;
+              }
+            }
+          });
+          const height = Math.max(0, maxBottom - innerRect.top);
+          outer.style.height = `${height}px`;
+        });
       }
     };
     update();
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+      window.removeEventListener("scroll", update);
+    };
   }, []);
 
   return (
-    <div ref={outerRef} className="relative w-screen overflow-x-hidden bg-white">
-      <div
-        ref={innerRef}
-        className="relative origin-top-left"
-        style={{ width: 1440, transform: `scale(${scale})` }}
-        data-name="Health"
-      >
+    <>
+      {/* Mobile layout */}
+      <MobileHealth />
+
+      {/* Desktop/tablet (original scaled layout) */}
+      <div ref={outerRef} className="hidden md:block relative w-screen overflow-x-hidden bg-white">
+        <div
+          ref={innerRef}
+          className="relative origin-top-left"
+          style={{ width: 1440, transform: `scale(${scale})` }}
+          data-name="Health"
+        >
       <div
         className="absolute bg-[34.87%_43.11%] bg-no-repeat bg-size-[109.92%_109.77%] h-[965px] left-0 top-[2473px] w-[551px]"
         data-name="TMod_Sustainability_ComesStandard 1"
@@ -56,8 +160,10 @@ export default function Health() {
         style={{ backgroundImage: `url('${imgTModSustainabilityClimateFriendly11}')` }}
       />
       <div className="absolute bg-[#595e48] h-[226px] left-0 top-[1691px] w-[1440px]" />
-      <div
-        className="absolute bg-bottom bg-no-repeat bg-size-[107.55%_116.92%] h-[662px] left-0 top-28 w-[1440px]"
+      <Parallax
+        speed={0.15}
+        scale={scale}
+        className="absolute bg-bottom bg-no-repeat bg-size-[107.55%_116.92%] h-[662px] left-0 top-0 w-[1440px] z-0 pointer-events-none"
         data-name="TMod_Sustainability_Hero 1"
         style={{ backgroundImage: `url('${imgTModSustainabilityHero1}')` }}
       />
@@ -71,11 +177,11 @@ export default function Health() {
         data-name="TMod_Sustainability_ModernApproach 1"
         style={{ backgroundImage: `url('${imgTModSustainabilityModernApproach1}')` }}
       />
-      <div className="absolute font-['Montserrat:Medium',_sans-serif] leading-[normal] left-[722px] not-italic text-[56px] text-center text-nowrap text-white top-[336px] translate-x-[-50%] whitespace-pre">
+      <div className="absolute font-['Montserrat:Medium',_sans-serif] leading-[normal] left-[722px] not-italic text-[56px] text-center text-nowrap text-white top-[336px] translate-x-[-50%] whitespace-pre z-10">
         <p className="mb-0">The Gold Standard of</p>
         <p>Healthy, Affordable Living</p>
       </div>
-      <div className="absolute flex h-[20px] items-center justify-center left-[722px] top-[518px] w-[0px]">
+      <div className="absolute flex h-[20px] items-center justify-center left-[722px] top-[518px] w-[0px] z-10">
         <div className="flex-none rotate-[90deg]">
           <div className="h-0 relative w-5">
             <div className="absolute bottom-[-7.36px] left-0 right-[-5%] top-[-7.36px]">
@@ -86,7 +192,7 @@ export default function Health() {
           </div>
         </div>
       </div>
-      <div className="absolute left-[700px] size-11 top-[506px]">
+      <div className="absolute left-[700px] size-11 top-[506px] z-10">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
           <circle cx="22" cy="22" id="Ellipse 1" r="21" stroke="var(--stroke-0, white)" strokeWidth="2" />
         </svg>
@@ -294,7 +400,8 @@ export default function Health() {
         </div>
       </div>
       
+        </div>
       </div>
-    </div>
+    </>
   );
 }

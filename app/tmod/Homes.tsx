@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import svgPaths from "./svg-2w5m10i2ti";
+import Parallax from "../components/Parallax";
 
 // Map Framer figma:asset imports to Next.js public assets
 const imgGettyImages1455960407 = "/assets/460c543ad5403b2f9a71fbab11a5b874692e316e.png";
@@ -17,6 +17,54 @@ const imgTModHomesPageSafety31 = "/assets/cc4074f012183d1fa1d21123febd47cb0e58d3
 const imgTModHomesPageAboveBeyond1 = "/assets/c21530d4dbcd92f4cff619b76416c523b0ecd29a.png";
 
 
+function MobileHomes() {
+  return (
+    <div className="md:hidden">
+      {/* Hero */}
+      <section className="relative w-full bg-black text-white">
+        <div className="mx-auto max-w-[720px] px-4 py-14 sm:py-16">
+          <h1 className="font-heading text-3xl sm:text-4xl leading-tight">Precision Engineered, High Performance Homes</h1>
+        </div>
+      </section>
+
+      {/* Predictable build */}
+      <section className="mx-auto max-w-[720px] px-4 py-8 grid gap-4">
+        <h2 className="text-2xl font-semibold">A Predictable Way to Build</h2>
+        <p className="text-sm text-black/80">We use a repeatable process for high-performance, prefabricated homes at scale. We standardize assemblies, materials, and designs to reliably produce world-class quality homes in less than 16 weeks.</p>
+        <p className="text-sm text-black/80">Our technology and software transforms your home into a detailed manufacturing order ready for production. Each home is made with cutting-edge materials and processes and a precision-engineered steel frame resistant to mold, rot, and termites.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <div className="aspect-[3/2] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild11}')` }} />
+          <div className="aspect-[3/2] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild21}')` }} />
+          <div className="aspect-[3/2] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild31}')` }} />
+        </div>
+      </section>
+
+      {/* Safety */}
+      <section className="mx-auto max-w-[720px] px-4 py-8 grid gap-4">
+        <h2 className="text-2xl font-semibold">Safety for the Future</h2>
+        <p className="text-sm text-black/80">Our homes are built for any climate using a standardized production system. They shield you from extreme weather and wildfires, and the metal frame will not deform until temperatures reach 700ºC / 1292ºF.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <div className="aspect-[4/3] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageSafety11}')` }} />
+          <div className="aspect-[4/3] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageSafety21}')` }} />
+          <div className="aspect-[4/3] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageSafety31}')` }} />
+        </div>
+      </section>
+
+      {/* Above & Beyond */}
+      <section className="mx-auto max-w-[720px] px-4 pb-12">
+        <h3 className="font-heading text-xl mb-4">Above and Beyond</h3>
+        <div className="grid grid-cols-3 gap-3">
+          <div className="text-center"><div className="text-2xl font-semibold">97%</div><p className="text-xs text-black/70 mt-1">Airborne particles captured</p></div>
+          <div className="text-center"><div className="text-2xl font-semibold">90%</div><p className="text-xs text-black/70 mt-1">Additional particles captured</p></div>
+          <div className="text-center"><div className="text-2xl font-semibold">99.9%</div><p className="text-xs text-black/70 mt-1">Bacteria killed in water</p></div>
+        </div>
+        <div className="mt-4 aspect-[16/9] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageAboveBeyond1}')` }} />
+      </section>
+    </div>
+  );
+}
+
+
 export default function Homes() {
   const [scale, setScale] = useState(1);
   const outerRef = useRef<HTMLDivElement>(null);
@@ -28,23 +76,49 @@ export default function Homes() {
       const s = w / 1440; // scale-to-fill width
       setScale(s);
       if (outerRef.current && innerRef.current) {
-        const h = innerRef.current.scrollHeight * s;
-        outerRef.current.style.height = `${h}px`;
+        // Measure after transform is applied, include absolutely positioned descendants
+        requestAnimationFrame(() => {
+          const outer = outerRef.current;
+          const inner = innerRef.current;
+          if (!outer || !inner) return;
+          const innerRect = inner.getBoundingClientRect();
+          let maxBottom = innerRect.bottom;
+          const all = inner.querySelectorAll("*");
+          all.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              const r = node.getBoundingClientRect();
+              if (!Number.isNaN(r.bottom)) {
+                if (r.bottom > maxBottom) maxBottom = r.bottom;
+              }
+            }
+          });
+          const height = Math.max(0, maxBottom - innerRect.top);
+          outer.style.height = `${height}px`;
+        });
       }
     };
     update();
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+    };
   }, []);
 
   return (
-    <div ref={outerRef} className="relative w-screen overflow-x-hidden bg-white">
-      <div
-        ref={innerRef}
-        className="relative origin-top-left"
-        style={{ width: 1440, transform: `scale(${scale})` }}
-        data-name="Homes"
-      >
+    <>
+      {/* Mobile layout */}
+      <MobileHomes />
+
+      {/* Desktop/tablet (original scaled layout) */}
+      <div ref={outerRef} className="hidden md:block relative w-screen overflow-x-hidden bg-white">
+        <div
+          ref={innerRef}
+          className="relative origin-top-left"
+          style={{ width: 1440, transform: `scale(${scale})` }}
+          data-name="Homes"
+        >
         <div className="absolute bg-[40.91%_50.02%] bg-no-repeat bg-size-[233.33%_100.03%] h-[653px] left-[49px] top-[2363px] w-[420px]" data-name="GettyImages-1455960407" style={{ backgroundImage: `url('${imgGettyImages1455960407}')` }} />
         <div className="absolute bg-[40.91%_50.02%] bg-no-repeat bg-size-[233.33%_100.03%] h-[653px] left-1/2 top-[2363px] translate-x-[-50%] w-[420px]" data-name="GettyImages-1455960407" style={{ backgroundImage: `url('${imgGettyImages1455960407}')` }} />
         <div className="absolute bg-[40.91%_50.02%] bg-no-repeat bg-size-[233.33%_100.03%] h-[653px] top-[2363px] translate-x-[-50%] w-[420px]" data-name="GettyImages-1455960407" style={{ backgroundImage: `url('${imgGettyImages1455960407}')`, left: "calc(50% + 465px)" }} />
@@ -54,8 +128,14 @@ export default function Homes() {
         <div className="absolute bg-center bg-cover bg-no-repeat h-[227px] left-[49px] top-[1217px] w-[419px]" data-name="TMod_HomesPage_WaytoBuild_1 1" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild11}')` }} />
         <div className="absolute bg-center bg-cover bg-no-repeat h-[227px] left-[512px] top-[1217px] w-[421px]" data-name="TMod_HomesPage_WaytoBuild_2 1" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild21}')` }} />
         <div className="absolute bg-center bg-cover bg-no-repeat h-[227px] left-[976px] top-[1217px] w-[419px]" data-name="TMod_HomesPage_WaytoBuild_3 1" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild31}')` }} />
-        <div className="absolute bg-left bg-no-repeat bg-size-[100%_100.05%] h-[800px] left-[-131px] top-[-26px] w-[1600px]" data-name="TMod_HomesPage_Hero 1" style={{ backgroundImage: `url('${imgTModHomesPageHero1}')` }} />
-        <div className="absolute font-['Montserrat:Medium',_sans-serif] leading-[normal] left-[720px] not-italic text-[56px] text-center text-nowrap text-white top-[463px] translate-x-[-50%] whitespace-pre">
+        <Parallax
+          speed={0.15}
+          scale={scale}
+          className="absolute bg-left bg-no-repeat bg-size-[100%_100.05%] h-[800px] left-[-131px] top-[-26px] w-[1600px] z-0 pointer-events-none"
+          data-name="TMod_HomesPage_Hero 1"
+          style={{ backgroundImage: `url('${imgTModHomesPageHero1}')` }}
+        />
+        <div className="absolute font-['Montserrat:Medium',_sans-serif] leading-[normal] left-[720px] not-italic text-[56px] text-center text-nowrap text-white top-[463px] translate-x-[-50%] whitespace-pre z-10">
           <p className="mb-0">Precision Engineered,</p>
           <p>High Performance Homes</p>
         </div>
@@ -215,7 +295,8 @@ export default function Homes() {
         </div>
 
 
+        </div>
       </div>
-    </div>
+    </>
   );
 }

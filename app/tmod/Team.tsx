@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 // Map Framer figma:asset imports to Next.js public assets
-const imgSocialMediaIcons1 = "/assets/6a30b3ccdebfd665dd1f1b3627a2663a195c81e1.png";
 const imgGettyImages5344255611 = "/assets/7398acc3f9c9b67406888df334c2b992237baaef.png";
 const imgGettyImages16193329491 = "/assets/605eadc60cee02ac8517e53a767cbbf0921156d7.png";
 const imgTModSustainabilityHero1 = "/assets/ecf9b41fa8b715a21892e50defbfa281e55f0724.png";
@@ -225,51 +223,75 @@ function ProjectsSection() {
   );
 }
 
-function Footer() {
+function MobileTeam() {
+  const stats = [
+    {
+      number: "25+",
+      description:
+        "Years in complex, commercial, residential and industrial electric & HVAC",
+    },
+    {
+      number: "30+",
+      description:
+        "Years and millions of square feet delivered in steel construction",
+    },
+    {
+      number: "25+",
+      description:
+        "Years in engineering, systems development, robotics, automation and implementation",
+    },
+    {
+      number: "30+",
+      description:
+        "Years in consumer product innovation, entrepreneurship, and real estate development",
+    },
+  ] as const;
+
   return (
-    <div className="absolute contents left-0 top-[3289px]">
-      <div className="absolute bg-[#272719] h-[372px] left-0 top-[3289px] w-[1440px]" />
-      <Link
-        href="/homes"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-40 not-italic text-[13px] text-nowrap text-white top-[3376px]"
-      >
-        Homes
-      </Link>
-      <Link
-        href="/health"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-40 not-italic text-[13px] text-nowrap text-white top-[3398px]"
-      >
-        Health
-      </Link>
-      <Link
-        href="/team"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-40 not-italic text-[13px] text-nowrap text-white top-[3420px]"
-      >
-        Team
-      </Link>
-      <div className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-[161px] not-italic text-[13px] text-nowrap text-white top-[3560px]">
-        <p className="leading-[normal] whitespace-pre">© 2025 TMOD, Inc. All rights reserved</p>
-      </div>
-      <Link
-        href="/privacy"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-[675px] not-italic text-[13px] text-nowrap text-white top-[3560px]"
-      >
-        Privacy Policy
-      </Link>
-      <Link
-        href="/terms"
-        className="absolute font-['Montserrat:Regular',_sans-serif] leading-[0] left-[1199px] not-italic text-[13px] text-nowrap text-white top-[3560px]"
-      >
-        Terms of Use
-      </Link>
-      <div
-        className="absolute bg-[1.53%_0%] bg-no-repeat bg-size-[126.78%_100%] h-8 left-[1190px] top-[3370px] w-[104px]"
-        data-name="SocialMedia_Icons 1"
-        style={{ backgroundImage: `url('${imgSocialMediaIcons1}')` }}
-      />
+    <div className="md:hidden">
+      {/* Hero */}
+      <section className="relative w-full bg-black text-white">
+        <div className="mx-auto max-w-[720px] px-4 py-14 sm:py-16">
+          <h1 className="font-heading text-3xl sm:text-4xl leading-tight">United by purpose, driven by passion</h1>
+        </div>
+      </section>
+
+      {/* Overview */}
+      <section className="mx-auto max-w-[720px] px-4 py-8 grid gap-6">
+        <h2 className="text-2xl font-semibold">Behind every great dream is a great team</h2>
+        <p className="text-sm text-black/80">
+          Our founders bring more than just industry know-how—they bring a shared commitment to reimagining what homeownership can be. By uniting proven leaders in construction, design, finance, and community development, we&apos;re combining best-in-class practices with bold new thinking.
+        </p>
+        <p className="text-sm text-black/80">
+          The result is a holistic approach that not only makes homes more attainable, but also creates vibrant, sustainable communities where people can truly thrive.
+        </p>
+      </section>
+
+      {/* Stats */}
+      <section className="mx-auto max-w-[720px] px-4 pb-8">
+        <div className="grid grid-cols-2 gap-4">
+          {stats.map((s, i) => (
+            <div key={i} className="rounded-md border border-black/10 p-4">
+              <div className="text-3xl font-semibold text-black">{s.number}</div>
+              <p className="mt-2 text-xs text-black/80">{s.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section className="mx-auto max-w-[720px] px-4 pb-12">
+        <h3 className="font-heading text-xl mb-4">Some other things we&apos;ve been up to</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="aspect-[3/2] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild11}')` }} />
+          <div className="aspect-[3/2] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild21}')` }} />
+          <div className="aspect-[3/2] bg-center bg-cover rounded" style={{ backgroundImage: `url('${imgTModHomesPageWaytoBuild31}')` }} />
+        </div>
+      </section>
     </div>
   );
 }
+
 
 export default function Team() {
   const [scale, setScale] = useState(1);
@@ -282,31 +304,57 @@ export default function Team() {
       const s = w / 1440;
       setScale(s);
       if (outerRef.current && innerRef.current) {
-        const h = innerRef.current.scrollHeight * s;
-        outerRef.current.style.height = `${h}px`;
+        // Measure after the transform is applied, include absolutely positioned descendants
+        requestAnimationFrame(() => {
+          const outer = outerRef.current;
+          const inner = innerRef.current;
+          if (!outer || !inner) return;
+          const innerRect = inner.getBoundingClientRect();
+          let maxBottom = innerRect.bottom;
+          const all = inner.querySelectorAll("*");
+          all.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              const r = node.getBoundingClientRect();
+              if (!Number.isNaN(r.bottom)) {
+                if (r.bottom > maxBottom) maxBottom = r.bottom;
+              }
+            }
+          });
+          const height = Math.max(0, maxBottom - innerRect.top);
+          outer.style.height = `${height}px`;
+        });
       }
     };
     update();
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+      window.removeEventListener("scroll", update);
+    };
   }, []);
 
   return (
-    <div ref={outerRef} className="relative w-screen overflow-x-hidden bg-white">
-      <div
-        ref={innerRef}
-        className="relative origin-top-left"
-        style={{ width: 1440, transform: `scale(${scale})` }}
-        data-name="Team"
-      >
-        {/* Canvas height */}
-        <div className="absolute inset-0 h-[3661px] w-[1440px]" />
+    <>
+      {/* Mobile layout */}
+      <MobileTeam />
 
-        <HeroSection />
-        <TeamOverviewSection />
-        <StatisticsSection />
-        <ProjectsSection />
+      {/* Desktop/tablet (original scaled layout) */}
+      <div ref={outerRef} className="hidden md:block relative w-screen overflow-x-hidden bg-white">
+        <div
+          ref={innerRef}
+          className="relative origin-top-left"
+          style={{ width: 1440, transform: `scale(${scale})` }}
+          data-name="Team"
+        >
+          <HeroSection />
+          <TeamOverviewSection />
+          <StatisticsSection />
+          <ProjectsSection />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
