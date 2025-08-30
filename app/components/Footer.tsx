@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-
-const socialIcons = "/assets/6a30b3ccdebfd665dd1f1b3627a2663a195c81e1.png";
+import { Twitter, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -15,11 +14,26 @@ export default function Footer() {
             <Link href="/team" className="hover:opacity-80">Team</Link>
             <Link href="/contact" className="hover:opacity-80">Contact</Link>
           </nav>
-          <div
-            className="h-8 w-[104px] bg-no-repeat bg-contain bg-left md:bg-right opacity-90"
-            aria-label="Social media icons"
-            style={{ backgroundImage: `url('${socialIcons}')` }}
-          />
+          <div className="flex items-center gap-4">
+            <a
+              href="https://twitter.com/tmod"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TMOD on X (Twitter)"
+              className="opacity-90 hover:opacity-100 transition-opacity"
+            >
+              <Twitter aria-hidden className="h-5 w-5" />
+            </a>
+            <a
+              href="https://linkedin.com/company/tmod"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TMOD on LinkedIn"
+              className="opacity-90 hover:opacity-100 transition-opacity"
+            >
+              <Linkedin aria-hidden className="h-5 w-5" />
+            </a>
+          </div>
         </div>
         <div className="mt-8 h-px w-full bg-white/10" />
         <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs opacity-90">

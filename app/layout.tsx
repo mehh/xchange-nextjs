@@ -48,22 +48,20 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://tmod.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://tmod.com",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com",
     title: "TMOD - Precision Engineered, Affordable Homes",
     description: "TMOD creates precision-engineered, high-performance homes that are affordable, sustainable, and built to last 100 years.",
     siteName: "TMOD",
     images: [
       {
-        url: "/assets/tmod-og-image.jpg",
-        width: 1200,
-        height: 630,
+        url: "/assets/408db099393db085014ca7f79a9c688bded8623d.png",
         alt: "TMOD - Precision Engineered Homes",
       },
     ],
@@ -72,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TMOD - Precision Engineered, Affordable Homes",
     description: "Advanced manufacturing meets healthy living. Sustainable homes built to last 100 years.",
-    images: ["/assets/tmod-og-image.jpg"],
+    images: ["/assets/408db099393db085014ca7f79a9c688bded8623d.png"],
     creator: "@tmod",
   },
   robots: {
@@ -107,18 +105,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "TMOD",
     "description": "TMOD creates precision-engineered, high-performance homes that are affordable, sustainable, and built to last 100 years.",
-    "url": "https://tmod.com",
-    "logo": "https://tmod.com/assets/tmod-logo.png",
+    "url": siteUrl,
+    "logo": `${siteUrl}/assets/424fe691d2e133bf65723770b2e18f23ba6d8069.png`,
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+1-555-TMOD",
       "contactType": "customer service",
-      "url": "https://tmod.com/contact"
+      "url": `${siteUrl}/contact`
     },
     "sameAs": [
       "https://twitter.com/tmod",
@@ -141,6 +140,12 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${oswald.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 bg-black text-white px-3 py-2 rounded"
+        >
+          Skip to content
+        </a>
         <NavBar />
         <PageFade>{children}</PageFade>
         <Footer />

@@ -16,10 +16,13 @@ function ContactForm() {
     company: "",
     userType: "I'm a landowner",
     message: "",
+    hp: "",
   });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [touched, setTouched] = useState<{[key: string]: boolean}>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [serverMessage, setServerMessage] = useState<string>("");
 
   // Scroll-based parallax
   const { scrollY } = useScroll();
@@ -86,7 +89,7 @@ function ContactForm() {
     setDropdownOpen(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate all required fields
@@ -105,8 +108,28 @@ function ContactForm() {
     setErrors(newErrors);
     setTouched({ name: true, email: true, message: true, phone: true });
 
-    if (Object.keys(newErrors).length === 0) {
-      alert("Thank you for your message! We will get back to you soon.");
+    if (Object.keys(newErrors).length > 0) {
+      setStatus("error");
+      setServerMessage("Please fix the highlighted fields.");
+      return;
+    }
+
+    try {
+      setStatus("sending");
+      setServerMessage("");
+      const resp = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!resp.ok) {
+        const data = await resp.json().catch(() => ({}));
+        setStatus("error");
+        setServerMessage(data?.error || "Something went wrong. Please try again.");
+        return;
+      }
+      setStatus("success");
+      setServerMessage("Thanks! Your message was sent.");
       // Reset form
       setFormData({
         name: "",
@@ -115,9 +138,13 @@ function ContactForm() {
         company: "",
         userType: "I'm a landowner",
         message: "",
+        hp: "",
       });
       setTouched({});
       setErrors({});
+    } catch {
+      setStatus("error");
+      setServerMessage("Network error. Please try again.");
     }
   };
 
@@ -178,6 +205,29 @@ function ContactForm() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <form onSubmit={handleSubmit}>
+                {/* Honeypot field */}
+                <input
+                  type="text"
+                  name="hp"
+                  value={formData.hp}
+                  onChange={(e) => setFormData(prev => ({ ...prev, hp: e.target.value }))}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+
+                {/* Server status message */}
+                {status !== 'idle' && serverMessage && (
+                  <div
+                    role="status"
+                    className={`mb-6 rounded-md px-4 py-3 text-sm ${
+                      status === 'success' ? 'bg-green-600/20 text-green-200' : status === 'sending' ? 'bg-blue-600/20 text-blue-200' : 'bg-red-600/20 text-red-200'
+                    }`}
+                  >
+                    {serverMessage || (status === 'sending' ? 'Sending…' : '')}
+                  </div>
+                )}
                 {/* Name Field */}
                 <motion.div
                   className="mb-[50px] relative"
@@ -329,9 +379,10 @@ function ContactForm() {
                 >
                   <button
                     type="submit"
-                    className="w-[197px] h-[46px] rounded-[29px] border-2 border-white bg-white text-[#43432D] font-sans text-[18px] font-normal cursor-pointer transition-colors hover:bg-gray-100"
+                    disabled={status === 'sending'}
+                    className="w-[197px] h-[46px] rounded-[29px] border-2 border-white bg-white text-[#43432D] font-sans text-[18px] font-normal cursor-pointer transition-colors hover:bg-gray-100 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Learn more
+                    {status === 'sending' ? 'Sending…' : 'Learn more'}
                   </button>
                 </motion.div>
               </form>

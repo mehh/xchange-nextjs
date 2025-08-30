@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com";
+
 export const metadata: Metadata = {
   title: "Contact Us - Let's Get Started",
   description: "Ready to start your TMOD home journey? Contact us today to learn about our precision-engineered, affordable homes. We're excited to be on this journey together.",
@@ -18,12 +20,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact Us - Let's Get Started | TMOD",
     description: "Ready to start your TMOD home journey? Contact us today to learn about our precision-engineered, affordable homes.",
-    url: "https://tmod.com/contact",
+    url: `${siteUrl}/contact`,
     images: [
       {
-        url: "/assets/contact-og-image.jpg",
-        width: 1200,
-        height: 630,
+        url: "/assets/408db099393db085014ca7f79a9c688bded8623d.png",
         alt: "Contact TMOD - Let's Get Started",
       },
     ],

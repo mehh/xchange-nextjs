@@ -440,8 +440,76 @@ function MortgageCalculatorSection() {
     interestRate: "6.5",
     downPayment: "17500",
     downPaymentPercentage: "7",
-    monthlyPayment: "1470"
+    monthlyPayment: "1470",
   });
+  const [lastEdited, setLastEdited] = useState<"downPayment" | "downPaymentPercentage">("downPaymentPercentage");
+
+  const TERM_YEARS = 30;
+
+  const sanitizeNumber = (value: string) => value.replace(/[^0-9.]/g, "");
+
+  const computeMonthly = (price: number, ratePct: number, down: number) => {
+    const principal = Math.max(price - down, 0);
+    const r = (ratePct || 0) / 100 / 12;
+    const n = TERM_YEARS * 12;
+    if (n === 0) return 0;
+    if (r === 0) return principal / n;
+    const pow = Math.pow(1 + r, n);
+    return principal * (r * pow) / (pow - 1);
+  };
+
+  // Format helpers
+  const currency0 = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+
+  const handleFieldChange = (
+    key: keyof typeof formData,
+    rawValue: string
+  ) => {
+    if (key === "monthlyPayment") return; // derived
+
+    const value = sanitizeNumber(rawValue);
+
+    // Parse existing values
+    const currentHomePrice = parseFloat(formData.homePrice) || 0;
+    const currentRate = parseFloat(formData.interestRate) || 0;
+    const currentDownPayment = parseFloat(formData.downPayment) || 0;
+    const currentDownPct = parseFloat(formData.downPaymentPercentage) || 0;
+
+    // Apply new input
+    const nextHomePrice = key === "homePrice" ? (parseFloat(value) || 0) : currentHomePrice;
+    const nextRate = key === "interestRate" ? (parseFloat(value) || 0) : currentRate;
+    let nextDownPayment = key === "downPayment" ? (parseFloat(value) || 0) : currentDownPayment;
+    let nextDownPct = key === "downPaymentPercentage" ? (parseFloat(value) || 0) : currentDownPct;
+
+    // Track which down payment field is authoritative
+    if (key === "downPayment") setLastEdited("downPayment");
+    if (key === "downPaymentPercentage") setLastEdited("downPaymentPercentage");
+
+    // Keep down payment fields in sync based on last edited
+    if (key === "downPayment" || (key === "homePrice" && lastEdited === "downPayment")) {
+      // Update percentage from amount
+      nextDownPct = nextHomePrice > 0 ? (nextDownPayment / nextHomePrice) * 100 : 0;
+    } else if (key === "downPaymentPercentage" || (key === "homePrice" && lastEdited === "downPaymentPercentage")) {
+      // Update amount from percentage
+      nextDownPayment = (nextHomePrice * nextDownPct) / 100;
+    }
+
+    // Compute monthly payment (principal & interest)
+    const monthly = computeMonthly(nextHomePrice, nextRate, nextDownPayment);
+
+    // Persist as plain numeric strings
+    setFormData({
+      homePrice: key === "homePrice" ? value : String(nextHomePrice),
+      interestRate: key === "interestRate" ? value : String(nextRate),
+      downPayment: key === "downPayment" ? value : String(Math.round(nextDownPayment)),
+      downPaymentPercentage: key === "downPaymentPercentage" ? value : String(Math.round(nextDownPct * 10) / 10),
+      monthlyPayment: String(Math.max(0, Math.round(monthly))),
+    });
+  };
 
   return (
     <section className="bg-white py-20">
@@ -465,13 +533,6 @@ function MortgageCalculatorSection() {
                     <option>Tmod Two</option>
                   </select>
                 </div>
-                <Image
-                  src={imgMcArrow1}
-                  alt=""
-                  width={16}
-                  height={8}
-                  className="h-2 w-4"
-                />
               </div>
               
               <div className="h-px w-full bg-black"></div>
@@ -479,10 +540,10 @@ function MortgageCalculatorSection() {
               <div className="space-y-4">
                 {[
                   { label: "Base Home Price", value: formData.homePrice, key: "homePrice", prefix: "$" },
-                  { label: "Interest Rate", value: formData.interestRate, key: "interestRate", suffix: "%" },
+                  { label: "Interest Rate (APR)", value: formData.interestRate, key: "interestRate", suffix: "%" },
                   { label: "Down Payment", value: formData.downPayment, key: "downPayment", prefix: "$" },
                   { label: "Down Payment Percentage", value: formData.downPaymentPercentage, key: "downPaymentPercentage", suffix: "%" },
-                  { label: "Total Monthly Payment", value: formData.monthlyPayment, key: "monthlyPayment", prefix: "$" },
+                  { label: "Total Monthly Payment (P&I)", value: formData.monthlyPayment, key: "monthlyPayment", prefix: "$" },
                 ].map((field) => (
                   <div key={field.key} className="flex items-center justify-between">
                     <label className="font-montserrat text-[21px] font-medium text-black">
@@ -492,8 +553,10 @@ function MortgageCalculatorSection() {
                       {field.prefix && <span className="font-montserrat text-[15px] text-black">{field.prefix}</span>}
                       <input
                         type="text"
+                        inputMode="decimal"
                         value={field.value}
-                        onChange={(e) => setFormData(prev => ({ ...prev, [field.key]: e.target.value }))}
+                        readOnly={field.key === "monthlyPayment"}
+                        onChange={field.key === "monthlyPayment" ? undefined : (e) => handleFieldChange(field.key as keyof typeof formData, e.target.value)}
                         className="w-20 bg-transparent text-right font-montserrat text-[15px] font-medium text-black focus:outline-none"
                       />
                       {field.suffix && <span className="font-montserrat text-[15px] text-black">{field.suffix}</span>}
@@ -524,7 +587,9 @@ function MortgageCalculatorSection() {
               variants={fadeInUp}
               transition={{ delay: 0.1 }}
             >
-              $250,000 or<br />less than $1,500/mo
+              {currency0.format(parseFloat(formData.homePrice) || 0)} or
+              <br />
+              less than {currency0.format(parseFloat(formData.monthlyPayment) || 0)}/mo
             </motion.h3>
             <motion.p 
               className="mt-4 font-montserrat text-[21px] text-black"
