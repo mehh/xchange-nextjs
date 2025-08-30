@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -194,9 +195,9 @@ function OurHomesSection() {
           variants={fadeInUp}
           transition={{ delay: 0.4 }}
         >
-          <button className="rounded-full border-2 border-white bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-white transition-colors hover:bg-white hover:text-[#595E48]">
+          <Link href="/homes" className="inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-white transition-colors hover:bg-white hover:text-[#595E48]">
             Learn more
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -284,12 +285,12 @@ function BetterWayToBuildSection() {
                 variants={fadeInUp}
                 transition={{ delay: 0.1 }}
               >
-                <button className="flex items-center gap-2 rounded-full border-2 border-white bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-white transition-colors hover:bg-white hover:text-[#595E48]">
+                <Link href="/homes" className="flex items-center gap-2 rounded-full border-2 border-white bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-white transition-colors hover:bg-white hover:text-[#595E48]">
                   Watch how we do it
                   <svg width="20" height="16" viewBox="0 0 21 16" fill="none" className="ml-2">
                     <path d="M20.7071 8.70711C21.0976 8.31658 21.0976 7.68342 20.7071 7.29289L14.3431 0.928932C13.9526 0.538408 13.3195 0.538408 12.9289 0.928932C12.5384 1.31946 12.5384 1.95262 12.9289 2.34315L18.5858 8L12.9289 13.6569C12.5384 14.0474 12.5384 14.6805 12.9289 15.0711C13.3195 15.4616 13.9526 15.4616 14.3431 15.0711L20.7071 8.70711ZM0 9H20V7H0V9Z" fill="currentColor"/>
                   </svg>
-                </button>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -422,9 +423,9 @@ function HealthyLivingSection() {
             variants={fadeInUp}
             transition={{ delay: 0.2 }}
           >
-            <button className="rounded-full border-2 border-white bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-white transition-colors hover:bg-white hover:text-black">
+            <Link href="/health" className="inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-white transition-colors hover:bg-white hover:text-black">
               Learn more
-            </button>
+            </Link>
           </motion.div>
         </div>
       </div>
@@ -540,9 +541,9 @@ function MortgageCalculatorSection() {
               variants={fadeInUp}
               transition={{ delay: 0.3 }}
             >
-              <button className="rounded-full border-2 border-black bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-black transition-colors hover:bg-black hover:text-white">
-                Learn more
-              </button>
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full border-2 border-black bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-black transition-colors hover:bg-black hover:text-white">
+              Learn more
+            </Link>
             </motion.div>
           </div>
         </div>
@@ -605,9 +606,9 @@ function DreamTeamSection() {
                 variants={fadeInUp}
                 transition={{ delay: 0.2 }}
               >
-                <button className="rounded-full border-2 border-black bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-black transition-colors hover:bg-black hover:text-white">
-                  Meet the team
-                </button>
+                <Link href="/team" className="inline-flex items-center justify-center rounded-full border-2 border-black bg-transparent px-8 py-3 font-montserrat text-[18px] font-medium text-black transition-colors hover:bg-black hover:text-white">
+                Meet the team
+              </Link>
               </motion.div>
             </div>
           </div>

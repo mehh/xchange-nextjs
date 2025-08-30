@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -43,11 +44,16 @@ export default function NavBar() {
       <div className="relative mx-auto flex h-[72px] w-full max-w-[1440px] items-center px-4 sm:px-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <span
-              className="block h-8 w-[104px] bg-no-repeat bg-center bg-contain"
-              style={{ backgroundImage: `url('${logoSrc}')` }}
-              aria-label="TMOD logo"
-            />
+            <div className="relative h-8 w-[104px]">
+              <Image
+                src={logoSrc}
+                alt="TMOD logo"
+                fill
+                className="object-contain"
+                sizes="104px"
+                priority
+              />
+            </div>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm text-black">
             <Link href="/homes" className="relative px-1 py-1 hover:text-[#595E48] transition-colors duration-300 before:absolute before:top-0 before:left-0 before:w-0 before:h-0.5 before:bg-[#595E48] before:transition-all before:duration-400 hover:before:w-full after:absolute after:bottom-0 after:right-0 after:w-0 after:h-0.5 after:bg-[#595E48] after:transition-all after:duration-400 hover:after:w-full">Homes</Link>

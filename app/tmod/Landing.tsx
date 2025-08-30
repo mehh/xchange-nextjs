@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import svgPaths from "./svg-gd3lqm9jn9";
 import Parallax from "../components/Parallax";
@@ -102,15 +103,17 @@ function Frame1({ scale }: { scale: number }) {
       <div className="absolute bg-[rgba(0,0,0,0)] h-[46px] left-[644px] rounded-[29px] top-[2895px] w-[197px]">
         <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[29px]" />
       </div>
-      <motion.div
-        className="absolute font-['Montserrat:Medium',_sans-serif] leading-[0] left-[690px] not-italic text-[18px] text-nowrap text-white top-[2907px]"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
-        variants={fadeInUp}
-      >
-        <p className="leading-[normal] whitespace-pre">Learn more</p>
-      </motion.div>
+      <Link href="/health" className="absolute left-[644px] top-[2895px] w-[197px] h-[46px]">
+        <motion.div
+          className="w-full h-full rounded-[29px] border-2 border-white bg-transparent flex items-center justify-center font-['Montserrat:Medium',_sans-serif] text-[18px] text-white hover:bg-white hover:text-black transition-colors cursor-pointer"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeInUp}
+        >
+          Learn more
+        </motion.div>
+      </Link>
       <div className="absolute font-['Oswald:Medium',_sans-serif] font-medium leading-[0] left-[682px] text-[19px] text-nowrap text-white top-[2754px]">
         <p className="leading-[normal] whitespace-pre">WE BELIEVE THAT</p>
       </div>
@@ -205,27 +208,31 @@ function Frame1({ scale }: { scale: number }) {
       <div className="absolute bg-[rgba(0,0,0,0)] h-[46px] left-[644px] rounded-[29px] top-[1658px] w-[197px]">
         <div aria-hidden="true" className="absolute border-2 border-white border-solid inset-0 pointer-events-none rounded-[29px]" />
       </div>
-      <motion.div
-        className="absolute font-['Montserrat:Medium',_sans-serif] leading-[0] left-[690px] not-italic text-[18px] text-nowrap text-white top-[1670px]"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
-        variants={fadeInUp}
-      >
-        <p className="leading-[normal] whitespace-pre">Learn more</p>
-      </motion.div>
+      <Link href="/homes" className="absolute left-[644px] top-[1658px] w-[197px] h-[46px]">
+        <motion.div
+          className="w-full h-full rounded-[29px] border-2 border-white bg-transparent flex items-center justify-center font-['Montserrat:Medium',_sans-serif] text-[18px] text-white hover:bg-white hover:text-[#595E48] transition-colors cursor-pointer"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeInUp}
+        >
+          Learn more
+        </motion.div>
+      </Link>
       <div className="absolute bg-[rgba(0,0,0,0)] h-[51px] left-[758px] rounded-[29px] top-[2273px] w-[305px]">
         <div aria-hidden="true" className="absolute border-2 border-white border-solid inset-0 pointer-events-none rounded-[29px]" />
       </div>
-      <motion.div
-        className="absolute font-['Montserrat:Medium',_sans-serif] leading-[0] left-[797px] not-italic text-[18px] text-nowrap text-white top-[2288px]"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
-        variants={fadeInUp}
-      >
-        <p className="leading-[normal] whitespace-pre">Watch how we do it</p>
-      </motion.div>
+      <Link href="/homes" className="absolute left-[758px] top-[2273px] w-[305px] h-[51px]">
+        <motion.div
+          className="w-full h-full rounded-[29px] border-2 border-white bg-transparent flex items-center justify-center font-['Montserrat:Medium',_sans-serif] text-[18px] text-white hover:bg-white hover:text-[#595E48] transition-colors cursor-pointer"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeInUp}
+        >
+          Watch how we do it
+        </motion.div>
+      </Link>
       <motion.div
         className="absolute font-['Oswald:Medium',_sans-serif] font-medium leading-[0] left-[165px] text-[19px] text-black text-nowrap top-[2010px]"
         initial="hidden"
@@ -343,15 +350,17 @@ export default function Landing() {
         >
           <div aria-hidden="true" className="absolute border-2 border-black border-solid inset-0 pointer-events-none rounded-[29px]" />
         </div>
-        <motion.div
-          className="absolute font-['Montserrat:Medium',_sans-serif] leading-[0] left-[904px] not-italic text-[18px] text-black text-nowrap top-[3469px]"
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
-          <p className="leading-[normal] whitespace-pre">Learn more</p>
-        </motion.div>
+        <Link href="/contact" className="absolute left-[858px] top-[3457px] w-[197px] h-[46px]">
+          <motion.div
+            className="w-full h-full rounded-[29px] border-2 border-black bg-transparent flex items-center justify-center font-['Montserrat:Medium',_sans-serif] text-[18px] text-black hover:bg-black hover:text-white transition-colors cursor-pointer"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+          >
+            Learn more
+          </motion.div>
+        </Link>
         <motion.div
           className="absolute bg-center bg-cover bg-no-repeat h-[1046px] left-[849px] top-[3680px] w-[593px]"
           data-name="TMod_HomePage_TheDreamTeam 1"
@@ -473,9 +482,11 @@ export default function Landing() {
         <div className="absolute bg-[rgba(0,0,0,0)] h-[46px] left-[142px] rounded-[46px] top-[4532px] w-[227px]">
           <div aria-hidden className="absolute border-2 border-black border-solid inset-0 pointer-events-none rounded-[46px]" />
         </div>
-        <div className="absolute font-['Montserrat:Medium',_sans-serif] leading-[0] left-[188px] not-italic text-[18px] text-black text-nowrap top-[4544px]">
-          <p className="leading-[normal] whitespace-pre">Meet the team</p>
-        </div>
+        <Link href="/team" className="absolute left-[142px] top-[4532px] w-[227px] h-[46px]">
+          <div className="w-full h-full rounded-[46px] border-2 border-black bg-transparent flex items-center justify-center font-['Montserrat:Medium',_sans-serif] text-[18px] text-black hover:bg-black hover:text-white transition-colors cursor-pointer">
+            Meet the team
+          </div>
+        </Link>
 
         <motion.div
           className="absolute bg-center bg-cover bg-no-repeat h-[396px] left-[95px] top-[3680px] w-[712px]"

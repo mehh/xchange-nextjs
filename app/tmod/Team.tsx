@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // Animation variants
@@ -38,11 +39,16 @@ const projectImage3 = "https://api.builder.io/api/v1/image/assets/TEMP/132792466
 
 function HeroSection() {
   return (
-    <section
-      className="relative w-full h-[720px] flex items-center justify-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url('${heroImage}')` }}
-    >
-      <div className="text-center text-white px-4">
+    <section className="relative w-full h-[720px] flex items-center justify-center overflow-hidden">
+      <Image
+        src={heroImage}
+        alt="Team hero background"
+        fill
+        className="object-cover"
+        sizes="100vw"
+        priority
+      />
+      <div className="relative z-10 text-center text-white px-4">
         <h1 className="text-4xl md:text-[56px] font-medium leading-tight">
           United by purpose,<br />driven by passion
         </h1>
@@ -58,20 +64,28 @@ function TeamOverviewSection() {
         {/* Images section */}
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 mb-16">
           <div className="lg:col-span-7">
-            <img
-              src={teamImage1}
-              alt="Team collaboration"
-              className="w-full h-[300px] md:h-[390px] object-cover rounded-lg"
-            />
+            <div className="w-full h-[300px] md:h-[390px] relative rounded-lg overflow-hidden">
+              <Image
+                src={teamImage1}
+                alt="Team collaboration"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 70vw"
+              />
+            </div>
           </div>
           <div className="lg:col-span-3 flex lg:justify-end">
             <div className="relative w-full lg:max-w-[356px]">
               <div className="absolute inset-0 bg-[#595E48] rounded-lg"></div>
-              <img
-                src={teamImage2}
-                alt="Team member"
-                className="relative w-full h-[300px] md:h-[472px] object-cover rounded-lg"
-              />
+              <div className="relative w-full h-[300px] md:h-[472px] rounded-lg overflow-hidden">
+                <Image
+                  src={teamImage2}
+                  alt="Team member"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 30vw"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -202,12 +216,15 @@ function ProjectsSection() {
         {/* Images row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {projectImages.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Project ${index + 1}`}
-              className="w-full h-[227px] object-cover rounded-lg"
-            />
+            <div key={index} className="w-full h-[227px] relative rounded-lg overflow-hidden">
+              <Image
+                src={image}
+                alt={`Project ${index + 1}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
           ))}
         </div>
 

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // Animation variants
@@ -130,27 +132,45 @@ export default function Homes() {
             variants={liftIn}
             transition={{ delay: 0.3 }}
           >
-            <motion.img
-              src={buildImage1}
-              alt="Manufacturing process 1"
-              className="w-full aspect-[4/3] object-cover"
+            <motion.div
+              className="w-full aspect-[4/3] relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-            />
-            <motion.img
-              src={buildImage2}
-              alt="Manufacturing process 2"
-              className="w-full aspect-[4/3] object-cover"
+            >
+              <Image
+                src={buildImage1}
+                alt="Manufacturing process 1"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
+            <motion.div
+              className="w-full aspect-[4/3] relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-            />
-            <motion.img
-              src={buildImage3}
-              alt="Manufacturing process 3"
-              className="w-full aspect-[4/3] object-cover"
+            >
+              <Image
+                src={buildImage2}
+                alt="Manufacturing process 2"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
+            <motion.div
+              className="w-full aspect-[4/3] relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-            />
+            >
+              <Image
+                src={buildImage3}
+                alt="Manufacturing process 3"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -236,27 +256,45 @@ export default function Homes() {
             variants={liftIn}
             transition={{ delay: 0.3 }}
           >
-            <motion.img
-              src={homeImage1}
-              alt="Tmod home view 1"
-              className="w-full aspect-[2/3] object-cover"
+            <motion.div
+              className="w-full aspect-[2/3] relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-            />
-            <motion.img
-              src={homeImage1}
-              alt="Tmod home view 2"
-              className="w-full aspect-[2/3] object-cover"
+            >
+              <Image
+                src={homeImage1}
+                alt="Tmod home view 1"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
+            <motion.div
+              className="w-full aspect-[2/3] relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-            />
-            <motion.img
-              src={homeImage1}
-              alt="Tmod home view 3"
-              className="w-full aspect-[2/3] object-cover"
+            >
+              <Image
+                src={homeImage1}
+                alt="Tmod home view 2"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
+            <motion.div
+              className="w-full aspect-[2/3] relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-            />
+            >
+              <Image
+                src={homeImage1}
+                alt="Tmod home view 3"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -273,12 +311,18 @@ export default function Homes() {
               <div className="text-sm lg:text-base leading-relaxed mb-8" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
                 <p>Weather has become unpredictable, and it's not the same climate we grew up with. The next several decades will bring cold temperatures to warm climates and excessive water to dry regions. Being ready–at home–for these weather variations is the safest way to protect yourself. Our homes are built for any climate using a standardized production system. They will shield you from Category-5 hurricanes, heat waves, freezing temperatures, and even earthquakes. When there are wildfires, the home will be safe. Embers cannot enter an attic–we use flat roofs��or enter the crawlspace–it's internally ventilated–and the metal frame will not deform until temperatures are 700º C / 1292º F, making it a Class-A fire-rated home. Having one universal building code for residential homes will keep people safe.</p>
               </div>
-              <img src={safetyImage2} alt="Safety feature 2" className="w-full aspect-square object-cover" />
+              <div className="w-full aspect-square relative">
+                <Image src={safetyImage2} alt="Safety feature 2" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+              </div>
             </div>
             
             <div className="space-y-6">
-              <img src={safetyImage1} alt="Safety feature 1" className="w-full aspect-[4/3] object-cover" />
-              <img src={safetyImage3} alt="Safety feature 3" className="w-1/2 aspect-[4/3] object-cover" />
+              <div className="w-full aspect-[4/3] relative">
+                <Image src={safetyImage1} alt="Safety feature 1" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+              </div>
+              <div className="w-1/2 aspect-[4/3] relative">
+                <Image src={safetyImage3} alt="Safety feature 3" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+              </div>
             </div>
           </div>
         </div>
@@ -331,7 +375,9 @@ export default function Homes() {
               </div>
             </div>
             <div>
-              <img src={aboveBeyondImage} alt="Above and Beyond" className="w-full aspect-[4/3] object-cover" />
+              <div className="w-full aspect-[4/3] relative">
+                <Image src={aboveBeyondImage} alt="Above and Beyond" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+              </div>
             </div>
           </div>
         </div>
@@ -369,9 +415,9 @@ export default function Homes() {
               </div>
             </div>
             
-            <button className="inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-8 lg:px-12 py-3 lg:py-4 text-lg font-medium text-white hover:bg-white hover:text-[#595E48] transition-colors" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+            <Link href="/health" className="inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-8 lg:px-12 py-3 lg:py-4 text-lg font-medium text-white hover:bg-white hover:text-[#595E48] transition-colors" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
               Learn more about our health & sustainability standards
-            </button>
+            </Link>
           </div>
         </div>
       </section>

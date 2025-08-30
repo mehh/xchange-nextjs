@@ -1,5 +1,7 @@
 'use client';
 
+import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // Animation variants
@@ -49,14 +51,21 @@ export default function Health() {
     <div className="w-full bg-white">
       {/* Hero Section */}
       <section className="relative w-full h-[662px] overflow-hidden">
-        <motion.img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/7118105075098c1a829f7a296795acbe420fef6e?width=2880"
-          alt="TMOD Sustainability Hero"
-          className="absolute inset-0 w-full h-full object-cover"
+        <motion.div
+          className="absolute inset-0 w-full h-full"
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-        />
+        >
+          <Image
+            src="https://api.builder.io/api/v1/image/assets/TEMP/7118105075098c1a829f7a296795acbe420fef6e?width=2880"
+            alt="TMOD Sustainability Hero"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </motion.div>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-4">
             <motion.h1
@@ -96,11 +105,15 @@ export default function Health() {
               viewport={viewportOnce}
               variants={liftIn}
             >
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/3a8d1a27aec529602f9a868785c121fd255fba88?width=1308"
-                alt="TMOD Climate Friendly"
-                className="w-full h-auto"
-              />
+              <div className="w-full relative aspect-[1308/800]">
+                <Image
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/3a8d1a27aec529602f9a868785c121fd255fba88?width=1308"
+                  alt="TMOD Climate Friendly"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
             </motion.div>
             <div className="order-1 lg:order-2">
               <motion.h2
@@ -165,11 +178,15 @@ export default function Health() {
             viewport={viewportOnce}
             variants={liftIn}
           >
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/e0c353db254b5386d2fb3a0df3e9049b952ce727?width=1672"
-              alt="TMOD Climate Friendly 2"
-              className="w-full h-auto"
-            />
+            <div className="w-full relative aspect-[1672/1000]">
+              <Image
+                src="https://api.builder.io/api/v1/image/assets/TEMP/e0c353db254b5386d2fb3a0df3e9049b952ce727?width=1672"
+                alt="TMOD Climate Friendly 2"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 70vw"
+              />
+            </div>
           </motion.div>
           <motion.div
             className="w-full lg:w-[30%] lg:pr-0"
@@ -179,11 +196,15 @@ export default function Health() {
             variants={liftIn}
             transition={{ delay: 0.1 }}
           >
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/db1dca239e8000a5cced0ad02cb43a4a5c6994fd?width=988"
-              alt="TMOD Climate Friendly 3"
-              className="w-full h-auto"
-            />
+            <div className="w-full relative aspect-[988/600]">
+              <Image
+                src="https://api.builder.io/api/v1/image/assets/TEMP/db1dca239e8000a5cced0ad02cb43a4a5c6994fd?width=988"
+                alt="TMOD Climate Friendly 3"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 30vw"
+              />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -198,11 +219,15 @@ export default function Health() {
             viewport={viewportOnce}
             variants={liftIn}
           >
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/31e4cdfba724835e6244a90ba8f28f5578deea67?width=1102"
-              alt="TMOD Sustainability Comes Standard"
-              className="w-full h-auto"
-            />
+            <div className="w-full relative aspect-[1102/800]">
+              <Image
+                src="https://api.builder.io/api/v1/image/assets/TEMP/31e4cdfba724835e6244a90ba8f28f5578deea67?width=1102"
+                alt="TMOD Sustainability Comes Standard"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </motion.div>
           <div className="px-4 sm:px-6 lg:px-8">
             <motion.h2
@@ -243,16 +268,17 @@ export default function Health() {
                 ))}
               </div>
             </motion.div>
-            <motion.button
-              className="inline-flex items-center justify-center px-6 py-3 border-2 border-black rounded-full text-[18px] font-medium font-[Montserrat] text-black hover:bg-black hover:text-white transition-colors"
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
               variants={fadeInUp}
               transition={{ delay: 0.3 }}
             >
-              Learn more
-            </motion.button>
+              <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 border-2 border-black rounded-full text-[18px] font-medium font-[Montserrat] text-black hover:bg-black hover:text-white transition-colors">
+                Learn more
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -335,11 +361,15 @@ export default function Health() {
 
       {/* Final Image Section */}
       <section className="w-full">
-        <img 
-          src="https://api.builder.io/api/v1/image/assets/TEMP/d31da7cf3114fcc28fcf3c5de03de13bcc185e3a?width=2880" 
-          alt="TMOD Modern Approach"
-          className="w-full h-auto"
-        />
+        <div className="w-full relative aspect-[2880/1600]">
+          <Image
+            src="https://api.builder.io/api/v1/image/assets/TEMP/d31da7cf3114fcc28fcf3c5de03de13bcc185e3a?width=2880"
+            alt="TMOD Modern Approach"
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
       </section>
     </div>
   );
