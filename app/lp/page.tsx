@@ -209,10 +209,10 @@ function BetterWayToBuildSection() {
   return (
     <section className="bg-white py-20">
       {/* Desktop Layout */}
-      <div className="hidden lg:flex">
+      <div className="hidden lg:flex w-full pl-12 xl:pl-24">
         {/* Left content with max-width container */}
-        <div className="mx-auto w-full max-w-7xl px-6">
-          <div className="grid grid-cols-2 gap-16">
+        <div className="w-[40%] pr-8 flex min-h-[674px] items-center">
+          <div className="grid grid-cols-1 gap-16">
             <div>
               <motion.p
                 className="font-oswald text-[19px] font-medium text-black tracking-wide"
@@ -249,14 +249,11 @@ function BetterWayToBuildSection() {
                 </p>
               </motion.div>
             </div>
-
-            {/* Spacer for the right column */}
-            <div></div>
           </div>
         </div>
 
         {/* Right content extending to screen edge */}
-        <div className="relative w-[601px] flex-shrink-0">
+        <div className="relative flex-shrink-0 basis-[60%]">
           <motion.div
             className="h-[674px] w-full bg-cover bg-center bg-no-repeat"
             style={{
@@ -267,8 +264,8 @@ function BetterWayToBuildSection() {
             viewport={viewportOnce}
             variants={liftIn}
           />
-          <div className="absolute inset-0 bg-[#595E48] bg-opacity-90 flex items-center justify-center">
-            <div className="max-w-lg px-6 text-center text-white">
+          <div className="absolute inset-0 bg-opacity-90 flex items-center justify-start pl-8 md:pl-10">
+            <div className="max-w-lg px-6 text-left text-white">
               <motion.h3
                 className="font-montserrat text-[28px] font-medium leading-relaxed"
                 initial="hidden"
@@ -279,7 +276,7 @@ function BetterWayToBuildSection() {
                 We&apos;ve removed countless layers of cost while incorporating smart materials and features to provide a healthy, scalable solution to the housing crisis.
               </motion.h3>
               <motion.div
-                className="mt-8 flex justify-center"
+                className="mt-8 flex justify-start"
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportOnce}
@@ -349,8 +346,8 @@ function BetterWayToBuildSection() {
               viewport={viewportOnce}
               variants={liftIn}
             />
-            <div className="absolute inset-0 bg-[#595E48] bg-opacity-90 flex items-center justify-center">
-              <div className="max-w-lg px-6 text-center text-white">
+            <div className="absolute inset-0 bg-opacity-90 flex items-center justify-start pl-6">
+              <div className="max-w-lg px-6 text-left text-white">
                 <motion.h3
                   className="font-montserrat text-[24px] font-medium leading-relaxed"
                   initial="hidden"
@@ -361,7 +358,7 @@ function BetterWayToBuildSection() {
                   We&apos;ve removed countless layers of cost while incorporating smart materials and features to provide a healthy, scalable solution to the housing crisis.
                 </motion.h3>
                 <motion.div
-                  className="mt-6 flex justify-center"
+                  className="mt-6 flex justify-start"
                   initial="hidden"
                   whileInView="visible"
                   viewport={viewportOnce}
@@ -393,7 +390,7 @@ function HealthyLivingSection() {
           backgroundImage: `url('${imgTModHomesPageHealthyLiving1}')`
         }}
       />
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+      <div className="absolute inset-0 bg-opacity-40"></div>
       
       <div className="relative flex h-full items-center justify-center">
         <div className="text-center text-white">
