@@ -1,0 +1,29 @@
+{
+  "name": "TMOD - Precision Engineered Homes",
+  "short_name": "TMOD",
+  "description": "Precision-engineered, affordable homes built to last 100 years",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#595E48",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": [
+    "business",
+    "construction",
+    "real-estate"
+  ],
+  "lang": "en-US",
+  "scope": "/"
+}

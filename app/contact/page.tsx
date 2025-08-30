@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+
+// Note: For client components, metadata should be handled by parent layout or page wrapper
 
 // Map assets to public assets
 const imgGettyImages = "/assets/12ee3548fe7cb77bf66faeb8b3af5a1edf87ddc4.png";
@@ -152,7 +153,7 @@ function ContactForm() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                Let's get<br />
+                Let&apos;s get<br />
                 started
               </motion.h1>
               <motion.div
@@ -163,7 +164,7 @@ function ContactForm() {
               >
                 Welcome to TMod.
                 <br /><br />
-                We're excited to be on this journey together.
+                We&apos;re excited to be on this journey together.
                 <br /><br />
                 Fill out the info on the right to get the process going.
               </motion.div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Animation variants
 const fadeInUp = {
@@ -36,7 +36,7 @@ const safetyImage1 = "https://api.builder.io/api/v1/image/assets/TEMP/d899118f6b
 const safetyImage2 = "https://api.builder.io/api/v1/image/assets/TEMP/b74b6b66928d06561417bd6ae64bebf3a5d26b9b?width=1122";
 const safetyImage3 = "https://api.builder.io/api/v1/image/assets/TEMP/275b65631c6f6eda0ae0b690aad4b9c68db73dee?width=812";
 const aboveBeyondImage = "https://api.builder.io/api/v1/image/assets/TEMP/a54c7fca1704a99c68708f24340079ca0f08ba12?width=1436";
-const healthBackgroundImage = "https://api.builder.io/api/v1/image/assets/TEMP/40510e61585f305691d28447e5e69acffec496c3?width=2880";
+// Removed unused variable `healthBackgroundImage`
 
 export default function Homes() {
   return (
@@ -118,7 +118,7 @@ export default function Homes() {
                 transition={{ delay: 0.2 }}
               >
                 <p>We use a repeatable process for high-performance, prefabricated homes at scale. We standardize assemblies, materials, and designs to reliably produce world-class quality homes in less than 16 weeks.</p>
-                <p>Our technology and software transforms your home into a detailed manufacturing order ready for production. Each home is made with cutting-edge materials and processes that aren't readily available to local builders. It's built to last with a precision-engineered steel frame resistant to mold, rot, and termites. As a result, you get a home with less worry and less maintenance—now and in the future.</p>
+                <p>Our technology and software transforms your home into a detailed manufacturing order ready for production. Each home is made with cutting-edge materials and processes that aren&apos;t readily available to local builders. It&apos;s built to last with a precision-engineered steel frame resistant to mold, rot, and termites. As a result, you get a home with less worry and less maintenance—now and in the future.</p>
               </motion.div>
             </div>
           </div>
@@ -309,7 +309,7 @@ export default function Homes() {
                 the Future
               </h2>
               <div className="text-sm lg:text-base leading-relaxed mb-8" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
-                <p>Weather has become unpredictable, and it's not the same climate we grew up with. The next several decades will bring cold temperatures to warm climates and excessive water to dry regions. Being ready–at home–for these weather variations is the safest way to protect yourself. Our homes are built for any climate using a standardized production system. They will shield you from Category-5 hurricanes, heat waves, freezing temperatures, and even earthquakes. When there are wildfires, the home will be safe. Embers cannot enter an attic–we use flat roofs��or enter the crawlspace–it's internally ventilated–and the metal frame will not deform until temperatures are 700º C / 1292º F, making it a Class-A fire-rated home. Having one universal building code for residential homes will keep people safe.</p>
+                <p>Weather has become unpredictable, and it&apos;s not the same climate we grew up with. The next several decades will bring cold temperatures to warm climates and excessive water to dry regions. Being ready–at home–for these weather variations is the safest way to protect yourself. Our homes are built for any climate using a standardized production system. They will shield you from Category-5 hurricanes, heat waves, freezing temperatures, and even earthquakes. When there are wildfires, the home will be safe. Embers cannot enter an attic–we use flat roofs��or enter the crawlspace–it&apos;s internally ventilated–and the metal frame will not deform until temperatures are 700º C / 1292º F, making it a Class-A fire-rated home. Having one universal building code for residential homes will keep people safe.</p>
               </div>
               <div className="w-full aspect-square relative">
                 <Image src={safetyImage2} alt="Safety feature 2" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
@@ -337,7 +337,7 @@ export default function Homes() {
                 ENVIRONMENTALLY RESPONSIBLE
               </h3>
               <p className="text-sm lg:text-base leading-relaxed" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
-                Each Tmod home is built to last 100 years, significantly reducing the environmental impact. Using high-quality materials and product design-based science, your home will require less maintenance, won't begin to rot in a matter of years, and will consume a fraction of the energy a typical home uses each year – for the lifetime of the home.
+                Each Tmod home is built to last 100 years, significantly reducing the environmental impact. Using high-quality materials and product design-based science, your home will require less maintenance, won&apos;t begin to rot in a matter of years, and will consume a fraction of the energy a typical home uses each year – for the lifetime of the home.
               </p>
             </div>
             <div className="relative px-8 before:absolute before:left-0 before:top-0 before:bottom-8 before:w-px before:bg-black after:absolute after:right-0 after:top-0 after:bottom-8 after:w-px after:bg-black">
@@ -371,7 +371,7 @@ export default function Homes() {
               </h2>
               <div className="text-sm lg:text-base leading-relaxed space-y-6" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
                 <p>A health-promoting home is crucial to your mental and physical well-being. But what about your connection to the outdoors?</p>
-                <p>Our homes are designed to make it easier to see nature, use the sun's natural light to illuminate your home, and step outside to enjoy the weather. This is what's called a biophilic design.</p>
+                <p>Our homes are designed to make it easier to see nature, use the sun&apos;s natural light to illuminate your home, and step outside to enjoy the weather. This is what&apos;s called a biophilic design.</p>
               </div>
             </div>
             <div>
@@ -390,7 +390,7 @@ export default function Homes() {
             HOW YOUR HOME IS CONFIGURED DIRECTLY IMPACTS YOUR HEALTH
           </h3>
           <p className="text-sm lg:text-base leading-relaxed max-w-4xl mx-auto mb-12 lg:mb-16" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
-            Most people don't realize the magnitude of a home's contribution as a positive influence on our daily lives. And while people invest in their personal future in many ways, few investments pay off more than a healthy lifestyle promoted by a healthy home. From the quality of the air we breathe to the water we drink, cook, and bathe with, we've used our background as building scientists to design a home with systems we can rely on to provide a positively healthier living experience.
+            Most people don&apos;t realize the magnitude of a home&apos;s contribution as a positive influence on our daily lives. And while people invest in their personal future in many ways, few investments pay off more than a healthy lifestyle promoted by a healthy home. From the quality of the air we breathe to the water we drink, cook, and bathe with, we&apos;ve used our background as building scientists to design a home with systems we can rely on to provide a positively healthier living experience.
           </p>
           
           <div className="border-t border-white/30 pt-12 lg:pt-16">

@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tmod.com/sitemap.xml
+
+# Block access to admin/private areas if any exist
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow specific pages
+Allow: /
+Allow: /homes
+Allow: /health
+Allow: /team
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+
+# Crawl-delay (optional, can be removed if not needed)
+Crawl-delay: 1

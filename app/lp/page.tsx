@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -120,10 +121,10 @@ function BetterWayToLiveSection() {
             transition={{ delay: 0.2 }}
           >
             <p className="mb-4">
-              Affordable places to live are essential to a well-functioning society and are at the center of our families' development and growth.
+              Affordable places to live are essential to a well-functioning society and are at the center of our families&apos; development and growth.
             </p>
             <p className="mb-4">
-              Our value-engineered approach to building unlocks efficiencies to create pricing the market hasn't seen in decades—so families and communities can flourish on a foundation of innovation, sustainability, and possibility.
+              Our value-engineered approach to building unlocks efficiencies to create pricing the market hasn&apos;t seen in decades—so families and communities can flourish on a foundation of innovation, sustainability, and possibility.
             </p>
             <p>
               At Tmod, we craft precision-engineered homes that elevate daily living and radically reduce cost to provide a better future for the ones we love most.
@@ -275,7 +276,7 @@ function BetterWayToBuildSection() {
                 viewport={viewportOnce}
                 variants={fadeInUp}
               >
-                We've removed countless layers of cost while incorporating smart materials and features to provide a healthy, scalable solution to the housing crisis.
+                We&apos;ve removed countless layers of cost while incorporating smart materials and features to provide a healthy, scalable solution to the housing crisis.
               </motion.h3>
               <motion.div
                 className="mt-8 flex justify-center"
@@ -357,7 +358,7 @@ function BetterWayToBuildSection() {
                   viewport={viewportOnce}
                   variants={fadeInUp}
                 >
-                  We've removed countless layers of cost while incorporating smart materials and features to provide a healthy, scalable solution to the housing crisis.
+                  We&apos;ve removed countless layers of cost while incorporating smart materials and features to provide a healthy, scalable solution to the housing crisis.
                 </motion.h3>
                 <motion.div
                   className="mt-6 flex justify-center"
@@ -413,7 +414,7 @@ function HealthyLivingSection() {
             variants={fadeInUp}
             transition={{ delay: 0.1 }}
           >
-            Healthy Living Shouldn't be Unaffordable
+            Healthy Living Shouldn&apos;t be Unaffordable
           </motion.h2>
           <motion.div 
             className="mt-8"
@@ -464,9 +465,11 @@ function MortgageCalculatorSection() {
                     <option>Tmod Two</option>
                   </select>
                 </div>
-                <img
+                <Image
                   src={imgMcArrow1}
                   alt=""
+                  width={16}
+                  height={8}
                   className="h-2 w-4"
                 />
               </div>
@@ -592,10 +595,10 @@ function DreamTeamSection() {
                 transition={{ delay: 0.1 }}
               >
                 <p className="mb-4">
-                  Today, housing affordability is one of society's greatest challenges. Building more apartments or cheaply built homes doesn't solve the problem. New solutions are needed to restore that American Dream and it will require innovation, tenacity, and a passion for positive change.
+                  Today, housing affordability is one of society&apos;s greatest challenges. Building more apartments or cheaply built homes doesn&apos;t solve the problem. New solutions are needed to restore that American Dream and it will require innovation, tenacity, and a passion for positive change.
                 </p>
                 <p>
-                  Each and every one of our founders are existing leaders of highly successful organizations that represent years of experience in each of the most important components of how we build and sell our homes. Together, we're building an enterprise that dramatically decreases the cost of homeownership, promotes healthy living, all while positively impacting society and the environment.
+                  Each and every one of our founders are existing leaders of highly successful organizations that represent years of experience in each of the most important components of how we build and sell our homes. Together, we&apos;re building an enterprise that dramatically decreases the cost of homeownership, promotes healthy living, all while positively impacting society and the environment.
                 </p>
               </motion.div>
               <motion.div
@@ -664,10 +667,10 @@ function DreamTeamSection() {
               transition={{ delay: 0.1 }}
             >
               <p className="mb-4">
-                Today, housing affordability is one of society's greatest challenges. Building more apartments or cheaply built homes doesn't solve the problem. New solutions are needed to restore that American Dream and it will require innovation, tenacity, and a passion for positive change.
+                Today, housing affordability is one of society&apos;s greatest challenges. Building more apartments or cheaply built homes doesn&apos;t solve the problem. New solutions are needed to restore that American Dream and it will require innovation, tenacity, and a passion for positive change.
               </p>
               <p>
-                Each and every one of our founders are existing leaders of highly successful organizations that represent years of experience in each of the most important components of how we build and sell our homes. Together, we're building an enterprise that dramatically decreases the cost of homeownership, promotes healthy living, all while positively impacting society and the environment.
+                Each and every one of our founders are existing leaders of highly successful organizations that represent years of experience in each of the most important components of how we build and sell our homes. Together, we&apos;re building an enterprise that dramatically decreases the cost of homeownership, promotes healthy living, all while positively impacting society and the environment.
               </p>
             </motion.div>
             <motion.div

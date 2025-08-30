@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Animation variants
 const fadeInUp = {
@@ -138,12 +138,12 @@ export default function Health() {
                   home-building methods lead to millions of tons of carbon dioxide and other harmful chemicals in the atmosphere. We must do better.
                 </p>
                 <p>
-                  At Tmod, we are evolving home production. Using intelligent manufacturing methods, robotic automation, advanced materials, and innovative systems, we've created homes to improve the health of the occupants, supply the grid with clean energy and remove millions
+                  At Tmod, we are evolving home production. Using intelligent manufacturing methods, robotic automation, advanced materials, and innovative systems, we&apos;ve created homes to improve the health of the occupants, supply the grid with clean energy and remove millions
                   of tons of chemical waste from entering our ecosystem.
                 </p>
                 <p>
                   Compared to the traditional construction sector, which produces roughly 40% of landfill waste, a factory-built construction method reduces waste by up to 90%.
-                  With our end-to-end platform, we're reducing our impact on the planet by producing sustainable homes.
+                  With our end-to-end platform, we&apos;re reducing our impact on the planet by producing sustainable homes.
                 </p>
               </motion.div>
             </div>
@@ -310,7 +310,7 @@ export default function Health() {
               </h3>
               <p className="text-[15px] font-[Montserrat] text-black leading-normal">
                 We only use products and building systems that help you stay healthy and safe. The Self-Healing™ home has raised the standards for what a new home should be capable of. It has material declarations and transparency certificates for all materials used throughout the home. They included GreenGuard and Cradle to Cradle Certificates and items not listed on the Red List of toxic materials. The entire home is produced to a high degree
-                of quality so that no moisture builds up–moisture is the home's greatest enemy.
+                of quality so that no moisture builds up–moisture is the home&apos;s greatest enemy.
               </p>
             </div>
             <div>
