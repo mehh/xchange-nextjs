@@ -44,21 +44,21 @@ export default function NavBar() {
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
             <span
-              className="block h-6 w-[78px] bg-no-repeat bg-center bg-contain"
+              className="block h-8 w-[104px] bg-no-repeat bg-center bg-contain"
               style={{ backgroundImage: `url('${logoSrc}')` }}
               aria-label="TMOD logo"
             />
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm text-black">
-            <Link href="/homes" className="hover:opacity-80 text-black">Homes</Link>
-            <Link href="/health" className="hover:opacity-80 text-black">Health</Link>
-            <Link href="/team" className="hover:opacity-80 text-black">Team</Link>
+            <Link href="/homes" className="relative px-1 py-1 hover:text-[#595E48] transition-colors duration-300 before:absolute before:top-0 before:left-0 before:w-0 before:h-0.5 before:bg-[#595E48] before:transition-all before:duration-400 hover:before:w-full after:absolute after:bottom-0 after:right-0 after:w-0 after:h-0.5 after:bg-[#595E48] after:transition-all after:duration-400 hover:after:w-full">Homes</Link>
+            <Link href="/health" className="relative px-1 py-1 hover:text-[#595E48] transition-colors duration-300 before:absolute before:top-0 before:left-0 before:w-0 before:h-0.5 before:bg-[#595E48] before:transition-all before:duration-400 hover:before:w-full after:absolute after:bottom-0 after:right-0 after:w-0 after:h-0.5 after:bg-[#595E48] after:transition-all after:duration-400 hover:after:w-full">Health</Link>
+            <Link href="/team" className="relative px-1 py-1 hover:text-[#595E48] transition-colors duration-300 before:absolute before:top-0 before:left-0 before:w-0 before:h-0.5 before:bg-[#595E48] before:transition-all before:duration-400 hover:before:w-full after:absolute after:bottom-0 after:right-0 after:w-0 after:h-0.5 after:bg-[#595E48] after:transition-all after:duration-400 hover:after:w-full">Team</Link>
           </nav>
         </div>
         <div className="flex items-center ml-auto gap-2">
           <Link
             href="/contact"
-            className="hidden md:inline-flex rounded-full border border-black/80 px-3 py-1.5 text-sm hover:bg-black hover:text-white transition-colors"
+            className="hidden md:inline-flex rounded-full bg-[#595E48] px-3 py-1.5 text-sm text-white hover:bg-[#4a4d3c] transition-colors"
           >
             Contact us
           </Link>
@@ -92,7 +92,7 @@ export default function NavBar() {
               <Link
                 href="/contact"
                 onClick={() => setMenuOpen(false)}
-                className="mt-2 inline-flex w-full items-center justify-center rounded-full border border-black/80 px-3 py-2 text-sm hover:bg-black hover:text-white transition-colors"
+                className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-[#595E48] px-3 py-2 text-sm text-white hover:bg-[#4a4d3c] transition-colors"
               >
                 Contact us
               </Link>
@@ -100,6 +100,7 @@ export default function NavBar() {
           </div>
         )}
       </div>
+
     </motion.header>
   );
 }

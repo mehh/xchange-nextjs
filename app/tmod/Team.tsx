@@ -1,5 +1,29 @@
 "use client";
 
+import { motion, useScroll, useTransform } from "framer-motion";
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+} as const;
+
+const liftIn = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+} as const;
+
+const viewportOnce = { once: true, amount: 0.3 } as const;
+
 // Hero background image
 const heroImage = "https://api.builder.io/api/v1/image/assets/TEMP/38462d11231daacd76e76b99383bd948c58c94d7?width=2880";
 
@@ -55,18 +79,38 @@ function TeamOverviewSection() {
         {/* Content section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
-            <h2 className="text-3xl md:text-[55px] font-medium leading-tight text-black mb-8 max-w-[420px]">
+            <motion.h2
+              className="text-3xl md:text-[55px] font-medium leading-tight text-black mb-8 max-w-[420px]"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              variants={fadeInUp}
+            >
               Behind every great dream is a great team
-            </h2>
+            </motion.h2>
           </div>
           <div>
-            <p className="text-[15px] leading-relaxed text-black">
+            <motion.p
+              className="text-[15px] leading-relaxed text-black"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              variants={fadeInUp}
+              transition={{ delay: 0.1 }}
+            >
               Our founders bring more than just industry know-how—they bring a shared commitment to reimagining what homeownership can be. By uniting proven leaders in construction, design, finance, and community development, we&apos;re combining best-in-class practices with bold new thinking.
-            </p>
+            </motion.p>
             <br />
-            <p className="text-[15px] leading-relaxed text-black">
+            <motion.p
+              className="text-[15px] leading-relaxed text-black"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              variants={fadeInUp}
+              transition={{ delay: 0.2 }}
+            >
               The result is a holistic approach that not only makes homes more attainable, but also creates vibrant, sustainable communities where people can truly thrive.
-            </p>
+            </motion.p>
           </div>
         </div>
       </div>
@@ -113,18 +157,32 @@ function StatisticsSection() {
   return (
     <section className="w-full py-16 bg-white">
       <div className="max-w-[1440px] mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={liftIn}
+        >
           {stats.map((stat, index) => (
-            <div key={index} className="space-y-4">
+            <motion.div
+              key={index}
+              className="space-y-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              variants={fadeInUp}
+              transition={{ delay: index * 0.1 }}
+            >
               <div className="text-[80px] font-medium leading-[125px] text-black">
                 {stat.number}
               </div>
               <p className="text-[20px] font-medium leading-normal text-black">
                 {stat.description}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

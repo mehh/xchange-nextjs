@@ -1,5 +1,29 @@
 "use client";
 
+import { motion, useScroll, useTransform } from "framer-motion";
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+} as const;
+
+const liftIn = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+} as const;
+
+const viewportOnce = { once: true, amount: 0.3 } as const;
+
 // Image assets for the homes page
 const heroImage = "https://api.builder.io/api/v1/image/assets/TEMP/b906bf7e4e11682059cc94ec5b0726e05038bc9d?width=3200";
 const buildImage1 = "https://api.builder.io/api/v1/image/assets/TEMP/a3075adb0eac99bbb0f379e65bc5e4aa575e94ef?width=838";
@@ -17,13 +41,26 @@ export default function Homes() {
     <div className="w-full">
       {/* Hero */}
       <section className="relative min-h-[500px] lg:min-h-[700px] bg-black text-white overflow-hidden">
-        <div className="absolute inset-0 bg-center bg-cover" style={{ backgroundImage: `url('${heroImage}')` }} />
+        <motion.div
+          className="absolute inset-0 bg-center bg-cover"
+          style={{ backgroundImage: `url('${heroImage}')` }}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        />
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative z-10 flex items-center justify-center min-h-[500px] lg:min-h-[700px] px-4">
-          <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight max-w-4xl" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+          <motion.h1
+            className="text-center text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight max-w-4xl"
+            style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            transition={{ delay: 0.3 }}
+          >
             Precision Engineered,<br />
             High Performance Homes
-          </h1>
+          </motion.h1>
         </div>
       </section>
 
@@ -32,69 +69,195 @@ export default function Homes() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
             <div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium mb-8 leading-tight" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+              <motion.h2
+                className="text-4xl sm:text-5xl lg:text-6xl font-medium mb-8 leading-tight"
+                style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={fadeInUp}
+              >
                 A Predictable<br />
                 Way to Build
-              </h2>
-              <div className="w-11 h-11 rounded-full border-2 border-black flex items-center justify-center" >
+              </motion.h2>
+              <motion.div
+                className="w-11 h-11 rounded-full border-2 border-black flex items-center justify-center"
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={fadeInUp}
+                transition={{ delay: 0.1 }}
+              >
                 <svg className="w-5 h-5 rotate-90" fill="none" viewBox="0 0 16 21">
                   <path d="M7.29289 20.7071C7.68342 21.0976 8.31658 21.0976 8.70711 20.7071L15.0711 14.3431C15.4616 13.9526 15.4616 13.3195 15.0711 12.9289C14.6805 12.5384 14.0474 12.5384 13.6569 12.9289L8 18.5858L2.34315 12.9289C1.95262 12.5384 1.31946 12.5384 0.928932 12.9289C0.538407 13.3195 0.538407 13.9526 0.928932 14.3431L7.29289 20.7071ZM7 -4.37114e-08L7 20L9 20L9 4.37114e-08L7 -4.37114e-08Z" fill="black"/>
                 </svg>
-              </div>
+              </motion.div>
             </div>
 
             <div>
-              <h3 className="text-lg lg:text-xl font-medium mb-6" style={{ fontFamily: 'Oswald, -apple-system, Roboto, Helvetica, sans-serif' }}>
+              <motion.h3
+                className="text-lg lg:text-xl font-medium mb-6"
+                style={{ fontFamily: 'Oswald, -apple-system, Roboto, Helvetica, sans-serif' }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={fadeInUp}
+                transition={{ delay: 0.1 }}
+              >
                 ADVANCED MANUFACTURING
-              </h3>
-              <div className="text-sm lg:text-base leading-relaxed space-y-6" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+              </motion.h3>
+              <motion.div
+                className="text-sm lg:text-base leading-relaxed space-y-6"
+                style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={fadeInUp}
+                transition={{ delay: 0.2 }}
+              >
                 <p>We use a repeatable process for high-performance, prefabricated homes at scale. We standardize assemblies, materials, and designs to reliably produce world-class quality homes in less than 16 weeks.</p>
                 <p>Our technology and software transforms your home into a detailed manufacturing order ready for production. Each home is made with cutting-edge materials and processes that aren't readily available to local builders. It's built to last with a precision-engineered steel frame resistant to mold, rot, and termites. As a result, you get a home with less worry and less maintenance—now and in the future.</p>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Manufacturing Images Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
-            <img src={buildImage1} alt="Manufacturing process 1" className="w-full aspect-[4/3] object-cover" />
-            <img src={buildImage2} alt="Manufacturing process 2" className="w-full aspect-[4/3] object-cover" />
-            <img src={buildImage3} alt="Manufacturing process 3" className="w-full aspect-[4/3] object-cover" />
-          </div>
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={liftIn}
+            transition={{ delay: 0.3 }}
+          >
+            <motion.img
+              src={buildImage1}
+              alt="Manufacturing process 1"
+              className="w-full aspect-[4/3] object-cover"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.img
+              src={buildImage2}
+              alt="Manufacturing process 2"
+              className="w-full aspect-[4/3] object-cover"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.img
+              src={buildImage3}
+              alt="Manufacturing process 3"
+              className="w-full aspect-[4/3] object-cover"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.div>
         </div>
       </section>
 
       {/* WE ARE */}
       <section className="bg-[#595E48] text-white py-16 lg:py-24">
         <div className="mx-auto max-w-6xl px-4 lg:px-6 text-center">
-          <h3 className="text-lg lg:text-xl font-medium mb-6" style={{ fontFamily: 'Oswald, -apple-system, Roboto, Helvetica, sans-serif' }}>
+          <motion.h3
+            className="text-lg lg:text-xl font-medium mb-6"
+            style={{ fontFamily: 'Oswald, -apple-system, Roboto, Helvetica, sans-serif' }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+          >
             WE ARE
-          </h3>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium mb-8 leading-tight" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+          </motion.h3>
+          <motion.h2
+            className="text-4xl sm:text-5xl lg:text-6xl font-medium mb-8 leading-tight"
+            style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+            transition={{ delay: 0.1 }}
+          >
             The Very Best at One Thing
-          </h2>
-          <p className="text-sm lg:text-base leading-relaxed max-w-4xl mx-auto" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+          </motion.h2>
+          <motion.p
+            className="text-sm lg:text-base leading-relaxed max-w-4xl mx-auto"
+            style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+            transition={{ delay: 0.2 }}
+          >
             Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean. Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu.
-          </p>
+          </motion.p>
         </div>
       </section>
 
       {/* Tmod Two */}
       <section className="bg-white text-black px-4 lg:px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-6xl text-center">
-          <h3 className="text-lg lg:text-xl font-medium mb-6" style={{ fontFamily: 'Oswald, -apple-system, Roboto, Helvetica, sans-serif' }}>
+          <motion.h3
+            className="text-lg lg:text-xl font-medium mb-6"
+            style={{ fontFamily: 'Oswald, -apple-system, Roboto, Helvetica, sans-serif' }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+          >
             2,500 SQ FT DUPLEX
-          </h3>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium mb-8 leading-tight" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+          </motion.h3>
+          <motion.h2
+            className="text-4xl sm:text-5xl lg:text-6xl font-medium mb-8 leading-tight"
+            style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+            transition={{ delay: 0.1 }}
+          >
             Tmod Two
-          </h2>
-          <p className="text-sm lg:text-base leading-relaxed max-w-4xl mx-auto mb-12 lg:mb-16" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
+          </motion.h2>
+          <motion.p
+            className="text-sm lg:text-base leading-relaxed max-w-4xl mx-auto mb-12 lg:mb-16"
+            style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+            transition={{ delay: 0.2 }}
+          >
             Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean. Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            <img src={homeImage1} alt="Tmod home view 1" className="w-full aspect-[2/3] object-cover" />
-            <img src={homeImage1} alt="Tmod home view 2" className="w-full aspect-[2/3] object-cover" />
-            <img src={homeImage1} alt="Tmod home view 3" className="w-full aspect-[2/3] object-cover" />
-          </div>
+          </motion.p>
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={liftIn}
+            transition={{ delay: 0.3 }}
+          >
+            <motion.img
+              src={homeImage1}
+              alt="Tmod home view 1"
+              className="w-full aspect-[2/3] object-cover"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.img
+              src={homeImage1}
+              alt="Tmod home view 2"
+              className="w-full aspect-[2/3] object-cover"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.img
+              src={homeImage1}
+              alt="Tmod home view 3"
+              className="w-full aspect-[2/3] object-cover"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.div>
         </div>
       </section>
 
