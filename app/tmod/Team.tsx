@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import ScrollCircle from "../components/ScrollCircle";
 
 // Animation variants
 const fadeInUp = {
@@ -40,18 +41,32 @@ const projectImage3 = "https://api.builder.io/api/v1/image/assets/TEMP/132792466
 function HeroSection() {
   return (
     <section className="relative w-full h-[720px] flex items-center justify-center overflow-hidden">
-      <Image
-        src={heroImage}
-        alt="Team hero background"
-        fill
-        className="object-cover"
-        sizes="100vw"
-        priority
+      <motion.div
+        className="absolute inset-0 w-full h-full bg-center bg-cover"
+        style={{ backgroundImage: `url('${heroImage}')` }}
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       />
       <div className="relative z-10 text-center text-white px-4">
-        <h1 className="text-4xl md:text-[56px] font-medium leading-tight">
+        <motion.h1
+          className="text-4xl md:text-[56px] font-medium leading-tight"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          transition={{ delay: 0.3 }}
+        >
           United by purpose,<br />driven by passion
-        </h1>
+        </motion.h1>
+        <motion.div
+          className="mt-8 flex justify-center"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          transition={{ delay: 0.5 }}
+        >
+          <ScrollCircle size={44} color="white" direction="right" />
+        </motion.div>
       </div>
     </section>
   );

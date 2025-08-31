@@ -38,13 +38,16 @@ const viewportOnce = { once: true, amount: 0.3 } as const;
 function HeroSection() {
   return (
     <section className="relative h-[774px] w-full overflow-hidden">
-      {/* American Flag Background */}
-      <div
+      {/* American Flag Background with scale-in animation */}
+      <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('${imgHomeAmericanFlag1}')`,
           backgroundPosition: "51.76% 77.7%",
         }}
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       />
       
       {/* Hero Text */}
@@ -52,19 +55,18 @@ function HeroSection() {
         <motion.h1
           className="font-montserrat text-[56px] font-medium leading-[1.2] text-white"
           initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
+          animate="visible"
           variants={fadeInUp}
+          transition={{ delay: 0.3 }}
         >
           Restoring the<br />American Dream
         </motion.h1>
         <motion.p
           className="mt-4 font-montserrat text-[17px] font-medium text-white"
           initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
+          animate="visible"
           variants={fadeInUp}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.4 }}
         >
           one truly affordable home at a time...
         </motion.p>
@@ -73,12 +75,11 @@ function HeroSection() {
         <motion.div
           className="mt-8"
           initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
+          animate="visible"
           variants={fadeInUp}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.5 }}
         >
-          <ScrollCircle size={44} color="white" direction="down" />
+          <ScrollCircle size={44} color="white" direction="right" />
         </motion.div>
       </div>
     </section>
