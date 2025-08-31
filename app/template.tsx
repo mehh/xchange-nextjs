@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import PageLoader from "./components/PageLoader";
 
 export default function Template({
@@ -11,39 +10,34 @@ export default function Template({
 }) {
   // The template remounts on each navigation under the same layout segment.
   // Showing the loader on mount ensures it runs for initial load and every route change.
-  const pathname = usePathname();
 
   const drawMs = 1400;
   const fillMs = 400;
-  // Start fill much sooner to reduce the visual pause
+  // Start fill sooner to reduce the visual pause
   const fillDelayMs = Math.round(drawMs * 0.35);
-  // Wait until both draw and fill are complete, then add a small buffer
-  const totalMs = Math.max(drawMs, fillDelayMs + fillMs) + 180;
 
   const [show, setShow] = useState(true);
+  // Template remounts per navigation; we show loader on mount and hide when animation completes.
 
-  // Unique key per path to reset SVG animation if needed
-  const animateKey = useMemo(() => `${pathname}-${Date.now()}`, [pathname]);
-
+  // Fallback: in case CSS events don't fire (e.g., reduced motion or race), hide after expected duration
   useEffect(() => {
-    setShow(true);
-    const t = setTimeout(() => setShow(false), totalMs);
+    const fallbackTotal = Math.max(drawMs, fillDelayMs + fillMs) + 250;
+    const t = setTimeout(() => setShow(false), fallbackTotal);
     return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [drawMs, fillDelayMs, fillMs]);
 
   return (
     <>
       <PageLoader
         show={show}
-        animateKey={animateKey}
         drawMs={drawMs}
         fillMs={fillMs}
         fillDelayMs={fillDelayMs}
         strokeWidth={2}
+        onComplete={() => setShow(false)}
       />
-      {/* Keep children mounted so layout doesn't jump; overlay blocks interactions while visible */}
-      {children}
+      {/* Mount children only after loader completes to ensure consistent first-load vs transitions */}
+      {!show && children}
     </>
   );
 }

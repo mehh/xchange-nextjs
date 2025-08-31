@@ -1,11 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 
 type PageLoaderProps = {
   show: boolean;
-  animateKey?: string | number;
   // Total animation timing: draw + fill. Keep in sync with CSS below.
   drawMs?: number; // default 1400
   fillMs?: number; // default 400
@@ -13,17 +12,34 @@ type PageLoaderProps = {
   fillDelayMs?: number;
   // Visual stroke settings
   strokeWidth?: number; // default 2 for crispness
+  // Callback when the fill animation completes
+  onComplete?: () => void;
 };
 
 export default function PageLoader({
   show,
-  animateKey,
   drawMs = 1400,
   fillMs = 400,
   fillDelayMs,
   strokeWidth = 2,
+  onComplete,
 }: PageLoaderProps) {
   const delay = fillDelayMs ?? Math.round(drawMs * 0.6);
+  const [completed, setCompleted] = useState(false);
+
+  const handleAnimationEnd = (e: React.AnimationEvent<SVGPathElement>) => {
+    if (completed) return;
+    const target = e.target as Element | null;
+    // We only care about path elements after their fill becomes non-transparent
+    if (target && target.tagName.toLowerCase() === "path") {
+      const fillColor = getComputedStyle(target as Element).fill;
+      // Browser will report 'rgba(0, 0, 0, 0)' or 'transparent' when not filled
+      if (fillColor && fillColor !== "transparent" && !fillColor.includes("0)")) {
+        setCompleted(true);
+        onComplete?.();
+      }
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -42,7 +58,7 @@ export default function PageLoader({
           <div className="absolute inset-0 bg-[#595e48]" aria-hidden="true" />
 
           {/* Centered logo animation */}
-          <div key={animateKey} className="relative">
+          <div className="relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               version="1.1"
@@ -68,6 +84,7 @@ export default function PageLoader({
               <path
                 className="fill"
                 d="M 96.00 45.15 L 96.00 52.00 L 91.28 52.00 L 87.83 52.00 Q 87.68 52.00 87.54 52.00 Q 87.14 51.86 86.75 52.00 L 26.85 52.00 L 26.80 45.72 A 0.51 0.51 0.0 0 1 27.31 45.20 L 96.00 45.15 Z"
+                onAnimationEnd={handleAnimationEnd}
               />
             </svg>
           </div>
@@ -75,22 +92,22 @@ export default function PageLoader({
           {/* Scoped styles for SVG animation */}
           <style jsx>{`
             svg { display: block; }
+            /* Base visual stroke settings */
             svg path {
               stroke: #fff;
               fill: transparent;
               stroke-width: ${strokeWidth};
               stroke-dasharray: 1000;
               stroke-dashoffset: 1000;
-              animation: draw ${drawMs}ms ease forwards;
               vector-effect: non-scaling-stroke;
               stroke-linecap: round;
               stroke-linejoin: round;
               stroke-miterlimit: 2;
               shape-rendering: geometricPrecision;
+              will-change: stroke-dashoffset, fill;
+              animation: draw ${drawMs}ms ease forwards;
             }
-            svg path.fill {
-              animation: draw ${drawMs}ms ease forwards, fillin ${fillMs}ms ease forwards ${delay}ms;
-            }
+            svg path.fill { animation: draw ${drawMs}ms ease forwards, fillin ${fillMs}ms ease forwards ${delay}ms; }
             @keyframes draw { to { stroke-dashoffset: 0; } }
             @keyframes fillin { to { fill: #fff; } }
           `}</style>
