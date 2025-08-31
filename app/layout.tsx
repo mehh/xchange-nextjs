@@ -140,6 +140,8 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${oswald.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
+        {/* SSR initial overlay to ensure navbar is covered before hydration */}
+        <div id="initial-loader" className="fixed inset-0 z-[9998] bg-[#595e48]" />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 bg-black text-white px-3 py-2 rounded"

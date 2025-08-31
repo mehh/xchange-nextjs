@@ -22,7 +22,11 @@ export default function Template({
   // Fallback: in case CSS events don't fire (e.g., reduced motion or race), hide after expected duration
   useEffect(() => {
     const fallbackTotal = Math.max(drawMs, fillDelayMs + fillMs) + 250;
-    const t = setTimeout(() => setShow(false), fallbackTotal);
+    const t = setTimeout(() => {
+      setShow(false);
+      const el = document.getElementById("initial-loader");
+      if (el) el.remove();
+    }, fallbackTotal);
     return () => clearTimeout(t);
   }, [drawMs, fillDelayMs, fillMs]);
 
@@ -34,7 +38,11 @@ export default function Template({
         fillMs={fillMs}
         fillDelayMs={fillDelayMs}
         strokeWidth={2}
-        onComplete={() => setShow(false)}
+        onComplete={() => {
+          setShow(false);
+          const el = document.getElementById("initial-loader");
+          if (el) el.remove();
+        }}
       />
       {/* Mount children only after loader completes to ensure consistent first-load vs transitions */}
       {!show && children}

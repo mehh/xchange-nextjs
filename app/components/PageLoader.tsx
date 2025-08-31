@@ -1,7 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 type PageLoaderProps = {
   show: boolean;
@@ -26,6 +27,11 @@ export default function PageLoader({
 }: PageLoaderProps) {
   const delay = fillDelayMs ?? Math.round(drawMs * 0.6);
   const [completed, setCompleted] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleAnimationEnd = (e: React.AnimationEvent<SVGPathElement>) => {
     if (completed) return;
@@ -41,7 +47,7 @@ export default function PageLoader({
     }
   };
 
-  return (
+  const overlay = (
     <AnimatePresence>
       {show && (
         <motion.div
@@ -115,4 +121,7 @@ export default function PageLoader({
       )}
     </AnimatePresence>
   );
+
+  // Portal to body once mounted to escape any ancestor stacking contexts
+  return mounted ? createPortal(overlay, document.body) : overlay;
 }
