@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import ScrollCircle from "../components/ScrollCircle";
 
 // Animation variants
 const fadeInUp = {
@@ -83,16 +84,14 @@ export default function Homes() {
                 Way to Build
               </motion.h2>
               <motion.div
-                className="w-11 h-11 rounded-full border-2 border-black flex items-center justify-center"
+                className=""
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportOnce}
                 variants={fadeInUp}
                 transition={{ delay: 0.1 }}
               >
-                <svg className="w-5 h-5 rotate-90" fill="none" viewBox="0 0 16 21">
-                  <path d="M7.29289 20.7071C7.68342 21.0976 8.31658 21.0976 8.70711 20.7071L15.0711 14.3431C15.4616 13.9526 15.4616 13.3195 15.0711 12.9289C14.6805 12.5384 14.0474 12.5384 13.6569 12.9289L8 18.5858L2.34315 12.9289C1.95262 12.5384 1.31946 12.5384 0.928932 12.9289C0.538407 13.3195 0.538407 13.9526 0.928932 14.3431L7.29289 20.7071ZM7 -4.37114e-08L7 20L9 20L9 4.37114e-08L7 -4.37114e-08Z" fill="black"/>
-                </svg>
+                <ScrollCircle size={44} color="black" direction="right" />
               </motion.div>
             </div>
 
@@ -309,7 +308,7 @@ export default function Homes() {
                 the Future
               </h2>
               <div className="text-sm lg:text-base leading-relaxed mb-8" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
-                <p>Weather has become unpredictable, and it&apos;s not the same climate we grew up with. The next several decades will bring cold temperatures to warm climates and excessive water to dry regions. Being ready–at home–for these weather variations is the safest way to protect yourself. Our homes are built for any climate using a standardized production system. They will shield you from Category-5 hurricanes, heat waves, freezing temperatures, and even earthquakes. When there are wildfires, the home will be safe. Embers cannot enter an attic–we use flat roofs��or enter the crawlspace–it&apos;s internally ventilated–and the metal frame will not deform until temperatures are 700º C / 1292º F, making it a Class-A fire-rated home. Having one universal building code for residential homes will keep people safe.</p>
+                <p>Weather has become unpredictable, and it&apos;s not the same climate we grew up with. The next several decades will bring cold temperatures to warm climates and excessive water to dry regions. Being ready–at home–for these weather variations is the safest way to protect yourself. Our homes are built for any climate using a standardized production system. They will shield you from Category-5 hurricanes, heat waves, freezing temperatures, and even earthquakes. When there are wildfires, the home will be safe. Embers cannot enter an attic–we use flat roofs or enter the crawlspace–it&apos;s internally ventilated–and the metal frame will not deform until temperatures are 700º C / 1292º F, making it a Class-A fire-rated home. Having one universal building code for residential homes will keep people safe.</p>
               </div>
               <div className="w-full aspect-square relative">
                 <Image src={safetyImage2} alt="Safety feature 2" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />

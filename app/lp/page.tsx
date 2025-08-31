@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import ScrollCircle from "../components/ScrollCircle";
 
 // Local image assets
 const imgTModHomesPageHealthyLiving1 = "/assets/ec0ef60ac25a9bb66629761953013857711101f6.png";
@@ -77,11 +78,7 @@ function HeroSection() {
           variants={fadeInUp}
           transition={{ delay: 0.2 }}
         >
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-white">
-              <path d="M9.29289 13.7071C9.68342 14.0976 10.3166 14.0976 10.7071 13.7071L17.0711 7.34315C17.4616 6.95262 17.4616 6.31946 17.0711 5.92893C16.6805 5.53841 16.0474 5.53841 15.6569 5.92893L10 11.5858L4.34315 5.92893C3.95262 5.53841 3.31946 5.53841 2.92893 5.92893C2.53841 6.31946 2.53841 6.95262 2.92893 7.34315L9.29289 13.7071ZM9 1V13H11V1H9Z" fill="currentColor"/>
-            </svg>
-          </div>
+          <ScrollCircle size={44} color="white" direction="down" />
         </motion.div>
       </div>
     </section>

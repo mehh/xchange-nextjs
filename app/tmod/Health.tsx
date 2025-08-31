@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import ScrollCircle from "../components/ScrollCircle";
 
 // Animation variants
 const fadeInUp = {
@@ -79,15 +80,13 @@ export default function Health() {
             </motion.h1>
             <div className="mt-12 flex flex-col items-center">
               <motion.div
-                className="w-11 h-11 rounded-full border-2 border-white flex items-center justify-center"
+                className=""
                 initial="hidden"
                 animate="visible"
                 variants={fadeInUp}
                 transition={{ delay: 0.6 }}
               >
-                <svg width="20" height="20" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-90">
-                  <path d="M7.29289 20.7071C7.68342 21.0976 8.31658 21.0976 8.70711 20.7071L15.0711 14.3431C15.4616 13.9526 15.4616 13.3195 15.0711 12.9289C14.6805 12.5384 14.0474 12.5384 13.6569 12.9289L8 18.5858L2.34315 12.9289C1.95262 12.5384 1.31946 12.5384 0.928932 12.9289C0.538407 13.3195 0.538407 13.9526 0.928932 14.3431L7.29289 20.7071ZM7 -4.37114e-08L7 20L9 20L9 4.37114e-08L7 -4.37114e-08Z" fill="white"/>
-                </svg>
+                <ScrollCircle size={44} color="white" direction="right" />
               </motion.div>
             </div>
           </div>
