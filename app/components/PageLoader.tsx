@@ -122,6 +122,7 @@ export default function PageLoader({
     </AnimatePresence>
   );
 
-  // Portal to body once mounted to escape any ancestor stacking contexts
-  return mounted ? createPortal(overlay, document.body) : overlay;
+  // Portal to body. Avoid reparenting the overlay between non-portal and portal to prevent DOM NotFoundError during route transitions.
+  // If not mounted yet (SSR/first render), render nothing — `#initial-loader` from `app/layout.tsx` covers the screen until hydration.
+  return mounted ? createPortal(overlay, document.body) : null;
 }

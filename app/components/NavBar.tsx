@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const logoSrc = "/assets/424fe691d2e133bf65723770b2e18f23ba6d8069.png";
 
@@ -11,6 +12,7 @@ export default function NavBar() {
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -33,6 +35,21 @@ export default function NavBar() {
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  // Mark mounted for portals
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
 
   return (
     <motion.header
@@ -73,9 +90,9 @@ export default function NavBar() {
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
-            className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md border border-black/20 hover:bg-black/5"
+            className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md border border-[#595E48] text-[#595E48] hover:bg-[#595E48]/10"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#595E48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               {menuOpen ? (
                 <path d="M18 6L6 18M6 6l12 12" />
               ) : (
@@ -89,21 +106,38 @@ export default function NavBar() {
           </button>
         </div>
 
-        {menuOpen && (
-          <div className="md:hidden absolute left-0 right-0 top-full border-b border-black/10 bg-white">
-            <nav className="flex flex-col px-4 py-3 text-base">
-              <Link href="/homes" onClick={() => setMenuOpen(false)} className="py-2.5 text-black">Homes</Link>
-              <Link href="/health" onClick={() => setMenuOpen(false)} className="py-2.5 text-black">Health</Link>
-              <Link href="/team" onClick={() => setMenuOpen(false)} className="py-2.5 text-black">Team</Link>
-              <Link
-                href="/contact"
+        {mounted && menuOpen && createPortal(
+          (
+            <div className="md:hidden fixed inset-0 z-[60] bg-[#595E48] text-white">
+              {/* Close button */}
+              <button
+                type="button"
+                aria-label="Close menu"
                 onClick={() => setMenuOpen(false)}
-                className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-[#595E48] px-3 py-2 text-sm text-white hover:bg-[#4a4d3c] transition-colors"
+                className="absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/60 text-white/90 hover:bg-white/10"
               >
-                Contact us
-              </Link>
-            </nav>
-          </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+
+              <nav className="flex flex-col h-full px-6 pt-16 pb-8">
+                <div className="flex-1 flex flex-col items-center justify-center gap-2">
+                  <Link href="/homes" onClick={() => setMenuOpen(false)} className="py-3 text-3xl font-medium">Homes</Link>
+                  <Link href="/health" onClick={() => setMenuOpen(false)} className="py-3 text-3xl font-medium">Health</Link>
+                  <Link href="/team" onClick={() => setMenuOpen(false)} className="py-3 text-3xl font-medium">Team</Link>
+                </div>
+                <Link
+                  href="/contact"
+                  onClick={() => setMenuOpen(false)}
+                  className="mt-auto inline-flex w-full items-center justify-center rounded-full bg-white px-4 py-3 text-lg text-[#595E48] hover:bg-white/90 transition-colors"
+                >
+                  Contact us
+                </Link>
+              </nav>
+            </div>
+          ),
+          document.body
         )}
       </div>
 

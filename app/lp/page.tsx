@@ -37,7 +37,7 @@ const viewportOnce = { once: true, amount: 0.3 } as const;
 
 function HeroSection() {
   return (
-    <section className="relative h-[774px] w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden h-[560px] sm:h-[680px] md:h-[774px]">
       {/* American Flag Background with scale-in animation */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -51,9 +51,9 @@ function HeroSection() {
       />
       
       {/* Hero Text */}
-      <div className="absolute right-[140px] top-[458px] z-10">
+      <div className="absolute inset-x-0 bottom-10 z-10 px-6 text-center md:inset-auto md:right-[140px] md:top-[458px] md:text-left">
         <motion.h1
-          className="font-montserrat text-[56px] font-medium leading-[1.2] text-white"
+          className="font-montserrat text-[34px] sm:text-[42px] md:text-[56px] font-medium leading-[1.2] text-white"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -62,7 +62,7 @@ function HeroSection() {
           Restoring the<br />American Dream
         </motion.h1>
         <motion.p
-          className="mt-4 font-montserrat text-[17px] font-medium text-white"
+          className="mt-4 font-montserrat text-[15px] md:text-[17px] font-medium text-white"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -73,7 +73,7 @@ function HeroSection() {
 
         {/* Scroll Indicator - below text within same container */}
         <motion.div
-          className="mt-8"
+          className="mt-8 flex justify-center md:justify-start"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
