@@ -44,8 +44,8 @@ export default function Template({
           if (el) el.remove();
         }}
       />
-      {/* Mount children only after loader completes to ensure consistent first-load vs transitions */}
-      {!show && children}
+      {/* Always render children to keep server and client trees consistent; overlay visually blocks until animation completes */}
+      {children}
     </>
   );
 }
