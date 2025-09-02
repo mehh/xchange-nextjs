@@ -133,15 +133,20 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <script
+          id="org-jsonld"
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body
         className={`${montserrat.variable} ${oswald.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        {/* SSR initial overlay to ensure navbar is covered before hydration */}
-        <div id="initial-loader" className="fixed inset-0 z-[9998] bg-[#595e48]" />
+        {/* Stable portal root for overlays/menus to avoid manipulating body children directly */}
+        <div id="portal-root">
+          {/* Dedicated, persistent host for the page loader portal to avoid insertBefore/removeChild races */}
+          <div id="page-loader-host" />
+        </div>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 bg-black text-white px-3 py-2 rounded"

@@ -13,6 +13,7 @@ export default function NavBar() {
   const lastY = useRef(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -39,6 +40,8 @@ export default function NavBar() {
   // Mark mounted for portals
   useEffect(() => {
     setMounted(true);
+    const el = document.getElementById("portal-root");
+    setContainer((el as HTMLElement | null) ?? document.body);
   }, []);
 
   // Prevent background scroll when mobile menu is open
@@ -106,7 +109,7 @@ export default function NavBar() {
           </button>
         </div>
 
-        {mounted && menuOpen && createPortal(
+        {mounted && container && menuOpen && createPortal(
           (
             <div className="md:hidden fixed inset-0 z-[60] bg-[#595E48] text-white">
               {/* Close button */}
@@ -137,7 +140,7 @@ export default function NavBar() {
               </nav>
             </div>
           ),
-          document.body
+          container
         )}
       </div>
 

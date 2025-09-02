@@ -16,11 +16,16 @@ export default function Template({
   // Start fill sooner to reduce the visual pause
   const fillDelayMs = Math.round(drawMs * 0.35);
 
-  const [show, setShow] = useState(true);
+  const disableLoader =
+    process.env.NEXT_PUBLIC_DISABLE_LOADER === "1" ||
+    process.env.NEXT_PUBLIC_DISABLE_LOADER === "true";
+
+  const [show, setShow] = useState(!disableLoader);
   // Template remounts per navigation; we show loader on mount and hide when animation completes.
 
   // Fallback: in case CSS events don't fire (e.g., reduced motion or race), hide after expected duration
   useEffect(() => {
+    if (disableLoader) return;
     const fallbackTotal = Math.max(drawMs, fillDelayMs + fillMs) + 250;
     const t = setTimeout(() => {
       setShow(false);
@@ -28,22 +33,31 @@ export default function Template({
       if (el) el.remove();
     }, fallbackTotal);
     return () => clearTimeout(t);
-  }, [drawMs, fillDelayMs, fillMs]);
+  }, [drawMs, fillDelayMs, fillMs, disableLoader]);
+
+  // If loader is disabled, ensure SSR initial overlay is removed on mount
+  useEffect(() => {
+    if (!disableLoader) return;
+    const el = document.getElementById("initial-loader");
+    if (el) el.remove();
+  }, [disableLoader]);
 
   return (
     <>
-      <PageLoader
-        show={show}
-        drawMs={drawMs}
-        fillMs={fillMs}
-        fillDelayMs={fillDelayMs}
-        strokeWidth={2}
-        onComplete={() => {
-          setShow(false);
-          const el = document.getElementById("initial-loader");
-          if (el) el.remove();
-        }}
-      />
+      {!disableLoader && (
+        <PageLoader
+          show={show}
+          drawMs={drawMs}
+          fillMs={fillMs}
+          fillDelayMs={fillDelayMs}
+          strokeWidth={2}
+          onComplete={() => {
+            setShow(false);
+            const el = document.getElementById("initial-loader");
+            if (el) el.remove();
+          }}
+        />
+      )}
       {/* Always render children to keep server and client trees consistent; overlay visually blocks until animation completes */}
       {children}
     </>
