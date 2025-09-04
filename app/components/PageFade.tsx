@@ -19,8 +19,9 @@ export default function PageFade({ children }: PropsWithChildren) {
   return (
     <motion.main
       id="main"
-      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      // Avoid transforms here because transformed ancestors break position: sticky
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration, ease: "easeOut" }}
       className="min-h-[calc(100vh-4.5rem)]" // 4.5rem accounts for 72px navbar height
     >

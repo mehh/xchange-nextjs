@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function StatisticsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 50%", "end 50%"] // Lock when section reaches halfway through viewport
+    target: containerRef,
+    // Track progress while this section is pinned in the viewport
+    offset: ["start start", "end end"]
   });
 
   const stats = [
@@ -29,144 +30,138 @@ export default function StatisticsSection() {
     }
   ];
 
-  // Create smoother transforms for each stat based on scroll progress
-  const stat1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6], [1, 1, 0.3, 0.1]);
-  const stat2Opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 0.9], [0.1, 0.3, 1, 1, 0.3]);
-  const stat3Opacity = useTransform(scrollYProgress, [0.4, 0.6, 0.8, 1], [0.1, 0.3, 1, 1]);
+  // Create smoother cross-fades for 3 stats over the scroll duration
+  // Progress segments roughly split into thirds with slight overlaps for nicer blending
+  const stat1Opacity = useTransform(scrollYProgress, [0, 0.16, 0.33], [1, 1, 0]);
+  const stat2Opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.66], [0, 1, 0]);
+  const stat3Opacity = useTransform(scrollYProgress, [0.66, 0.9, 0.98], [0, 1, 0]);
 
-  const stat1Y = useTransform(scrollYProgress, [0, 0.4], [0, -30]);
-  const stat2Y = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [30, 0, -30]);
-  const stat3Y = useTransform(scrollYProgress, [0.6, 1], [30, 0]);
+  // Subtle vertical motion to enhance transitions
+  const stat1Y = useTransform(scrollYProgress, [0, 0.16, 0.33], [0, 0, -12]);
+  const stat2Y = useTransform(scrollYProgress, [0.33, 0.5, 0.66], [12, 0, -12]);
+  const stat3Y = useTransform(scrollYProgress, [0.66, 0.9, 0.98], [12, 0, -8]);
+
+  // Subtle overall fade for the right column when entering/leaving the pinned range
+  const rightColOpacity = useTransform(scrollYProgress, [0, 0.04, 0.96, 1], [0.2, 1, 1, 0]);
+
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const handle = () => {
+      const el = containerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const nav = 72; // fixed navbar height
+      // Active pin range: when the container spans the viewport area below the navbar
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const active = rect.top <= nav && rect.bottom >= vh;
+      setIsFixed(active);
+    };
+    handle();
+    window.addEventListener("scroll", handle, { passive: true });
+    window.addEventListener("resize", handle, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handle);
+      window.removeEventListener("resize", handle);
+    };
+  }, []);
 
   return (
-    <section 
-      ref={sectionRef}
-      className="relative bg-calm-dark"
-      style={{ height: "250vh" }} // Extended height for scroll effect
-    >
-      {/* Sticky content container */}
-      <div className="sticky top-0 h-screen flex items-center">
-        <div className="w-full max-w-[1440px] mx-auto px-4 md:px-16">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-[126px] items-center lg:items-start">
-
-            {/* Left content - stays fixed */}
-            <div className="w-full lg:w-[648px] flex flex-col gap-6 md:gap-10">
-              <motion.h2
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="text-white font-outfit text-[28px] md:text-[32px] lg:text-[40px] font-normal leading-[100%] tracking-[-0.8px]"
-              >
+    <div ref={containerRef} className="relative z-[1] h-[300vh]">
+      <div className={(isFixed ? "fixed" : "sticky") + " top-[72px] inset-x-0 h-[calc(100vh-72px)] bg-calm-dark overflow-hidden z-20"}>
+        <div className="flex justify-center items-center h-full" style={{ padding: "104px 64px" }}>
+          <div className="flex gap-[126px] items-center">
+            
+            {/* Left content - stays fixed while pinned */}
+            <div className="w-[648px] flex flex-col gap-10">
+              <h2 className="text-white font-outfit text-[40px] font-normal leading-[100%] tracking-[-0.8px]">
                 Patients with medical issues that directly affect their breathing during procedures are on the rise.
-              </motion.h2>
+              </h2>
 
-              <div className="flex flex-col md:flex-row md:items-start gap-4">
-                <div className="flex items-center justify-center md:w-[165px] pt-2">
-                  <span className="text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase opacity-70">
+              <div className="flex items-start gap-4">
+                <div className="flex w-[165px] pt-2 justify-center items-center">
+                  <span className="text-white font-outfit text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase opacity-70">
                     The Problem
                   </span>
                 </div>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="max-w-[467px] text-white font-outfit text-[16px] md:text-[18px] font-normal leading-[130%] tracking-[-0.36px] opacity-70"
-                >
+                <p className="w-[467px] text-white font-outfit text-[18px] font-normal leading-[130%] tracking-[-0.36px] opacity-70">
                   Airway obstruction leading to oxygen desaturation and/or hypercapnia is a common and serious complication during moderate to deep sedation. This risk is particularly pronounced in patients with known airway pathology.
-                </motion.p>
+                </p>
               </div>
 
-              <div className="flex justify-center md:justify-start md:pl-[181px]">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                >
+              <div className="flex flex-col pl-[181px] gap-2">
+                <div className="h-12 px-6 flex justify-center items-center rounded-full border border-white/50">
                   <Link
                     href="/patients"
-                    className="inline-flex items-center justify-center h-12 px-6 rounded-full border border-white/50 text-white font-outfit text-[14px] md:text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-white/10 hover:border-white/70 hover:scale-105 transition-all duration-300"
+                    className="text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:opacity-80 transition-opacity duration-300"
                   >
                     see full list
                   </Link>
-                </motion.div>
+                </div>
               </div>
             </div>
 
-            {/* Right statistics - animated based on scroll */}
-            <div className="w-full lg:w-[538px] relative lg:pl-12 lg:border-l border-white/15">
-              <div className="relative h-[400px] overflow-hidden">
-                
-                {/* Stat 1 - OSA */}
-                <motion.div
-                  style={{ 
-                    opacity: stat1Opacity,
-                    y: stat1Y
-                  }}
-                  className="absolute inset-0 flex flex-col gap-5"
-                >
-                  <h3 className="font-outfit text-[80px] md:text-[120px] lg:text-[144px] font-normal leading-[100%] tracking-[-2px] md:tracking-[-2.88px] text-gradient-calm">
-                    {stats[0].percentage}
-                  </h3>
-                  <div className="flex flex-col gap-1">
-                    <p className="text-white font-outfit text-[16px] md:text-[18px] font-normal leading-[130%] tracking-[-0.36px]">
-                      {stats[0].title}
-                    </p>
-                    <p className="text-white font-outfit text-[11px] md:text-[12px] font-normal leading-[130%] tracking-[-0.24px]">
-                      {stats[0].source}
-                    </p>
-                  </div>
-                </motion.div>
+            {/* Right statistics - fade in/out based on scroll */}
+            <motion.div className="w-[538px] pl-12 border-l border-white/15 relative h-full flex items-center" aria-live="polite" style={{ opacity: rightColOpacity }}>
+              
+              {/* Stat 1 - OSA */}
+              <motion.div
+                style={{ opacity: stat1Opacity, y: stat1Y, willChange: "opacity, transform" }}
+                className="absolute inset-0 flex flex-col gap-5 justify-center"
+              >
+                <h3 className="font-outfit text-[144px] font-normal leading-[100%] tracking-[-2.88px] text-gradient-calm">
+                  {stats[0].percentage}
+                </h3>
+                <div className="flex flex-col gap-1">
+                  <p className="text-white font-outfit text-[18px] font-normal leading-[130%] tracking-[-0.36px]">
+                    {stats[0].title}
+                  </p>
+                  <p className="text-white font-outfit text-[12px] font-normal leading-[130%] tracking-[-0.24px]">
+                    {stats[0].source}
+                  </p>
+                </div>
+              </motion.div>
 
-                {/* Stat 2 - Obesity */}
-                <motion.div
-                  style={{ 
-                    opacity: stat2Opacity,
-                    y: stat2Y
-                  }}
-                  className="absolute inset-0 flex flex-col gap-5"
-                >
-                  <h3 className="font-outfit text-[80px] md:text-[120px] lg:text-[144px] font-normal leading-[100%] tracking-[-2px] md:tracking-[-2.88px] text-gradient-calm">
-                    {stats[1].percentage}
-                  </h3>
-                  <div className="flex flex-col gap-1">
-                    <p className="text-white font-outfit text-[16px] md:text-[18px] font-normal leading-[130%] tracking-[-0.36px]">
-                      {stats[1].title}
-                    </p>
-                    <p className="text-white font-outfit text-[11px] md:text-[12px] font-normal leading-[130%] tracking-[-0.24px]">
-                      {stats[1].source}
-                    </p>
-                  </div>
-                </motion.div>
+              {/* Stat 2 - Obesity */}
+              <motion.div
+                style={{ opacity: stat2Opacity, y: stat2Y, willChange: "opacity, transform" }}
+                className="absolute inset-0 flex flex-col gap-5 justify-center"
+              >
+                <h3 className="font-outfit text-[144px] font-normal leading-[100%] tracking-[-2.88px] text-gradient-calm">
+                  {stats[1].percentage}
+                </h3>
+                <div className="flex flex-col gap-1">
+                  <p className="text-white font-outfit text-[18px] font-normal leading-[130%] tracking-[-0.36px]">
+                    {stats[1].title}
+                  </p>
+                  <p className="text-white font-outfit text-[12px] font-normal leading-[130%] tracking-[-0.24px]">
+                    {stats[1].source}
+                  </p>
+                </div>
+              </motion.div>
 
-                {/* Stat 3 - Chronic Conditions */}
-                <motion.div
-                  style={{ 
-                    opacity: stat3Opacity,
-                    y: stat3Y
-                  }}
-                  className="absolute inset-0 flex flex-col gap-5"
-                >
-                  <h3 className="font-outfit text-[80px] md:text-[120px] lg:text-[144px] font-normal leading-[100%] tracking-[-2px] md:tracking-[-2.88px] text-gradient-calm">
-                    {stats[2].percentage}
-                  </h3>
-                  <div className="flex flex-col gap-1">
-                    <p className="text-white font-outfit text-[16px] md:text-[18px] font-normal leading-[130%] tracking-[-0.36px]">
-                      {stats[2].title}
-                    </p>
-                    <p className="text-white font-outfit text-[11px] md:text-[12px] font-normal leading-[130%] tracking-[-0.24px]">
-                      {stats[2].source}
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
+              {/* Stat 3 - Chronic Conditions */}
+              <motion.div
+                style={{ opacity: stat3Opacity, y: stat3Y, willChange: "opacity, transform" }}
+                className="absolute inset-0 flex flex-col gap-5 justify-center"
+              >
+                <h3 className="font-outfit text-[144px] font-normal leading-[100%] tracking-[-2.88px] text-gradient-calm">
+                  {stats[2].percentage}
+                </h3>
+                <div className="flex flex-col gap-1">
+                  <p className="text-white font-outfit text-[18px] font-normal leading-[130%] tracking-[-0.36px]">
+                    {stats[2].title}
+                  </p>
+                  <p className="text-white font-outfit text-[12px] font-normal leading-[130%] tracking-[-0.24px]">
+                    {stats[2].source}
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

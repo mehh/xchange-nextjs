@@ -61,10 +61,8 @@ export default function Home() {
         <ProductIntroSection />
       </div>
       
-      {/* Statistics Section - scroll-locked */}
-      <div className="section-spacing">
-        <StatisticsSection />
-      </div>
+      {/* Statistics Section - scroll-locked (no wrapper to preserve sticky) */}
+      <StatisticsSection />
       
       {/* Product Features Section */}
       <div className="section-spacing">
