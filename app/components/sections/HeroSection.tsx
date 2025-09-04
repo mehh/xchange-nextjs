@@ -25,6 +25,9 @@ export default function HeroSection() {
         </h1>
       </div>
 
+      {/* Bottom 1/3 gradient blur overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-overlay-bottom z-20" />
+
       {/* Gradient overlay */}
       <div className="absolute inset-0 w-full h-full bg-gradient-overlay z-30" />
 
@@ -77,58 +80,59 @@ export default function HeroSection() {
           </div>
 
           {/* Desktop layout */}
-          <div className="hidden md:flex justify-between items-end">
-            {/* Left content */}
-            <div className="max-w-[537px]">
+          <div className="hidden md:block space-y-8">
+            {/* Top row: Patient safety title + Let's talk button */}
+            <div className="flex items-end">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-slate font-outfit text-[32px] lg:text-[40px] font-normal leading-[110%] tracking-[-0.8px] mb-16"
+                className="text-slate font-outfit text-[32px] lg:text-[40px] font-normal leading-[110%] tracking-[-0.8px] max-w-[537px] flex-1"
               >
                 Patient safety starts with perfecting positive pressure.
               </motion.h2>
 
+              <div className="flex-1">
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center h-12 px-6 gap-2 rounded-full bg-slate text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/90 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Let&apos;s talk
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Divider line */}
+            <div className="w-full h-px bg-slate opacity-20" />
+
+            {/* Bottom row: Introduction + Description */}
+            <div className="flex justify-between items-start pt-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex items-center gap-4 mb-4"
               >
                 <span className="text-slate font-outfit text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase opacity-70">
                   introduction
                 </span>
-              </motion.div>
-            </div>
-
-            {/* Right content */}
-            <div className="max-w-[442px] space-y-12">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center h-12 px-6 gap-2 rounded-full bg-slate text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/90 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  Let&apos;s talk
-                </Link>
               </motion.div>
 
               <motion.p
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
-                className="text-slate font-outfit text-[16px] font-normal leading-[140%] tracking-[-0.32px] opacity-70"
+                className="text-slate font-outfit text-[16px] font-normal leading-[140%] tracking-[-0.32px] opacity-70 max-w-[442px]"
               >
                 The xchange™ nasal dock by Pneuma is designed for procedures involving moderate to deep sedation in patients with health challenges. Significantly reduce the incidence of oxygen desaturation and decrease the occurrence of hypercapnia.
               </motion.p>
             </div>
           </div>
-
-          {/* Divider line */}
-          <div className="mt-8 w-full h-px bg-slate opacity-20" />
         </div>
       </div>
     </section>
