@@ -8,12 +8,14 @@ const logoSrc = "https://api.builder.io/api/v1/image/assets/TEMP/ade10ca9ee41942
 
 export default function Footer() {
   return (
-    <footer className="w-screen bg-[#1C1C20] text-white">
-      <div className="mx-auto w-full max-w-[1440px] px-4 md:px-8 lg:px-16 py-12 md:py-16">
+    <footer className="w-full bg-slate text-white py-16 md:py-20">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-16">
+        
         {/* Main Footer Content */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 md:gap-12 lg:gap-24">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-12 md:gap-16 mb-16">
+          
           {/* Logo */}
-          <div className="flex items-start">
+          <div className="flex-shrink-0">
             <div className="relative h-12 w-[240px] md:h-16 md:w-[310px]">
               <Image
                 src={logoSrc}
@@ -29,19 +31,19 @@ export default function Footer() {
           <nav className="flex flex-col gap-6 md:gap-8">
             <Link
               href="/science"
-              className="text-white font-outfit text-[28px] md:text-[36px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.6px] md:tracking-[-0.96px] hover:opacity-80 transition-opacity"
+              className="text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 underline decoration-solid hover:decoration-2"
             >
               The Science
             </Link>
             <Link
               href="/patients"
-              className="text-white font-outfit text-[28px] md:text-[36px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.6px] md:tracking-[-0.96px] hover:opacity-80 transition-opacity"
+              className="text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 hover:underline"
             >
               Which Patients?
             </Link>
             <Link
               href="/contact"
-              className="text-white font-outfit text-[28px] md:text-[36px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.6px] md:tracking-[-0.96px] hover:opacity-80 transition-opacity"
+              className="text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 hover:underline"
             >
               Contact Us
             </Link>
@@ -49,13 +51,14 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="mt-12 md:mt-16 h-px w-full bg-white opacity-50" />
+        <div className="w-full h-px bg-white/50 mb-8 md:mb-10" />
 
         {/* Bottom Section */}
-        <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <p className="text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase opacity-50">
             by Pneuma technology inc. All Rights Reserved
           </p>
+          
           <div className="flex items-center gap-4">
             <Link
               href="/privacy"
@@ -63,7 +66,7 @@ export default function Footer() {
             >
               Privacy Policy
             </Link>
-            <span className="text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase">
+            <span className="text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase opacity-50">
               |
             </span>
             <Link

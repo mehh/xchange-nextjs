@@ -1,17 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 
 export default function BenefitsSection() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const textItems = ["Care.", "Everything."];
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Transform for horizontal sliding of cards
+  const cardSlideX = useTransform(scrollYProgress, [0.3, 0.8], ["0%", "-20%"]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % textItems.length);
-    }, 2500); // 500ms animation + 2000ms pause
+    }, 2500);
 
     return () => clearInterval(interval);
   }, [textItems.length]);
@@ -48,9 +57,8 @@ export default function BenefitsSection() {
       icon: (
         <svg width="169" height="168" viewBox="0 0 169 168" fill="none">
           <path d="M25.2488 103.74H56.4863C57.4541 103.74 58.3821 104.125 59.0664 104.809C59.7507 105.493 60.1351 106.421 60.1351 107.389V147H21.6001V107.389C21.6001 106.421 21.9845 105.493 22.6688 104.809C23.3531 104.125 24.2811 103.74 25.2488 103.74Z" fill="#E1EAEC"/>
-          <path d="M112.714 126.604H143.951C144.433 126.604 144.909 126.699 145.354 126.884C145.798 127.069 146.201 127.34 146.541 127.681C146.88 128.023 147.148 128.428 147.33 128.874C147.512 129.32 147.603 129.797 147.6 130.279V147H109.065V130.252C109.065 129.285 109.449 128.356 110.134 127.672C110.818 126.988 111.746 126.604 112.714 126.604Z" fill="#72949E"/>
+          <path d="M112.714 126.604H143.951C144.433 126.604 144.909 126.699 145.354 126.884C145.798 127.069 146.201 127.34 146.541 127.681C146.880 128.023 147.148 128.428 147.33 128.874C147.512 129.32 147.603 129.797 147.6 130.279V147H109.065V130.252C109.065 129.285 109.449 128.356 110.134 127.672C110.818 126.988 111.746 126.604 112.714 126.604Z" fill="#72949E"/>
           <path d="M58.5601 74.8125H110.64C112.262 74.8125 113.818 75.4569 114.965 76.6039C116.112 77.7509 116.756 79.3066 116.756 80.9288V147H52.4438V80.9288C52.4438 79.3066 53.0882 77.7509 54.2353 76.6039C55.3823 75.4569 56.938 74.8125 58.5601 74.8125Z" fill="#C7D6DA"/>
-          <path d="M84.3148 102.768C84.0669 102.777 83.8229 102.705 83.6191 102.564C83.4154 102.422 83.2628 102.219 83.1842 101.984C83.1269 101.81 83.1115 101.624 83.1391 101.443C83.1667 101.262 83.2366 101.09 83.3431 100.941C83.4497 100.791 83.5899 100.669 83.7523 100.585C83.9148 100.5 84.095 100.454 84.2783 100.452C84.4427 100.469 84.6014 100.522 84.7432 100.607C84.885 100.692 85.0064 100.807 85.0988 100.944C85.2517 101.157 85.4512 101.331 85.6819 101.454C85.9126 101.578 86.1685 101.646 86.4299 101.655H86.6487C86.9484 101.66 87.2436 101.583 87.5031 101.433C87.7625 101.283 87.9766 101.066 88.1224 100.804C88.2683 100.542 88.3405 100.246 88.3314 99.9462C88.3224 99.6467 88.2324 99.3552 88.071 99.1027C87.6396 98.461 87.0573 97.9351 86.3752 97.571C86.239 97.4989 86.1248 97.3914 86.0446 97.2598C85.9644 97.1283 85.9211 96.9775 85.9194 96.8234C85.92 96.3552 85.7404 95.9047 85.4179 95.5653C85.0954 95.2258 84.6547 95.0234 84.1871 95C83.7035 95 83.2397 95.1921 82.8978 95.5341C82.5558 95.876 82.3637 96.3398 82.3637 96.8234C82.3619 96.9775 82.3187 97.1283 82.2385 97.2598C82.1582 97.3914 82.044 97.4989 81.9078 97.571C81.0022 98.0549 80.283 98.826 79.8634 99.7632C79.4438 100.7 79.3475 101.75 79.5896 102.748C79.8318 103.746 80.3987 104.635 81.2012 105.276C82.0037 105.916 82.9963 106.272 84.023 106.287H84.1324C84.4014 106.3 84.6575 106.405 84.8576 106.586C85.0576 106.766 85.1892 107.01 85.2299 107.276C85.2707 107.542 85.2182 107.814 85.0813 108.046C84.9444 108.278 84.7316 108.455 84.4789 108.548C84.2521 108.595 84.0165 108.573 83.8022 108.485C83.5879 108.397 83.4045 108.248 83.2754 108.056C83.1359 107.854 82.951 107.688 82.7357 107.571C82.5203 107.454 82.2805 107.389 82.0355 107.381H81.8349C81.5277 107.39 81.2286 107.482 80.9697 107.648C80.7108 107.814 80.5018 108.047 80.3651 108.322C80.2284 108.597 80.1691 108.904 80.1935 109.211C80.218 109.517 80.3252 109.811 80.5038 110.061C80.9064 110.632 81.4373 111.101 82.0537 111.429C82.1899 111.501 82.3041 111.609 82.3843 111.74C82.4646 111.872 82.5078 112.022 82.5096 112.177C82.5096 112.66 82.7017 113.124 83.0436 113.466C83.3856 113.808 83.8494 114 84.333 114C84.8166 114 85.2804 113.808 85.6223 113.466C85.9643 113.124 86.1564 112.66 86.1564 112.177C86.1544 112.024 86.1941 111.874 86.2712 111.742C86.3484 111.61 86.46 111.502 86.594 111.429C87.4837 110.925 88.1815 110.141 88.5788 109.199C88.976 108.256 89.0503 107.209 88.7901 106.221C88.5299 105.232 87.9498 104.357 87.1402 103.732C86.3307 103.108 85.3372 102.769 84.3148 102.768Z" fill="white"/>
         </svg>
       )
     },
@@ -69,66 +77,80 @@ export default function BenefitsSection() {
     {
       title: "Ergonomic and Secure",
       description: "Designed for comfort and stability during use on every type of patient.",
-      icon: null // This one doesn't have an icon in the original design
+      icon: null
     }
   ];
 
   return (
-    <section className="w-full bg-[#FFFEFB] py-16 md:py-24 lg:py-[104px] relative">
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-16">
-        {/* Section header with scrolling text effect */}
-        <div className="mb-12 md:mb-16">
-          <div className="mb-6 md:mb-8">
-            <h2 className="text-[#1C1C20] font-outfit text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-1px] md:tracking-[-1.6px]">
+    <section ref={sectionRef} className="relative w-full bg-off-white py-16 md:py-24 overflow-hidden">
+      <div className="w-full max-w-[1440px] mx-auto px-4 md:px-16">
+        
+        {/* Top section with titles */}
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-16 md:mb-20">
+          
+          {/* Left side - Better + animated text */}
+          <div className="mb-8 lg:mb-0">
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="text-slate font-outfit text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-1.2px] md:tracking-[-1.6px] mb-4"
+            >
               Better
-            </h2>
-          </div>
+            </motion.h2>
 
-          {/* Masked scrolling text */}
-          <div className="relative w-full max-w-[425px] h-[60px] md:h-[80px] lg:h-[100px] overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white to-transparent" />
-            <div className="absolute left-0 top-[26px] w-full">
+            {/* Animated text with clean transitions */}
+            <div className="relative h-[60px] md:h-[80px] lg:h-[100px] overflow-hidden">
               <motion.div
                 key={currentTextIndex}
-                initial={{ y: 80, opacity: 0 }}
+                initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -80, opacity: 0 }}
+                exit={{ y: -100, opacity: 0 }}
                 transition={{
-                  duration: 0.5,
-                  ease: "easeOut"
+                  duration: 0.6,
+                  ease: "easeInOut"
                 }}
+                className="absolute inset-0"
               >
-                <p className="text-[#5E838F] font-outfit text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-1px] md:tracking-[-1.6px]">
+                <p className="text-calm font-outfit text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-1.2px] md:tracking-[-1.6px]">
                   {textItems[currentTextIndex]}
                 </p>
               </motion.div>
             </div>
           </div>
-        </div>
 
-        {/* Experience section */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-12 md:mb-16">
+          {/* Right side - Experience section */}
           <div className="w-full lg:w-[426px]">
-            <div className="mb-4 md:mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="space-y-6"
+            >
               <span className="text-[#212527] font-outfit text-[12px] md:text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase opacity-70">
                 The experience
               </span>
-            </div>
-            <p className="text-[#1C1C20] font-outfit text-[16px] md:text-[18px] font-normal leading-[130%] tracking-[-0.36px] opacity-70 mb-6">
-              The xchange is a single-use nasal CPAP device designed to perfect continuous positive airway pressure quickly and effectively throughout both the intraprocedural and post- procedural periods.
-            </p>
-            <Link
-              href="/learn-more"
-              className="inline-flex items-center justify-center h-12 px-6 rounded-full border border-[#1C1C20]/50 text-[#1C1C20] font-outfit text-[14px] md:text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-[#1C1C20]/5 transition-colors"
-            >
-              learn more
-            </Link>
+              <p className="text-slate font-outfit text-[16px] md:text-[18px] font-normal leading-[130%] tracking-[-0.36px] opacity-70">
+                The xchange is a single-use nasal CPAP device designed to perfect continuous positive airway pressure quickly and effectively throughout both the intraprocedural and post- procedural periods.
+              </p>
+              <Link
+                href="/learn-more"
+                className="inline-flex items-center justify-center h-12 px-6 rounded-full border border-slate/50 text-slate font-outfit text-[14px] md:text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/10 hover:border-slate/70 hover:scale-105 transition-all duration-300"
+              >
+                learn more
+              </Link>
+            </motion.div>
           </div>
         </div>
 
-        {/* Benefits horizontal slider */}
+        {/* Horizontally scrolling cards container */}
         <div className="relative overflow-hidden">
-          <div className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory">
+          <motion.div 
+            style={{ x: cardSlideX }}
+            className="flex gap-4 md:gap-6 w-max pb-4"
+          >
             {benefits.map((benefit, index) => (
               <motion.div
                 key={benefit.title}
@@ -136,43 +158,43 @@ export default function BenefitsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className="flex flex-col justify-between p-6 md:p-8 rounded-3xl bg-black/3 min-h-[320px] md:min-h-[380px] lg:min-h-[427px] w-[280px] md:w-[316px] flex-shrink-0 snap-start"
+                className="flex flex-col justify-between p-6 md:p-8 rounded-3xl bg-black/3 w-[280px] md:w-[316px] h-[350px] md:h-[427px] hover:bg-black/5 transition-all duration-300"
               >
-                <h3 className="text-[#1C1C20] font-outfit text-[20px] md:text-[22px] lg:text-[24px] font-normal leading-[100%] tracking-[-0.4px] md:tracking-[-0.48px] mb-6">
+                <h3 className="text-slate font-outfit text-[18px] md:text-[20px] lg:text-[24px] font-normal leading-[100%] tracking-[-0.4px] md:tracking-[-0.48px]">
                   {benefit.title}
                 </h3>
 
                 {benefit.icon && (
-                  <div className="flex justify-center items-center flex-1 my-6 md:my-8">
-                    <div className="w-[120px] h-[120px] md:w-[140px] md:h-[140px] lg:w-[152px] lg:h-[152px] flex items-center justify-center">
+                  <div className="flex justify-center items-center flex-1 py-6 md:py-8">
+                    <div className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] lg:w-[152px] lg:h-[152px] flex items-center justify-center">
                       {benefit.icon}
                     </div>
                   </div>
                 )}
 
-                <p className="text-[#1C1C20] font-outfit text-[14px] md:text-[15px] lg:text-[16px] font-normal leading-[130%] tracking-[-0.32px] mt-auto">
+                <p className="text-slate font-outfit text-[14px] md:text-[15px] lg:text-[16px] font-normal leading-[130%] tracking-[-0.32px]">
                   {benefit.description}
                 </p>
               </motion.div>
             ))}
 
-            {/* Additional benefit card */}
+            {/* Quick Application card */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
               viewport={{ once: true, margin: "-100px" }}
-              className="flex flex-col items-center justify-center gap-4 p-6 md:p-8 rounded-3xl bg-black/3 min-h-[200px] md:min-h-[250px] w-[280px] md:w-[316px] flex-shrink-0 snap-start"
+              className="flex flex-col items-center justify-center gap-4 p-6 md:p-8 rounded-3xl bg-black/3 w-[280px] md:w-[316px] h-[180px] md:h-[250px] hover:bg-black/5 transition-all duration-300"
             >
-              <h3 className="text-[#1C1C20] text-center font-outfit text-[16px] md:text-[17px] lg:text-[18px] font-normal leading-[120%] tracking-[-0.36px]">
+              <h3 className="text-slate text-center font-outfit text-[16px] md:text-[17px] lg:text-[18px] font-normal leading-[120%] tracking-[-0.36px]">
                 Quick and Intuitive Application
               </h3>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Progress bar */}
-        <div className="mt-12 md:mt-16">
+        <div className="mt-16 md:mt-20">
           <div className="relative w-full h-0.5">
             <div className="absolute inset-0 bg-black/10 rounded-full" />
             <motion.div
@@ -180,7 +202,7 @@ export default function BenefitsSection() {
               whileInView={{ width: "77%" }}
               transition={{ duration: 1.5, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="absolute left-0 top-0 h-full bg-[#5E838F] rounded-full"
+              className="absolute left-0 top-0 h-full bg-calm rounded-full"
             />
           </div>
         </div>

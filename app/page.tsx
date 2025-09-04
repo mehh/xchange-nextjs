@@ -50,14 +50,41 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main id="main" className="min-h-screen">
-      <HeroSection />
-      <ProductIntroSection />
-      <StatisticsSection />
-      <ProductFeaturesSection />
-      <BenefitsSection />
-      <TeamSection />
-      <ContactSection />
+    <main className="min-h-screen overflow-x-hidden">
+      {/* Hero Section - accounts for fixed navbar */}
+      <div className="section-spacing">
+        <HeroSection />
+      </div>
+      
+      {/* Product Intro Section */}
+      <div className="section-spacing">
+        <ProductIntroSection />
+      </div>
+      
+      {/* Statistics Section - scroll-locked */}
+      <div className="section-spacing">
+        <StatisticsSection />
+      </div>
+      
+      {/* Product Features Section */}
+      <div className="section-spacing">
+        <ProductFeaturesSection />
+      </div>
+      
+      {/* Benefits Section - with horizontal scrolling cards */}
+      <div className="section-spacing">
+        <BenefitsSection />
+      </div>
+      
+      {/* Team Section */}
+      <div className="section-spacing">
+        <TeamSection />
+      </div>
+      
+      {/* Contact Section */}
+      <div className="section-spacing">
+        <ContactSection />
+      </div>
     </main>
   );
 }
