@@ -6,26 +6,30 @@ import { motion } from "framer-motion";
 export default function HeroSection() {
   return (
     <section className="relative w-full h-screen min-h-[810px] bg-gradient-hero">
-      {/* Background mask and blur effects */}
-      <div className="absolute inset-0 w-full h-full">
-        <div className="absolute inset-0 w-full h-full">
-          {/* Blur mask layer */}
-          <div className="absolute inset-0 w-full h-full hero-mask" />
-          
-          {/* Large "Breathe" text overlay - responsive */}
-          <div className="absolute inset-0 flex items-center justify-center px-4">
-            <h1 className="text-center font-outfit text-[120px] sm:text-[200px] md:text-[300px] lg:text-[392px] font-normal leading-[100%] tracking-[-2px] md:tracking-[-7.84px] opacity-50 text-gradient-breathe select-none pointer-events-none">
-              Breathe
-            </h1>
-          </div>
-        </div>
+
+      {/* Woman background image layer */}
+      <div
+        className="absolute inset-0 w-full h-full z-10"
+        style={{
+          backgroundImage: 'url(/Container-2.png)',
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
+      {/* Large "Breathe" text overlay - behind woman */}
+      <div className="absolute inset-0 flex items-center justify-center px-4 z-5">
+        <h1 className="text-center font-outfit text-[120px] sm:text-[200px] md:text-[300px] lg:text-[392px] font-normal leading-[100%] tracking-[-2px] md:tracking-[-7.84px] opacity-50 text-gradient-breathe select-none pointer-events-none">
+          Breathe
+        </h1>
       </div>
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-overlay" />
+      <div className="absolute inset-0 w-full h-full bg-gradient-overlay z-30" />
 
       {/* Content - responsive positioning */}
-      <div className="relative z-10 w-full h-full flex flex-col justify-end pb-16 md:pb-24">
+      <div className="relative z-40 w-full h-full flex flex-col justify-end pb-16 md:pb-24">
         <div className="max-w-[1440px] mx-auto px-4 md:px-16 w-full">
           
           {/* Mobile layout */}
