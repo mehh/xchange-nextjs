@@ -1,39 +1,47 @@
 import type { Metadata } from "next";
-import LP from "./lp/page";
+import HeroSection from "./components/sections/HeroSection";
+import ProductIntroSection from "./components/sections/ProductIntroSection";
+import StatisticsSection from "./components/sections/StatisticsSection";
+import ProductFeaturesSection from "./components/sections/ProductFeaturesSection";
+import BenefitsSection from "./components/sections/BenefitsSection";
+import TeamSection from "./components/sections/TeamSection";
+import ContactSection from "./components/sections/ContactSection";
 
 export const metadata: Metadata = {
-  title: "TMOD - Restoring the American Dream with Affordable Homes",
-  description: "TMOD creates precision-engineered, affordable homes starting from $250,000. Advanced manufacturing, sustainable construction, and healthy living - one truly affordable home at a time.",
+  title: "Pneuma - Patient safety starts with perfecting positive pressure",
+  description: "The xchange™ nasal dock by Pneuma is designed for procedures involving moderate to deep sedation in patients with health challenges. Significantly reduce the incidence of oxygen desaturation and decrease the occurrence of hypercapnia.",
   keywords: [
-    "affordable homes",
-    "American Dream",
-    "precision engineered homes",
-    "$250,000 homes",
-    "sustainable housing",
-    "advanced manufacturing",
-    "healthy living homes",
-    "steel frame construction",
-    "LEED certified",
-    "energy efficient homes",
-    "climate resilient",
-    "16 week construction"
+    "nasal CPAP",
+    "xchange nasal dock", 
+    "positive pressure",
+    "oxygen desaturation",
+    "hypercapnia",
+    "medical devices",
+    "airway management",
+    "procedural sedation",
+    "patient safety",
+    "respiratory support",
+    "CPAP devices",
+    "nasal interface",
+    "end-tidal CO2 monitoring",
+    "pneuma technology"
   ],
   openGraph: {
-    title: "TMOD - Restoring the American Dream with Affordable Homes",
-    description: "Precision-engineered homes starting from $250,000. Advanced manufacturing meets sustainable construction for healthy, affordable living.",
-    url: "https://tmod.com",
+    title: "Pneuma - Patient safety starts with perfecting positive pressure",
+    description: "The xchange™ nasal dock - designed for procedures involving moderate to deep sedation in patients with health challenges.",
+    url: "https://pneuma.com",
     images: [
       {
-        url: "/assets/tmod-og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "TMOD - Restoring the American Dream",
+        url: "https://api.builder.io/api/v1/image/assets/TEMP/993353e31db87e0e701cab7447c3eb9f6a34e0aa?width=2388",
+        width: 1194,
+        height: 1397,
+        alt: "Pneuma xchange nasal dock device",
       },
     ],
   },
   twitter: {
-    title: "TMOD - Restoring the American Dream",
-    description: "Affordable, precision-engineered homes starting from $250,000. Advanced manufacturing for sustainable living.",
+    title: "Pneuma - Patient safety starts with perfecting positive pressure",
+    description: "The xchange™ nasal dock by Pneuma - the evolution of CPAP devices for enhanced patient safety.",
   },
   alternates: {
     canonical: "/",
@@ -41,5 +49,15 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <LP />;
+  return (
+    <main id="main" className="min-h-screen">
+      <HeroSection />
+      <ProductIntroSection />
+      <StatisticsSection />
+      <ProductFeaturesSection />
+      <BenefitsSection />
+      <TeamSection />
+      <ContactSection />
+    </main>
+  );
 }

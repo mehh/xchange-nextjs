@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Oswald, Geist_Mono } from "next/font/google";
+import { Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import PageFade from "./components/PageFade";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
 });
@@ -16,62 +16,56 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const oswald = Oswald({
-  variable: "--font-oswald",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: {
-    default: "TMOD - Precision Engineered, Affordable Homes",
-    template: "%s | TMOD"
+    default: "Pneuma - Advanced Nasal CPAP Technology",
+    template: "%s | Pneuma"
   },
-  description: "TMOD creates precision-engineered, high-performance homes that are affordable, sustainable, and built to last 100 years. Advanced manufacturing meets healthy living.",
+  description: "The xchange™ nasal dock by Pneuma is designed for procedures involving moderate to deep sedation in patients with health challenges. Significantly reduce oxygen desaturation and hypercapnia.",
   keywords: [
-    "affordable homes",
-    "precision engineered homes",
-    "sustainable housing",
-    "prefabricated homes",
-    "steel frame construction",
-    "energy efficient homes",
-    "healthy living",
-    "climate resilient homes",
-    "advanced manufacturing",
-    "LEED certified"
+    "nasal CPAP",
+    "xchange nasal dock",
+    "positive pressure",
+    "oxygen desaturation",
+    "hypercapnia",
+    "medical devices",
+    "airway management",
+    "procedural sedation",
+    "patient safety",
+    "respiratory support"
   ],
-  authors: [{ name: "TMOD" }],
-  creator: "TMOD",
-  publisher: "TMOD",
+  authors: [{ name: "Pneuma Technology Inc." }],
+  creator: "Pneuma Technology Inc.",
+  publisher: "Pneuma Technology Inc.",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://pneuma.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com",
-    title: "TMOD - Precision Engineered, Affordable Homes",
-    description: "TMOD creates precision-engineered, high-performance homes that are affordable, sustainable, and built to last 100 years.",
-    siteName: "TMOD",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://pneuma.com",
+    title: "Pneuma - Advanced Nasal CPAP Technology",
+    description: "The xchange™ nasal dock - perfecting positive pressure for patients who need it the most.",
+    siteName: "Pneuma",
     images: [
       {
-        url: "/assets/408db099393db085014ca7f79a9c688bded8623d.png",
-        alt: "TMOD - Precision Engineered Homes",
+        url: "/api/placeholder/1200/630",
+        alt: "Pneuma - xchange nasal dock",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TMOD - Precision Engineered, Affordable Homes",
-    description: "Advanced manufacturing meets healthy living. Sustainable homes built to last 100 years.",
-    images: ["/assets/408db099393db085014ca7f79a9c688bded8623d.png"],
-    creator: "@tmod",
+    title: "Pneuma - Advanced Nasal CPAP Technology",
+    description: "Patient safety starts with perfecting positive pressure. The xchange™ nasal dock by Pneuma.",
+    images: ["/api/placeholder/1200/630"],
+    creator: "@pneuma",
   },
   robots: {
     index: true,
@@ -90,7 +84,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
-  category: "Real Estate",
+  category: "Medical Technology",
 };
 
 export const viewport: Viewport = {
@@ -105,23 +99,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pneuma.com";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "TMOD",
-    "description": "TMOD creates precision-engineered, high-performance homes that are affordable, sustainable, and built to last 100 years.",
+    "name": "Pneuma Technology Inc.",
+    "description": "Advanced nasal CPAP technology for enhanced patient safety during medical procedures.",
     "url": siteUrl,
-    "logo": `${siteUrl}/assets/424fe691d2e133bf65723770b2e18f23ba6d8069.png`,
+    "logo": `${siteUrl}/assets/pneuma-logo.png`,
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+1-555-TMOD",
+      "telephone": "+1-555-PNEUMA",
       "contactType": "customer service",
       "url": `${siteUrl}/contact`
     },
     "sameAs": [
-      "https://twitter.com/tmod",
-      "https://linkedin.com/company/tmod"
+      "https://twitter.com/pneuma",
+      "https://linkedin.com/company/pneuma"
     ],
     "address": {
       "@type": "PostalAddress",
@@ -140,7 +134,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${montserrat.variable} ${oswald.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${outfit.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         {/* Stable portal root for overlays/menus to avoid manipulating body children directly */}
         <div id="portal-root">

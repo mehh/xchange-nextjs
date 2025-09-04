@@ -1,61 +1,72 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  /* Map design tokens to next/font variables at runtime */
-  --font-sans: var(--font-montserrat);
-  --font-heading: var(--font-oswald);
+/* Custom gradients */
+.bg-gradient-hero {
+  background: linear-gradient(180deg, rgba(255, 254, 251, 0.00) 60%, rgba(255, 254, 251, 0.30) 80%), url('https://api.builder.io/api/v1/image/assets/TEMP/3db7763626dac30d5d5837c7a15a42ec665db0d8?width=2880') lightgray -122.728px -420px / 117.184% 226.173% no-repeat;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-montserrat);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-oswald);
+.bg-gradient-overlay {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 50%, rgba(255, 255, 255, 0.50) 100%);
+  backdrop-filter: blur(20px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.bg-gradient-fade-top {
+  background: linear-gradient(180deg, #FFFEFB 0%, rgba(255, 254, 251, 0.00) 100%);
+}
+
+.bg-gradient-fade-bottom {
+  background: linear-gradient(0deg, #FFFEFB 0%, rgba(255, 254, 251, 0.00) 100%);
+}
+
+.bg-blur-card {
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.text-gradient-breathe {
+  background: linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.50) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hide scrollbar for horizontal slider */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  /* Use Montserrat as default sans from next/font */
-  font-family: var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Optional utility for applying Oswald when needed */
-.font-heading {
-  /* Use next/font variables directly */
-  font-family: var(--font-oswald), var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+/* CSS Variables */
+:root {
+  --slate: #1C1C20;
+  --white: #FFF;
+  --off-white: #FFFEFB;
+  --calm-dark: #3A5261;
+  --verdant: #44695A;
+  --calm: #5E838F;
+  --sage: #8EA997;
 }
 
-/* Explicit utilities so JSX classes like `font-montserrat` and `font-oswald` work */
-.font-montserrat {
-  /* Reference the next/font variable directly */
-  font-family: var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-}
-
-.font-oswald {
-  /* Reference the next/font variable; fall back to Montserrat */
-  font-family: var(--font-oswald), var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-}
-
-/* Apply heading font globally */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  /* Apply Oswald for headings with Montserrat fallback */
-  font-family: var(--font-oswald), var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-  font-weight: 600;
-  line-height: 1.2;
+/* Outfit font */
+.font-outfit {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
