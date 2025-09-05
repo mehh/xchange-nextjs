@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function StatisticsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,42 +34,28 @@ export default function StatisticsSection() {
   // Progress segments roughly split into thirds with slight overlaps for nicer blending
   const stat1Opacity = useTransform(scrollYProgress, [0, 0.16, 0.33], [1, 1, 0]);
   const stat2Opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.66], [0, 1, 0]);
-  const stat3Opacity = useTransform(scrollYProgress, [0.66, 0.9, 0.98], [0, 1, 0]);
+  const stat3Opacity = useTransform(scrollYProgress, [0.66, 0.88, 1], [0, 1, 1]);
 
   // Subtle vertical motion to enhance transitions
   const stat1Y = useTransform(scrollYProgress, [0, 0.16, 0.33], [0, 0, -12]);
   const stat2Y = useTransform(scrollYProgress, [0.33, 0.5, 0.66], [12, 0, -12]);
-  const stat3Y = useTransform(scrollYProgress, [0.66, 0.9, 0.98], [12, 0, -8]);
+  const stat3Y = useTransform(scrollYProgress, [0.66, 0.9, 1], [12, 0, 0]);
 
-  // Subtle overall fade for the right column when entering/leaving the pinned range
-  const rightColOpacity = useTransform(scrollYProgress, [0, 0.04, 0.96, 1], [0.2, 1, 1, 0]);
+  // Subtle overall fade for the right column when entering the pinned range (no exit dim).
+  const rightColOpacity = useTransform(scrollYProgress, [0, 0.03, 1], [0.2, 1, 1]);
 
-  const [isFixed, setIsFixed] = useState(false);
+  // Subtle group shift so the whole block appears to scroll into and out of view
+  const groupY = useTransform(scrollYProgress, [0, 0.08, 0.88, 1], [32, 0, 0, -160]);
 
-  useEffect(() => {
-    const handle = () => {
-      const el = containerRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const nav = 72; // fixed navbar height
-      // Active pin range: when the container spans the viewport area below the navbar
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const active = rect.top <= nav && rect.bottom >= vh;
-      setIsFixed(active);
-    };
-    handle();
-    window.addEventListener("scroll", handle, { passive: true });
-    window.addEventListener("resize", handle, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handle);
-      window.removeEventListener("resize", handle);
-    };
-  }, []);
+  // Keep opacity solid to avoid revealing lighter backgrounds at release
+  const sectionOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
+
+  // No JS fallback: keep pure CSS sticky to avoid layout toggles that can flash
 
   return (
-    <div ref={containerRef} className="relative z-[1] h-[300vh]">
-      <div className={(isFixed ? "fixed" : "sticky") + " top-[72px] inset-x-0 h-[calc(100vh-72px)] bg-calm-dark overflow-hidden z-20"}>
-        <div className="flex justify-center items-center h-full" style={{ padding: "104px 64px" }}>
+    <div ref={containerRef} className="relative z-[1] h-[300vh] bg-calm-dark mb-[-1px]">
+      <div className={"sticky top-0 inset-x-0 h-screen bg-calm-dark overflow-hidden z-20 mb-[-1px]"}>
+        <motion.div className="flex justify-center items-center h-full" style={{ padding: "176px 64px 104px 64px", y: groupY, opacity: sectionOpacity, willChange: "transform, opacity" }}>
           <div className="flex gap-[126px] items-center">
             
             {/* Left content - stays fixed while pinned */}
@@ -160,7 +146,7 @@ export default function StatisticsSection() {
               </motion.div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

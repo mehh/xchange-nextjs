@@ -8,21 +8,61 @@ export default function BenefitsSection() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const textItems = ["Care.", "Everything."];
   const sectionRef = useRef<HTMLElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
+  // Refs for the horizontally scrolling viewport and the inner row
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
+
+  // Track the maximum amount we need to slide the row so the last card fully traverses
+  const [maxShift, setMaxShift] = useState(0);
+
+  // Progress for the cards area specifically, so the row traverses fully while that area is in view
+  const { scrollYProgress: cardsProgress } = useScroll({
+    target: scrollerRef,
+    // Map progress while the scroller crosses the viewport center
+    offset: ["start center", "end center"]
   });
 
-  // Transform for horizontal sliding of cards
-  const cardSlideX = useTransform(scrollYProgress, [0.3, 0.8], ["0%", "-20%"]);
+  // Window the progress so movement starts later and finishes sooner
+  const START = 0.25;
+  const END = 0.75;
+  const windowedProgress = useTransform(cardsProgress, (v) => {
+    const t = (v - START) / (END - START);
+    if (t <= 0) return 0;
+    if (t >= 1) return 1;
+    return t;
+  });
+
+  // Transform for horizontal sliding of cards (in pixels), based on measured widths
+  const cardSlideX = useTransform(windowedProgress, (v) => -maxShift * v);
+
+  // Progress bar width mirrors the windowed cards progress
+  const progressWidth = useTransform(windowedProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
+    // Measure widths so we can slide the exact distance to reveal all cards
+    const measure = () => {
+      const viewport = scrollerRef.current;
+      const row = rowRef.current;
+      if (!viewport || !row) return;
+      const viewportWidth = viewport.clientWidth;
+      const rowWidth = row.scrollWidth;
+      const shift = Math.max(0, rowWidth - viewportWidth);
+      setMaxShift(shift);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    // In case fonts/assets affect layout slightly after load
+    const t = setTimeout(measure, 0);
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % textItems.length);
     }, 2500);
 
-    return () => clearInterval(interval);
+    return () => {
+      window.removeEventListener("resize", measure);
+      clearTimeout(t);
+      clearInterval(interval);
+    };
   }, [textItems.length]);
 
   const benefits = [
@@ -101,7 +141,7 @@ export default function BenefitsSection() {
             </motion.h2>
 
             {/* Animated text with clean transitions */}
-            <div className="relative h-[60px] md:h-[80px] lg:h-[100px] overflow-hidden">
+            <div className="w-[450px] relative h-[60px] md:h-[80px] lg:h-[100px] overflow-hidden">
               <motion.div
                 key={currentTextIndex}
                 initial={{ y: 100, opacity: 0 }}
@@ -113,7 +153,7 @@ export default function BenefitsSection() {
                 }}
                 className="absolute inset-0"
               >
-                <p className="text-calm font-outfit text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-1.2px] md:tracking-[-1.6px]">
+                <p className=" text-calm font-outfit text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-1.2px] md:tracking-[-1.6px]">
                   {textItems[currentTextIndex]}
                 </p>
               </motion.div>
@@ -146,9 +186,10 @@ export default function BenefitsSection() {
         </div>
 
         {/* Horizontally scrolling cards container */}
-        <div className="relative overflow-hidden">
-          <motion.div 
-            style={{ x: cardSlideX }}
+        <div ref={scrollerRef} className="relative overflow-hidden">
+          <motion.div
+            ref={rowRef}
+            style={{ x: cardSlideX, willChange: "transform" }}
             className="flex gap-4 md:gap-6 w-max pb-4"
           >
             {benefits.map((benefit, index) => (
@@ -193,17 +234,11 @@ export default function BenefitsSection() {
           </motion.div>
         </div>
 
-        {/* Progress bar */}
+        {/* Progress bar that tracks cardsProgress */}
         <div className="mt-16 md:mt-20">
           <div className="relative w-full h-0.5">
             <div className="absolute inset-0 bg-black/10 rounded-full" />
-            <motion.div
-              initial={{ width: "0%" }}
-              whileInView={{ width: "77%" }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="absolute left-0 top-0 h-full bg-calm rounded-full"
-            />
+            <motion.div style={{ width: progressWidth }} className="absolute left-0 top-0 h-full bg-calm rounded-full" />
           </div>
         </div>
       </div>
