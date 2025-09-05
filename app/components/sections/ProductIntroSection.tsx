@@ -21,6 +21,10 @@ export default function ProductIntroSection() {
   const line2Text = "For patients who need it the most.";
   const line1Words = line1Text.split(" ");
   const line2Words = line2Text.split(" ");
+  // Tunable timing for per-letter reveals so the sequence completes sooner
+  const LETTER_STEP = 0.006; // smaller step between letters
+  const START_BASE = 0.04;   // start earlier
+  const END_BASE = 0.16;     // end earlier
 
   return (
     <section ref={sectionRef} className="relative w-full bg-off-white overflow-hidden">
@@ -61,7 +65,7 @@ export default function ProductIntroSection() {
                             const currentLetterIndex = letterIndex++;
                             const letterProgress = useTransform(
                               scrollYProgress,
-                              [0.1 + (currentLetterIndex * 0.01), 0.2 + (currentLetterIndex * 0.01)],
+                              [START_BASE + (currentLetterIndex * LETTER_STEP), END_BASE + (currentLetterIndex * LETTER_STEP)],
                               [0, 1]
                             );
 
@@ -97,7 +101,7 @@ export default function ProductIntroSection() {
                             const currentLetterIndex = letterIndex++;
                             const letterProgress = useTransform(
                               scrollYProgress,
-                              [0.1 + (currentLetterIndex * 0.01), 0.2 + (currentLetterIndex * 0.01)],
+                              [START_BASE + (currentLetterIndex * LETTER_STEP), END_BASE + (currentLetterIndex * LETTER_STEP)],
                               [0, 1]
                             );
 

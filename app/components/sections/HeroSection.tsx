@@ -26,7 +26,7 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom 1/3 gradient blur overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-overlay-bottom z-20" />
+      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-overlay-bottom z-20" />
 
       {/* Gradient overlay */}
       <div className="absolute inset-0 w-full h-full bg-gradient-overlay z-30" />
