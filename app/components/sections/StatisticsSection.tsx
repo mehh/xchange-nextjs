@@ -1,16 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function StatisticsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    // Track progress while this section is pinned in the viewport
-    offset: ["start start", "end end"]
-  });
+  const pinRef = useRef<HTMLDivElement>(null);
+
+  // Progress value driven by GSAP ScrollTrigger (0..1)
+  const scrollProgress = useMotionValue(0);
+
+  useEffect(() => {
+    if (!containerRef.current || !pinRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Tunable total scroll distance while pinned (px)
+    const SCROLL_DISTANCE = 2000; // adjust to taste
+
+    const st = ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top top",
+      end: `+=${SCROLL_DISTANCE}`,
+      pin: pinRef.current,
+      scrub: true,
+      onUpdate: (self) => {
+        scrollProgress.set(self.progress);
+      }
+    });
+
+    return () => {
+      st.kill();
+    };
+  }, [scrollProgress]);
 
   const stats = [
     {
@@ -32,30 +56,28 @@ export default function StatisticsSection() {
 
   // Create smoother cross-fades for 3 stats over the scroll duration
   // Progress segments roughly split into thirds with slight overlaps for nicer blending
-  const stat1Opacity = useTransform(scrollYProgress, [0, 0.16, 0.33], [1, 1, 0]);
-  const stat2Opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.66], [0, 1, 0]);
-  const stat3Opacity = useTransform(scrollYProgress, [0.66, 0.88, 1], [0, 1, 1]);
+  const stat1Opacity = useTransform(scrollProgress, [0, 0.16, 0.33], [1, 1, 0]);
+  const stat2Opacity = useTransform(scrollProgress, [0.33, 0.5, 0.66], [0, 1, 0]);
+  const stat3Opacity = useTransform(scrollProgress, [0.66, 0.88, 1], [0, 1, 1]);
 
   // Subtle vertical motion to enhance transitions
-  const stat1Y = useTransform(scrollYProgress, [0, 0.16, 0.33], [0, 0, -12]);
-  const stat2Y = useTransform(scrollYProgress, [0.33, 0.5, 0.66], [12, 0, -12]);
-  const stat3Y = useTransform(scrollYProgress, [0.66, 0.9, 1], [12, 0, 0]);
+  const stat1Y = useTransform(scrollProgress, [0, 0.16, 0.33], [0, 0, -12]);
+  const stat2Y = useTransform(scrollProgress, [0.33, 0.5, 0.66], [12, 0, -12]);
+  const stat3Y = useTransform(scrollProgress, [0.66, 0.9, 1], [12, 0, 0]);
 
   // Subtle overall fade for the right column when entering the pinned range (no exit dim).
-  const rightColOpacity = useTransform(scrollYProgress, [0, 0.03, 1], [0.2, 1, 1]);
+  const rightColOpacity = useTransform(scrollProgress, [0, 0.03, 1], [0.2, 1, 1]);
 
   // Subtle group shift so the whole block appears to scroll into and out of view
-  const groupY = useTransform(scrollYProgress, [0, 0.08, 0.88, 1], [32, 0, 0, -160]);
+  const groupY = useTransform(scrollProgress, [0, 0.08, 0.88, 1], [32, 0, 0, -160]);
 
   // Keep opacity solid to avoid revealing lighter backgrounds at release
-  const sectionOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
-
-  // No JS fallback: keep pure CSS sticky to avoid layout toggles that can flash
+  const sectionOpacity = useTransform(scrollProgress, [0, 1], [1, 1]);
 
   return (
-    <div ref={containerRef} className="relative z-[1] h-[300vh] bg-calm-dark mb-[-1px]">
-      <div className={"sticky top-0 inset-x-0 h-screen bg-calm-dark overflow-hidden z-20 mb-[-1px]"}>
-        <motion.div className="flex justify-center items-center h-full" style={{ padding: "176px 64px 104px 64px", y: groupY, opacity: sectionOpacity, willChange: "transform, opacity" }}>
+    <div ref={containerRef} className="relative z-[1] bg-calm-dark mb-[-1px]">
+      <div ref={pinRef} className={"inset-x-0 bg-calm-dark overflow-hidden z-20 mb-[-1px]"}>
+        <motion.div className="flex justify-center items-center min-h-screen" style={{ padding: "176px 64px 104px 64px", y: groupY, opacity: sectionOpacity, willChange: "transform, opacity" }}>
           <div className="flex gap-[126px] items-center">
             
             {/* Left content - stays fixed while pinned */}
