@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function TeamSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -34,6 +34,14 @@ export default function TeamSection() {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  // Auto-advance testimonials on an interval
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 6000); // 6s cycle; adjust to taste
+    return () => clearInterval(id);
+  }, [testimonials.length]);
+
   return (
     <section className="w-full bg-sage py-16 md:py-24 lg:py-32">
       <div className="w-full max-w-[1440px] mx-auto px-4 md:px-16">
@@ -50,9 +58,9 @@ export default function TeamSection() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentTestimonial}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
                 className="flex flex-col justify-between items-center h-full min-h-[350px] md:min-h-[400px]"
               >
