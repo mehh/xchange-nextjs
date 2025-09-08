@@ -80,31 +80,32 @@ export default function EtCO2ChartSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-col gap-8 w-[229px] pt-10"
+            className="flex flex-col justify-between w-[229px] pt-10 h-[588px]"
           >
-            {chartLines.map((line, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                className="flex flex-col gap-1"
-              >
-                <div 
-                  className="font-outfit text-[18px] font-normal leading-[120%]"
-                  style={{ color: line.color }}
+            <div className="flex flex-col gap-8">
+              {chartLines.map((line, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
+                  className="flex flex-col gap-1"
                 >
-                  {line.label}
-                </div>
-              </motion.div>
-            ))}
-            
+                  <div
+                    className="font-outfit text-[18px] font-normal leading-[120%]"
+                    style={{ color: line.color }}
+                  >
+                    {line.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 1.1 }}
-              className="absolute text-slate font-outfit text-[18px] font-normal leading-[120%] opacity-80"
-              style={{ left: "0px", bottom: "-30px", width: "90px" }}
+              className="text-slate font-outfit text-[18px] font-normal leading-[120%] opacity-80 text-left"
             >
               mmHg CO2
             </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 interface Feature {
@@ -61,7 +61,7 @@ export default function ProductFeaturesSection() {
         y: "80%"
       },
       cardPosition: {
-        x: "60%",
+        x: "30%",
         y: "80%"
       }
     },
@@ -74,8 +74,8 @@ export default function ProductFeaturesSection() {
         y: "75%"
       },
       cardPosition: {
-        x: "50%",
-        y: "95%"
+        x: "30%",
+        y: "75%"
       }
     },
     {
@@ -87,8 +87,8 @@ export default function ProductFeaturesSection() {
         y: "78%"
       },
       cardPosition: {
-        x: "62%",
-        y: "98%"
+        x: "72%",
+        y: "84%"
       }
     }
   ];
@@ -284,38 +284,47 @@ export default function ProductFeaturesSection() {
                 </div>
               </motion.div>
 
-              {/* Feature card */}
-              <AnimatePresence>
-                {activeFeature === feature.id && (
-                  <motion.div
-                    className="absolute z-40 w-[280px] md:w-[334px]"
+              {/* Feature card (always mounted; non-animated blur, fading content) */}
+              <motion.div
+                className="absolute z-40 w-[280px] md:w-[334px]"
+                style={{
+                  left: isMobile ? '50%' : feature.cardPosition.x,
+                  top: isMobile ? '15%' : feature.cardPosition.y,
+                  transform: 'translate(-50%, -50%)',
+                  // Pass through clicks when inactive
+                  pointerEvents: activeFeature === feature.id ? 'auto' : 'none'
+                }}
+                initial={false}
+              >
+                <div className="relative rounded-lg min-h-[115px]">
+                  {/* Blur layer (immediate toggle, no delayed paint) */}
+                  <div
+                    className="absolute inset-0 rounded-lg"
                     style={{
-                      left: isMobile ? '50%' : feature.cardPosition.x,
-                      top: isMobile ? '15%' : feature.cardPosition.y,
-                      transform: 'translate(-50%, -50%)'
+                      background: 'rgba(255, 255, 255, 0.18)',
+                      backdropFilter: 'saturate(140%) blur(18px)',
+                      WebkitBackdropFilter: 'saturate(140%) blur(18px)',
+                      backgroundClip: 'padding-box',
+                      opacity: activeFeature === feature.id ? 1 : 0
                     }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  />
+
+                  {/* Content layer (fades in over the blur) */}
+                  <motion.div
+                    className="relative p-6 md:p-7 flex flex-col justify-center items-center gap-4 rounded-lg min-h-[115px]"
+                    initial={false}
+                    animate={{ opacity: activeFeature === feature.id ? 1 : 0 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
                   >
-                    <div 
-                      className="p-6 md:p-7 flex flex-col justify-center items-center gap-4 rounded-lg min-h-[115px]"
-                      style={{
-                        background: 'rgba(0, 0, 0, 0.05)',
-                        backdropFilter: 'blur(10px)'
-                      }}
-                    >
-                      <h3 className="w-full text-[#212527] font-outfit text-[13px] md:text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase">
-                        {feature.title}
-                      </h3>
-                      <p className="w-full text-[#212527] font-outfit text-[15px] md:text-[16px] font-normal leading-[140%] tracking-[-0.32px]">
-                        {feature.description}
-                      </p>
-                    </div>
+                    <h3 className="w-full text-[#212527] font-outfit text-[13px] md:text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase">
+                      {feature.title}
+                    </h3>
+                    <p className="w-full text-[#212527] font-outfit text-[15px] md:text-[16px] font-normal leading-[140%] tracking-[-0.32px]">
+                      {feature.description}
+                    </p>
                   </motion.div>
-                )}
-              </AnimatePresence>
+                </div>
+              </motion.div>
             </div>
           ))}
 
@@ -381,7 +390,7 @@ export default function ProductFeaturesSection() {
       {/* Mobile navigation indicators */}
       {isMobile && (
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3 z-50">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <button
               key={feature.id}
               className={`w-3 h-3 rounded-full transition-all duration-300 border border-white/20 ${

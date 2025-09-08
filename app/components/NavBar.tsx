@@ -81,8 +81,8 @@ export default function NavBar() {
           >
             The science
           </Link>
-          <Link 
-            href="/patients" 
+          <Link
+            href="/which-patients"
             className="text-slate text-[15px] font-outfit font-normal leading-[140%] tracking-[-0.3px] uppercase opacity-70 hover:opacity-100 transition-all duration-300 hover:underline"
           >
             which patients?
@@ -134,7 +134,7 @@ export default function NavBar() {
               <nav className="flex flex-col h-full px-6 pt-16 pb-8">
                 <div className="flex-1 flex flex-col items-center justify-center gap-8">
                   <Link href="/the-science" onClick={() => setMenuOpen(false)} className="py-3 text-2xl font-normal uppercase tracking-[-0.3px] hover:opacity-80 transition-opacity">The science</Link>
-                  <Link href="/patients" onClick={() => setMenuOpen(false)} className="py-3 text-2xl font-normal uppercase tracking-[-0.3px] hover:opacity-80 transition-opacity">which patients?</Link>
+                  <Link href="/which-patients" onClick={() => setMenuOpen(false)} className="py-3 text-2xl font-normal uppercase tracking-[-0.3px] hover:opacity-80 transition-opacity">which patients?</Link>
                   <Link href="/contact" onClick={() => setMenuOpen(false)} className="py-3 text-2xl font-normal uppercase tracking-[-0.3px] hover:opacity-80 transition-opacity">Contact Us</Link>
                 </div>
               </nav>
