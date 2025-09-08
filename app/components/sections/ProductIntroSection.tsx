@@ -13,7 +13,6 @@ export default function ProductIntroSection() {
 
   const imageOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.3, 1, 1, 0.8]);
   const imageY = useTransform(scrollYProgress, [0, 1], [0, -180]);
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 1.15]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   // Letter-by-letter animation for two lines
@@ -21,10 +20,8 @@ export default function ProductIntroSection() {
   const line2Text = "For patients who need it the most.";
   const line1Words = line1Text.split(" ");
   const line2Words = line2Text.split(" ");
-  // Tunable timing for per-letter reveals so the sequence completes sooner
-  const LETTER_STEP = 0.006; // smaller step between letters
-  const START_BASE = 0.04;   // start earlier
-  const END_BASE = 0.16;     // end earlier
+  // Simple per-letter timing using variants and delays (viewport based)
+  const LETTER_DELAY = 0.02;
 
   return (
     <section ref={sectionRef} className="relative w-full bg-off-white overflow-hidden">
@@ -59,23 +56,18 @@ export default function ProductIntroSection() {
                     let letterIndex = 0;
                     return line1Words.map((word, wordIndex) => {
                       const wordLetters = word.split("");
-                      const wordElement = (
+                      return (
                         <span key={`word1-${wordIndex}`} className="inline-block whitespace-nowrap">
                           {wordLetters.map((letter, letterIndexInWord) => {
-                            const currentLetterIndex = letterIndex++;
-                            const letterProgress = useTransform(
-                              scrollYProgress,
-                              [START_BASE + (currentLetterIndex * LETTER_STEP), END_BASE + (currentLetterIndex * LETTER_STEP)],
-                              [0, 1]
-                            );
-
+                            const currentIndex = letterIndex++;
                             return (
                               <motion.span
                                 key={`line1-${wordIndex}-${letterIndexInWord}`}
                                 className="text-verdant"
-                                style={{
-                                  opacity: letterProgress
-                                }}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ delay: currentIndex * LETTER_DELAY, duration: 0.3 }}
                               >
                                 {letter}
                               </motion.span>
@@ -84,7 +76,6 @@ export default function ProductIntroSection() {
                           {wordIndex < line1Words.length - 1 && <span className="text-verdant">&nbsp;</span>}
                         </span>
                       );
-                      return wordElement;
                     });
                   })()}
                 </div>
@@ -95,23 +86,18 @@ export default function ProductIntroSection() {
                     let letterIndex = line1Text.length; // Continue from first line
                     return line2Words.map((word, wordIndex) => {
                       const wordLetters = word.split("");
-                      const wordElement = (
+                      return (
                         <span key={`word2-${wordIndex}`} className="inline-block whitespace-nowrap">
                           {wordLetters.map((letter, letterIndexInWord) => {
-                            const currentLetterIndex = letterIndex++;
-                            const letterProgress = useTransform(
-                              scrollYProgress,
-                              [START_BASE + (currentLetterIndex * LETTER_STEP), END_BASE + (currentLetterIndex * LETTER_STEP)],
-                              [0, 1]
-                            );
-
+                            const currentIndex = letterIndex++;
                             return (
                               <motion.span
                                 key={`line2-${wordIndex}-${letterIndexInWord}`}
                                 className="text-verdant opacity-40"
-                                style={{
-                                  opacity: useTransform(letterProgress, [0, 1], [0, 0.4])
-                                }}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 0.4 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ delay: currentIndex * LETTER_DELAY, duration: 0.3 }}
                               >
                                 {letter}
                               </motion.span>
@@ -120,7 +106,6 @@ export default function ProductIntroSection() {
                           {wordIndex < line2Words.length - 1 && <span className="text-verdant opacity-40">&nbsp;</span>}
                         </span>
                       );
-                      return wordElement;
                     });
                   })()}
                 </div>

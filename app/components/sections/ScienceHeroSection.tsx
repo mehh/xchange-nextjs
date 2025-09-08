@@ -1,17 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function ScienceHeroSection() {
   return (
     <section className="relative w-full h-[810px] bg-off-white overflow-hidden">
       {/* Hero background image */}
       <div className="absolute inset-0 w-full h-full">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/d3c4979d30dd1d830b542ef9081e50aed88b3fe1?width=2880"
-          alt="Medical device background"
-          className="w-full h-full object-cover"
-        />
+        <div className="absolute inset-0">
+          <Image
+            src="https://api.builder.io/api/v1/image/assets/TEMP/d3c4979d30dd1d830b542ef9081e50aed88b3fe1?width=2880"
+            alt="Medical device background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
         
         {/* Gradient overlay bottom */}
         <div 

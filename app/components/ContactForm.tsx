@@ -70,7 +70,7 @@ export default function ContactForm({
         setStatus("error");
         setServerMessage(result.error || "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setServerMessage("Network error. Please check your connection and try again.");
     }

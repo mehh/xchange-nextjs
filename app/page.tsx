@@ -5,7 +5,7 @@ import StatisticsSection from "./components/sections/StatisticsSection";
 import ProductFeaturesSection from "./components/sections/ProductFeaturesSection";
 import BenefitsSection from "./components/sections/BenefitsSection";
 import TeamSection from "./components/sections/TeamSection";
-import ContactSection from "./components/sections/ContactSection";
+import LetsTalkSection from "./components/LetsTalkSection";
 
 export const metadata: Metadata = {
   title: "Pneuma - Patient safety starts with perfecting positive pressure",
@@ -81,7 +81,7 @@ export default function Home() {
       
       {/* Contact Section */}
       <div className="section-spacing">
-        <ContactSection />
+        <LetsTalkSection backgroundClass="bg-calm" />
       </div>
     </main>
   );

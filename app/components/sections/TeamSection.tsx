@@ -113,8 +113,8 @@ export default function TeamSection() {
                       className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                       aria-label="Previous testimonial"
                     >
-                      <div className="w-4 h-3 md:w-[17px] md:h-[24px]" style={{ transform: 'rotateX(180deg)' }}>
-                        <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
+                      <div className="w-6 h-6 md:w-7 md:h-7 flex items-center justify-center" style={{ transform: 'rotateX(180deg)' }}>
+                        <svg className="block" width="24" height="18" viewBox="0 0 24 18" fill="none" preserveAspectRatio="xMidYMid meet">
                           <path d="M2.78516 9.38232C5.91076 10.552 8.42866 13.6394 9.66797 17.5981L9.12109 17.769C7.5715 12.8191 4.03466 9.4458 0 9.4458V8.72607C4.03096 8.72593 7.56917 5.28631 9.12012 0.230956L9.66699 0.398925C8.41243 4.48806 5.8462 7.66756 2.66211 8.82471L24 8.82471V9.38232L2.78516 9.38232Z" fill="white"/>
                         </svg>
                       </div>
@@ -126,8 +126,8 @@ export default function TeamSection() {
                       className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                       aria-label="Next testimonial"
                     >
-                      <div className="w-4 h-3 md:w-[17px] md:h-[24px]">
-                        <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
+                      <div className="w-6 h-6 md:w-7 md:h-7 flex items-center justify-center">
+                        <svg className="block" width="24" height="18" viewBox="0 0 24 18" fill="none" preserveAspectRatio="xMidYMid meet">
                           <path d="M21.2148 8.61767C18.0892 7.44803 15.5713 4.36064 14.332 0.401855L14.8789 0.230956C16.4285 5.18092 19.9653 8.5542 24 8.5542V9.27392C19.969 9.27407 16.4308 12.7137 14.8799 17.769L14.333 17.6011C15.5876 13.5119 18.1538 10.3324 21.3379 9.17529L0 9.17529L0 8.61768L21.2148 8.61767Z" fill="white"/>
                         </svg>
                       </div>

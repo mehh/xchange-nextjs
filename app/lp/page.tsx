@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ScrollCircle from "../components/ScrollCircle";
@@ -11,7 +10,6 @@ const imgTModHomesPageHealthyLiving1 = "/assets/ec0ef60ac25a9bb66629761953013857
 const imgHomeAmericanFlag1 = "/assets/fae8309e43a3c34f5828b3625bf2aa57f63c8d8d.png";
 const imgTModHomePageBetterWaytoBuild1 = "/assets/b082f62ea4b59acf903bbf73674d055ec2fc6e33.png";
 const imgTModHomePageTheDreamTeam1 = "/assets/baf75f6314c1f974e3cef252eba31c788e31fe51.png";
-const imgMcArrow1 = "/assets/33c77a449be6ec80d056fd42dda2a2fdc5944be8.png";
 const imgTModHomePageDreamTeamOffice1 = "/assets/e8ca0cfb3c3458df280358144522ec1e2445fca9.png";
 
 const fadeInUp = {

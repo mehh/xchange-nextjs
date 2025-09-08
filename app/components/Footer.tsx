@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 // Using the white logo version from the Figma design
 const logoSrc = "https://api.builder.io/api/v1/image/assets/TEMP/ade10ca9ee41942e99d3f5acec3438f026183112?width=621";
 
 export default function Footer() {
+  const pathname = usePathname();
   return (
     <footer className="w-full bg-slate text-white py-16 md:py-20">
       <div className="max-w-[1440px] mx-auto px-4 md:px-16">
@@ -31,19 +33,19 @@ export default function Footer() {
           <nav className="flex flex-col gap-6 md:gap-8">
             <Link
               href="/science"
-              className="text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 underline decoration-solid hover:decoration-2"
+              className={`text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 link-underline link-underline-hover ${pathname?.startsWith("/science") ? "link-underline-active" : ""}`}
             >
               The Science
             </Link>
             <Link
               href="/which-patients"
-              className="text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 hover:underline"
+              className={`text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 link-underline link-underline-hover ${pathname?.startsWith("/which-patients") ? "link-underline-active" : ""}`}
             >
               Which Patients?
             </Link>
             <Link
               href="/contact"
-              className="text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 hover:underline"
+              className={`text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 link-underline link-underline-hover ${pathname === "/contact" ? "link-underline-active" : ""}`}
             >
               Contact Us
             </Link>
@@ -62,7 +64,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <Link
               href="/privacy"
-              className="text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase hover:opacity-80 transition-opacity"
+              className={`text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase hover:opacity-80 transition-opacity link-underline link-underline-hover ${pathname === "/privacy" ? "link-underline-active" : ""}`}
             >
               Privacy Policy
             </Link>
@@ -71,7 +73,7 @@ export default function Footer() {
             </span>
             <Link
               href="/terms"
-              className="text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase hover:opacity-80 transition-opacity"
+              className={`text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase hover:opacity-80 transition-opacity link-underline link-underline-hover ${pathname === "/terms" ? "link-underline-active" : ""}`}
             >
               Terms of Service
             </Link>

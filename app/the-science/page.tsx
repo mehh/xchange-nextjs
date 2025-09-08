@@ -3,7 +3,7 @@ import ScienceHeroSection from "../components/sections/ScienceHeroSection";
 import PressureChartSection from "../components/sections/PressureChartSection";
 import EtCO2ChartSection from "../components/sections/EtCO2ChartSection";
 import WhitePaperSection from "../components/sections/WhitePaperSection";
-import ScienceContactSection from "../components/sections/ScienceContactSection";
+import LetsTalkSection from "../components/LetsTalkSection";
 
 export const metadata: Metadata = {
   title: "The Science",
@@ -17,7 +17,7 @@ export default function TheSciencePage() {
       <PressureChartSection />
       <EtCO2ChartSection />
       <WhitePaperSection />
-      <ScienceContactSection />
+      <LetsTalkSection backgroundClass="bg-calm" />
     </main>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Check } from "lucide-react";
+import LetsTalkSection from "../components/LetsTalkSection";
 
 // Medical conditions data organized in columns as shown in the design
 const medicalConditions = [
@@ -44,118 +44,6 @@ const medicalConditions = [
   ]
 ];
 
-// Contact form component
-function ContactForm() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    comments: ''
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full max-w-[443px]">
-      {/* Name fields row */}
-      <div className="flex gap-3">
-        <div className="flex-1 h-14 p-3 bg-white/5 rounded-lg border border-transparent focus-within:border-white/20 transition-all relative">
-          <label className="text-white text-[11px] font-normal leading-[100%] tracking-[-0.22px] uppercase block">
-            First Name *
-          </label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            className="w-full bg-transparent text-white text-sm placeholder:text-white/70 focus:outline-none mt-1"
-            required
-          />
-        </div>
-        <div className="flex-1 h-14 p-3 bg-white/5 rounded-lg border border-transparent focus-within:border-white/20 transition-all relative">
-          <label className="text-white text-[11px] font-normal leading-[100%] tracking-[-0.22px] uppercase block">
-            Last Name *
-          </label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            className="w-full bg-transparent text-white text-sm placeholder:text-white/70 focus:outline-none mt-1"
-            required
-          />
-        </div>
-      </div>
-
-      {/* Email field */}
-      <div className="h-14 p-3 bg-white/5 rounded-lg border border-transparent focus-within:border-white/20 transition-all relative">
-        <label className="text-white text-[11px] font-normal leading-[100%] tracking-[-0.22px] uppercase block">
-          Email *
-        </label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full bg-transparent text-white text-sm placeholder:text-white/70 focus:outline-none mt-1"
-          required
-        />
-      </div>
-
-      {/* Phone field */}
-      <div className="h-14 p-3 bg-white/5 rounded-lg border border-transparent focus-within:border-white/20 transition-all relative">
-        <label className="text-white text-[11px] font-normal leading-[100%] tracking-[-0.22px] uppercase block">
-          Phone Number
-        </label>
-        <input
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          className="w-full bg-transparent text-white text-sm placeholder:text-white/70 focus:outline-none mt-1"
-        />
-      </div>
-
-      {/* Comments field */}
-      <div className="h-[124px] p-3 bg-white/5 rounded-lg border border-transparent focus-within:border-white/20 transition-all relative">
-        <label className="text-white text-[11px] font-normal leading-[100%] tracking-[-0.22px] uppercase block">
-          Comments
-        </label>
-        <textarea
-          name="comments"
-          value={formData.comments}
-          onChange={handleChange}
-          rows={4}
-          className="w-full bg-transparent text-white text-sm placeholder:text-white/70 focus:outline-none resize-none mt-1"
-        />
-      </div>
-
-      {/* Submit button */}
-      <motion.button
-        type="submit"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="h-14 px-7 bg-white rounded-full flex items-center justify-center gap-2 hover:bg-gray-100 transition-all"
-      >
-        <span className="text-slate text-base font-normal leading-[100%] tracking-[-0.32px] uppercase">
-          Send
-        </span>
-      </motion.button>
-    </form>
-  );
-}
 
 // Condition list item component
 function ConditionItem({ condition }: { condition: string }) {
@@ -250,57 +138,7 @@ export default function WhichPatientsPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="relative min-h-[756px] bg-calm overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          {/* Gradient Overlay SVG */}
-          <svg
-            className="absolute inset-0 w-full h-full opacity-20"
-            viewBox="0 0 1440 756"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              opacity="0.2"
-              d="M1193.97 -155.789C1263.1 -166.484 1321.54 -104.661 1306.91 -36.252L1278.3 97.4922V97.5C1264.25 163.115 1222.26 218.544 1165.4 252.322C1103.67 288.991 1017.28 343.419 943.033 401.43C954.589 440.48 981.502 475.001 1021.45 494.97L1021.45 494.974L1226.64 597.582L1230.62 599.593C1398.69 685.494 1504.64 858.371 1504.64 1047.37V1247.33C1504.64 1319.12 1437.24 1371.89 1367.53 1354.59L986.64 1260.17C859.361 1228.61 759.563 1137.1 714.322 1020.25C669.572 1135.85 571.427 1226.64 446.104 1259.13L441.998 1260.17L61.1045 1354.6L61.0938 1354.6C-8.58277 1371.84 -76 1319.14 -76 1247.33V1047.37C-75.9997 856.884 31.619 682.775 202 597.582L407.188 494.974L407.198 494.967C447.162 475.002 474.065 440.496 485.602 401.471C416.267 347.302 336.329 296.254 275.804 259.872L263.232 252.354C206.348 218.545 164.346 163.117 150.33 97.5215L121.73 -36.2158L121.101 -39.4189C108.933 -106.519 166.6 -166.323 234.671 -155.75L465.854 -119.893L465.861 -119.89C515.501 -112.174 562.687 -93.0596 603.692 -64.0391L607.694 -61.1611C655.183 -26.465 691.668 19.939 714.323 72.5605C737.612 18.4573 775.508 -29.0756 824.941 -64.0723L824.944 -64.0752C865.95 -93.0957 913.136 -112.211 962.775 -119.926L962.782 -119.929L1193.96 -155.789H1193.97Z"
-              fill="url(#paint0_linear_343_546)"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_343_546"
-                x1="714"
-                y1="1357"
-                x2="714"
-                y2="-157"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#3A5261" stopOpacity="0" />
-                <stop offset="0.5" stopColor="#3A5261" stopOpacity="0.7" />
-                <stop offset="1" stopColor="#3A5261" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          {/* Blur Effect */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[868px] h-[868px] bg-calm rounded-full blur-[200px] opacity-50" />
-        </div>
-
-        {/* Contact Content */}
-        <div className="relative z-10 flex items-center justify-center min-h-[756px] px-4 md:px-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col items-center text-center max-w-[443px] w-full"
-          >
-            <h2 className="text-white text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-0.96px] md:tracking-[-1.28px] lg:tracking-[-1.6px] mb-10">
-              Let&apos;s talk.
-            </h2>
-            
-            <ContactForm />
-          </motion.div>
-        </div>
-      </section>
+      <LetsTalkSection backgroundClass="bg-calm" />
     </main>
   );
 }

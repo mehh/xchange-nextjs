@@ -5,11 +5,13 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { usePathname } from "next/navigation";
 
 // Using the logo from the Figma design
 const logoSrc = "https://api.builder.io/api/v1/image/assets/TEMP/63edb6c922bf9e76a96e81957e4b978960b1f9ce?width=315";
 
 export default function NavBar() {
+  const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -77,19 +79,19 @@ export default function NavBar() {
         <nav className="hidden md:flex items-center gap-9">
           <Link
             href="/the-science"
-            className="text-slate text-[15px] font-outfit font-normal leading-[140%] tracking-[-0.3px] uppercase opacity-70 hover:opacity-100 transition-all duration-300 underline decoration-solid hover:decoration-2"
+            className={`text-slate text-[15px] font-outfit font-normal leading-[140%] tracking-[-0.3px] uppercase opacity-70 hover:opacity-100 transition-all duration-300 link-underline link-underline-hover ${pathname?.startsWith("/the-science") ? "link-underline-active" : ""}`}
           >
             The science
           </Link>
           <Link
             href="/which-patients"
-            className="text-slate text-[15px] font-outfit font-normal leading-[140%] tracking-[-0.3px] uppercase opacity-70 hover:opacity-100 transition-all duration-300 hover:underline"
+            className={`text-slate text-[15px] font-outfit font-normal leading-[140%] tracking-[-0.3px] uppercase opacity-70 hover:opacity-100 transition-all duration-300 link-underline link-underline-hover ${pathname?.startsWith("/which-patients") ? "link-underline-active" : ""}`}
           >
             which patients?
           </Link>
           <Link 
             href="/contact" 
-            className="text-slate text-[15px] font-outfit font-normal leading-[140%] tracking-[-0.3px] uppercase opacity-70 hover:opacity-100 transition-all duration-300 hover:underline"
+            className={`text-slate text-[15px] font-outfit font-normal leading-[140%] tracking-[-0.3px] uppercase opacity-70 hover:opacity-100 transition-all duration-300 link-underline link-underline-hover ${pathname === "/contact" ? "link-underline-active" : ""}`}
           >
             Contact Us
           </Link>
