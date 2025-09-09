@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 
 export default function WhitePaperSection() {
   const ref = useRef(null);
@@ -94,20 +95,23 @@ export default function WhitePaperSection() {
 
           {/* Action buttons */}
           <div className="flex items-center gap-4 flex-shrink-0">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex h-12 px-6 justify-center items-center gap-2 rounded-full bg-slate text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/90 transition-all duration-300"
-            >
-              learn more
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex h-12 px-6 justify-center items-center gap-2 rounded-full border border-slate text-slate font-outfit text-[16px] font-normal leading-[130%] tracking-[-0.32px] uppercase hover:bg-slate hover:text-white transition-all duration-300"
-            >
-              Download
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/whitepaper"
+                className="flex h-12 px-6 justify-center items-center gap-2 rounded-full bg-slate text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/90 transition-all duration-300"
+              >
+                learn more
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/files/xchange-whitepaper.pdf"
+                target="_blank"
+                className="flex h-12 px-6 justify-center items-center gap-2 rounded-full border border-slate text-slate font-outfit text-[16px] font-normal leading-[130%] tracking-[-0.32px] uppercase hover:bg-slate hover:text-white transition-all duration-300"
+              >
+                Download
+              </Link>
+            </motion.div>
           </div>
           </motion.div>
         </div>

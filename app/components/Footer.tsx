@@ -32,7 +32,7 @@ export default function Footer() {
           {/* Navigation Links */}
           <nav className="flex flex-col gap-6 md:gap-8">
             <Link
-              href="/science"
+              href="/the-science"
               className={`text-white font-outfit text-[32px] md:text-[40px] lg:text-[48px] font-normal leading-[130%] tracking-[-0.8px] md:tracking-[-0.96px] hover:opacity-80 transition-all duration-300 link-underline link-underline-hover ${pathname?.startsWith("/science") ? "link-underline-active" : ""}`}
             >
               The Science
