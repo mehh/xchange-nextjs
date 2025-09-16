@@ -4,26 +4,79 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
+type Testimonial = {
+  badge: string;
+  title: string;
+  content: string;
+  name: string;
+  title_role: string;
+  image: string;
+  image2?: string;
+  name2?: string;
+  title_role2?: string;
+};
+
 export default function TeamSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  const testimonials = [
+  const testimonials: Testimonial[] = [
     {
       badge: "Key Opinion Leader",
       title: "THE CONTINUUM OF CARE WITH FOCUS",
-      content: "Dr. Jon Clapp, a prominent physiatrist, specializes in high-risk pain management. He meticulously manages patients before, during and after procedures, integrating xchange for sustained oxygenation and reduced complications. He educates healthcare professionals globally and advocates for xchange adoption in his U.S. lectures and practice.",
+      content:
+        "Dr. Jon Clapp, a prominent physiatrist, specializes in high-risk pain management. He meticulously manages patients before, during and after procedures, integrating xchange for sustained oxygenation and reduced complications. He educates healthcare professionals globally and advocates for xchange adoption in his U.S. lectures and practice.",
       name: "Dr. Jonathan Clapp",
       title_role: "Pain Management",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/8dfd2caa6531d36e38952d2c9e37430d1faa1df5?width=160"
+      image: "/assets/test-jonathan-clapp.png",
     },
     {
       badge: "Anesthesiologist",
       title: "ENHANCED PATIENT SAFETY PROTOCOLS",
-      content: "Dr. Sarah Mitchell has integrated the xchange device into her anesthesia practice, seeing remarkable improvements in patient outcomes during complex procedures. Her focus on airway management and patient safety has made her a leading advocate for innovative respiratory support technologies.",
+      content:
+        "Dr. Sarah Mitchell has integrated the xchange device into her anesthesia practice, seeing remarkable improvements in patient outcomes during complex procedures. Her focus on airway management and patient safety has made her a leading advocate for innovative respiratory support technologies.",
       name: "Dr. Sarah Mitchell",
       title_role: "Anesthesiology",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/8dfd2caa6531d36e38952d2c9e37430d1faa1df5?width=160"
-    }
+      image: "/assets/test-michael.png", // temporary mapping until exact asset provided
+    },
+    {
+      badge: "Gastroenterology",
+      title: "OPTIMIZING SEDATION WORKFLOWS",
+      content:
+        "In endoscopy suites, consistent oxygenation improves visualization and reduces interventions. xchange helps maintain airway patency and reliable EtCO₂ sampling throughout procedures.",
+      name: "Dr. Carlos Ramirez",
+      title_role: "Gastroenterology",
+      image: "/assets/test-stephen-garber.png",
+      image2: "/assets/test-stephen.png",
+      name2: "Dr. Stephen Garber",
+      title_role2: "Gastroenterology",
+    },
+    {
+      badge: "CRNA",
+      title: "RELIABLE EtCO₂ AND AIRWAY CONTROL",
+      content:
+        "Reliable capnography and a comfortable seal are critical during moderate to deep sedation. xchange provides a stable interface for monitoring and positive pressure support.",
+      name: "Jamie Lee, CRNA",
+      title_role: "Nurse Anesthetist",
+      image: "/assets/test-laura.png", // temporary mapping until exact asset provided
+    },
+    {
+      badge: "Pulmonology",
+      title: "BETTER OUTCOMES FOR HIGH‑RISK PATIENTS",
+      content:
+        "For patients with OSA and obesity, maintaining airway tone and oxygenation reduces desaturation events. xchange enables proactive management rather than reactive rescue.",
+      name: "Dr. Jamal Akbar",
+      title_role: "Pulmonology",
+      image: "/assets/test-mazen.png", // temporary mapping until exact asset provided
+    },
+    {
+      badge: "Nursing Leadership",
+      title: "SCALABLE, SAFE, AND TRAINABLE",
+      content:
+        "Highly standardized devices guide nursing leaders and VHC staff to deliver consistent care. xchange’s ease of use and clear workflow integration support better team adoption and training results.",
+      name: "Mindy Patterson, RN",
+      title_role: "Clinical Operations",
+      image: "/assets/test-mindy.png",
+    },
   ];
 
   const nextTestimonial = () => {
@@ -82,27 +135,74 @@ export default function TeamSection() {
                   </p>
                 </div>
 
-                {/* Doctor info and navigation */}
+                {/* Doctor info, pagination dots, and navigation */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 w-full">
                   <div className="flex items-center gap-4 sm:gap-6 flex-1">
-                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden flex-shrink-0">
-                      <Image
-                        src={testimonials[currentTestimonial].image}
-                        alt={testimonials[currentTestimonial].name}
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                      />
+                    {/* Avatar(s) */}
+                    <div className="relative flex items-center">
+                      <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden flex-shrink-0">
+                        <Image
+                          src={testimonials[currentTestimonial].image}
+                          alt={testimonials[currentTestimonial].name}
+                          fill
+                          className="object-cover"
+                          sizes="80px"
+                        />
+                      </div>
+                      {testimonials[currentTestimonial].image2 ? (
+                        <div className="-ml-4 relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-verdant">
+                          <Image
+                            src={testimonials[currentTestimonial].image2!}
+                            alt={testimonials[currentTestimonial].name2 || 'Additional clinician'}
+                            fill
+                            className="object-cover"
+                            sizes="80px"
+                          />
+                        </div>
+                      ) : null}
                     </div>
 
                     <div className="flex flex-col gap-1 md:gap-2 flex-1">
-                      <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
-                        {testimonials[currentTestimonial].name}
-                      </p>
-                      <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
-                        {testimonials[currentTestimonial].title_role}
-                      </p>
+                      {testimonials[currentTestimonial].name2 ? (
+                        <>
+                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
+                            {testimonials[currentTestimonial].name}
+                          </p>
+                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
+                            {testimonials[currentTestimonial].title_role}
+                          </p>
+                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
+                            {testimonials[currentTestimonial].name2}
+                          </p>
+                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
+                            {testimonials[currentTestimonial].title_role2}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
+                            {testimonials[currentTestimonial].name}
+                          </p>
+                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
+                            {testimonials[currentTestimonial].title_role}
+                          </p>
+                        </>
+                      )}
                     </div>
+                  </div>
+
+                  {/* Pagination dots (center on mobile) */}
+                  <div className="flex items-center justify-center sm:justify-start gap-2 flex-1">
+                    {testimonials.map((_, i) => (
+                      <button
+                        key={i}
+                        aria-label={`Go to testimonial ${i + 1}`}
+                        onClick={() => setCurrentTestimonial(i)}
+                        className={`h-2.5 rounded-full transition-all duration-300 ${
+                          i === currentTestimonial ? 'bg-off-white w-6' : 'bg-white/40 w-2.5'
+                        }`}
+                      />
+                    ))}
                   </div>
 
                   {/* Navigation arrows */}

@@ -29,7 +29,7 @@ export default function WhitePaperSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center gap-12 p-12 rounded-2xl border border-slate/20 bg-white w-full"
+            className="flex flex-col sm:flex-row items-center sm:items-center gap-6 sm:gap-12 p-6 sm:p-12 rounded-2xl border border-slate/20 bg-white w-full"
           >
           {/* File icon */}
           <div className="flex-shrink-0">
@@ -38,7 +38,7 @@ export default function WhitePaperSection() {
               height="96" 
               viewBox="0 0 96 96" 
               fill="none" 
-              className="w-24 h-24"
+              className="w-16 h-16 sm:w-24 sm:h-24"
             >
               <g clipPath="url(#clip0_343_112)">
                 <path 
@@ -79,8 +79,8 @@ export default function WhitePaperSection() {
           </div>
 
           {/* Content */}
-          <div className="flex flex-col justify-center gap-4 flex-1">
-            <h3 className="text-slate font-outfit text-[56px] font-normal leading-[100%] tracking-[-1.12px]">
+          <div className="flex flex-col justify-center gap-4 flex-1 text-center sm:text-left">
+            <h3 className="text-slate font-outfit text-[36px] md:text-[56px] font-normal leading-[100%] tracking-[-0.72px] md:tracking-[-1.12px]">
               xchange nasal dock
             </h3>
             <div className="flex items-center gap-4">
@@ -94,11 +94,11 @@ export default function WhitePaperSection() {
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center gap-4 flex-shrink-0">
+          <div className="flex items-center gap-4 flex-shrink-0 w-full sm:w-auto justify-center sm:justify-start">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link
                 href="/whitepaper"
-                className="flex h-12 px-6 justify-center items-center gap-2 rounded-full bg-slate text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/90 transition-all duration-300"
+                className="flex h-12 px-6 justify-center items-center gap-2 rounded-full bg-slate text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/90 transition-all duration-300 w-full sm:w-auto"
               >
                 learn more
               </Link>
@@ -107,7 +107,7 @@ export default function WhitePaperSection() {
               <Link
                 href="/files/xchange-whitepaper.pdf"
                 target="_blank"
-                className="flex h-12 px-6 justify-center items-center gap-2 rounded-full border border-slate text-slate font-outfit text-[16px] font-normal leading-[130%] tracking-[-0.32px] uppercase hover:bg-slate hover:text-white transition-all duration-300"
+                className="flex h-12 px-6 justify-center items-center gap-2 rounded-full border border-slate text-slate font-outfit text-[16px] font-normal leading-[130%] tracking-[-0.32px] uppercase hover:bg-slate hover:text-white transition-all duration-300 w-full sm:w-auto"
               >
                 Download
               </Link>

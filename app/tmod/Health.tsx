@@ -42,7 +42,7 @@ export default function Health() {
   const stats = [
     { value: "84%", description: "More energy efficient than conventional construction" },
     { value: "12x", description: "More energy efficient than traditional homes" },
-    { value: "2.7M", description: "Pounds of carbon dioxide (CO2) avoided in the atmosphere" },
+    { value: "2.7M", description: "Pounds of carbon dioxide (CO₂) avoided in the atmosphere" },
     { value: "10K", description: "Pounds of nitric oxide (NOx) avoided in the atmosphere" },
     { value: "5K", description: "Pounds of sulfuric acid (SOx) avoided in the atmosphere" },
     { value: "80%", description: "Faster construction time compared to local construction" },

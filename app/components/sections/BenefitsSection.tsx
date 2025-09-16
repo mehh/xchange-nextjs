@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValue, useInView } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 export default function BenefitsSection() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const textItems = ["Care.", "Everything."];
+  const textItems = ["Air.","Care.", "Everything."];
   const sectionRef = useRef<HTMLElement>(null);
   // Refs for the horizontally scrolling viewport and the inner row
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -15,44 +15,23 @@ export default function BenefitsSection() {
   // Track the maximum amount we need to slide the row so the last card fully traverses
   const [maxShift, setMaxShift] = useState(0);
 
-  // Progress for the cards area specifically, so the row traverses fully while that area is in view
-  const { scrollYProgress: cardsProgress } = useScroll({
-    target: scrollerRef,
-    // Map progress while the scroller crosses the viewport center
-    offset: ["start center", "end center"]
-  });
+  // Motion value for continuous, looped horizontal scrolling
+  const x = useMotionValue(0);
+  const inView = useInView(sectionRef, { once: false, margin: "-100px" });
 
-  // Window the progress so movement starts later and finishes sooner
-  const START = 0.25;
-  const END = 0.75;
-  const windowedProgress = useTransform(cardsProgress, (v) => {
-    const t = (v - START) / (END - START);
-    if (t <= 0) return 0;
-    if (t >= 1) return 1;
-    return t;
-  });
-
-  // Transform for horizontal sliding of cards (in pixels), based on measured widths
-  const cardSlideX = useTransform(windowedProgress, (v) => -maxShift * v);
-
-  // Progress bar width mirrors the windowed cards progress
-  const progressWidth = useTransform(windowedProgress, [0, 1], ["0%", "100%"]);
-
+  // Measure widths and cycle header text
   useEffect(() => {
-    // Measure widths so we can slide the exact distance to reveal all cards
     const measure = () => {
       const viewport = scrollerRef.current;
       const row = rowRef.current;
       if (!viewport || !row) return;
-      const viewportWidth = viewport.clientWidth;
+      // We duplicate the items; compute a single set width for wrap logic
       const rowWidth = row.scrollWidth;
-      const shift = Math.max(0, rowWidth - viewportWidth);
-      setMaxShift(shift);
+      setMaxShift(rowWidth / 2);
     };
 
     measure();
     window.addEventListener("resize", measure);
-    // In case fonts/assets affect layout slightly after load
     const t = setTimeout(measure, 0);
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % textItems.length);
@@ -64,6 +43,50 @@ export default function BenefitsSection() {
       clearInterval(interval);
     };
   }, [textItems.length]);
+
+  // Autoplay loop only when in view
+  useEffect(() => {
+    if (!inView) return; // pause when out of view
+    let rafId = 0;
+    const SPEED = 0.25;
+    const loop = () => {
+      const width = maxShift;
+      if (width > 0) {
+        let next = x.get() - SPEED;
+        if (Math.abs(next) >= width) next += width;
+        if (next > 0) next -= width;
+        x.set(next);
+      }
+      rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafId);
+  }, [inView, maxShift, x]);
+
+  // Wheel scroll support (horizontal)
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      // Only hijack when the user intends a horizontal scroll (trackpads often send both)
+      const absX = Math.abs(e.deltaX);
+      const absY = Math.abs(e.deltaY);
+      // Treat Shift+Wheel as intentional horizontal as well; require a strong horizontal dominance
+      const horizontalIntent = e.shiftKey || (absX > absY * 1.8 && absX > 4);
+      if (!horizontalIntent) return; // let vertical scrolling bubble normally
+      e.preventDefault();
+      const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
+      const width = maxShift;
+      if (width > 0) {
+        let next = x.get() - delta * 0.6;
+        if (next <= -width) next += width;
+        if (next > 0) next -= width;
+        x.set(next);
+      }
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [maxShift, x]);
 
   const benefits = [
     {
@@ -159,23 +182,23 @@ export default function BenefitsSection() {
             </motion.h2>
 
             {/* Animated text with clean transitions */}
-            <div className="w-[450px] relative h-[60px] md:h-[80px] lg:h-[100px] overflow-hidden">
-              <motion.div
-                key={currentTextIndex}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -100, opacity: 0 }}
-                transition={{
-                  duration: 0.6,
-                  ease: "easeInOut"
-                }}
-                className="absolute inset-0"
-              >
-                <p className=" text-calm font-outfit text-[48px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-1.2px] md:tracking-[-1.6px]">
+          <div className="w-full max-w-[450px] relative h-[60px] md:h-[80px] lg:h-[100px] overflow-hidden">
+            <motion.div
+              key={currentTextIndex}
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -100, opacity: 0 }}
+              transition={{
+                duration: 0.6,
+                ease: "easeInOut"
+              }}
+              className="absolute inset-0"
+            >
+                <p className="text-calm font-outfit text-[40px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-0.8px] md:tracking-[-1.6px]">
                   {textItems[currentTextIndex]}
                 </p>
-              </motion.div>
-            </div>
+            </motion.div>
+          </div>
           </div>
 
           {/* Right side - Experience section */}
@@ -204,13 +227,27 @@ export default function BenefitsSection() {
         </div>
 
         {/* Horizontally scrolling cards container */}
-        <div ref={scrollerRef} className="relative overflow-hidden">
+        <div ref={scrollerRef} className="relative overflow-hidden touch-pan-y">
+          {/* Right gradient hint */}
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-off-white to-transparent z-20" />
           <motion.div
             ref={rowRef}
-            style={{ x: cardSlideX, willChange: "transform" }}
-            className="flex gap-4 md:gap-6 w-max pb-4"
+            style={{ x, willChange: "transform", touchAction: "pan-y" }}
+            className="flex gap-4 md:gap-6 w-max pb-4 touch-pan-y"
+            drag="x"
+            dragConstraints={{ left: -99999, right: 99999 }}
+            dragElastic={0.04}
+            onDrag={(event, info) => {
+              const width = maxShift;
+              if (width > 0) {
+                let next = x.get() + info.delta.x;
+                if (next <= -width) next += width;
+                if (next > 0) next -= width;
+                x.set(next);
+              }
+            }}
           >
-            {benefits.map((benefit, index) => (
+            {[...benefits, ...benefits].map((benefit, index) => (
               <motion.div
                 key={benefit.title}
                 initial={{ opacity: 0, y: 30 }}
@@ -237,14 +274,6 @@ export default function BenefitsSection() {
               </motion.div>
             ))}
           </motion.div>
-        </div>
-
-        {/* Progress bar that tracks cardsProgress */}
-        <div className="mt-16 md:mt-20">
-          <div className="relative w-full h-0.5">
-            <div className="absolute inset-0 bg-black/10 rounded-full" />
-            <motion.div style={{ width: progressWidth }} className="absolute left-0 top-0 h-full bg-calm rounded-full" />
-          </div>
         </div>
       </div>
     </section>

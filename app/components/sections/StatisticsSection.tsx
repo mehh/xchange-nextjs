@@ -18,7 +18,7 @@ export default function StatisticsSection() {
     gsap.registerPlugin(ScrollTrigger);
 
     // Tunable total scroll distance while pinned (px)
-    const SCROLL_DISTANCE = 2000; // adjust to taste
+    const SCROLL_DISTANCE = typeof window !== 'undefined' && window.innerWidth < 768 ? 1200 : 2000; // shorter on mobile
 
     const st = ScrollTrigger.create({
       trigger: containerRef.current,
@@ -75,30 +75,35 @@ export default function StatisticsSection() {
   const sectionOpacity = useTransform(scrollProgress, [0, 1], [1, 1]);
 
   return (
-    <div ref={containerRef} className="relative z-[1] bg-calm-dark mb-[-1px]">
-      <div ref={pinRef} className={"inset-x-0 bg-calm-dark overflow-hidden z-20 mb-[-1px]"}>
-        <motion.div className="flex justify-center items-center min-h-screen" style={{ padding: "176px 64px 104px 64px", y: groupY, opacity: sectionOpacity, willChange: "transform, opacity" }}>
-          <div className="flex gap-[126px] items-center">
+    <section className="relative w-full bg-calm-dark overflow-hidden">
+      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 md:px-16">
+        <div ref={containerRef} className="relative">
+          <div ref={pinRef} className="relative z-20">
+            <motion.div
+              className="flex justify-center items-center min-h-screen pt-[120px] md:pt-[176px] pb-[80px] md:pb-[104px]"
+              style={{ y: groupY, opacity: sectionOpacity, willChange: "transform, opacity" }}
+            >
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center w-full">
             
             {/* Left content - stays fixed while pinned */}
-            <div className="w-[648px] flex flex-col gap-10">
-              <h2 className="text-white font-outfit text-[40px] font-normal leading-[100%] tracking-[-0.8px]">
+            <div className="w-full max-w-[648px] lg:basis-[648px] flex-1 min-w-0 flex flex-col gap-6 md:gap-10">
+              <h2 className="text-white font-outfit text-[28px] md:text-[40px] font-normal leading-[110%] md:leading-[100%] tracking-[-0.56px] md:tracking-[-0.8px]">
                 Patients with medical issues that directly affect their breathing during procedures are on the rise.
               </h2>
 
               <div className="flex items-start gap-4">
-                <div className="flex w-[165px] pt-2 justify-center items-center">
+                <div className="hidden lg:flex w-[165px] pt-2 justify-center items-center">
                   <span className="text-white font-outfit text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase opacity-70">
                     The Problem
                   </span>
                 </div>
 
-                <p className="w-[467px] text-white font-outfit text-[18px] font-normal leading-[130%] tracking-[-0.36px] opacity-70">
+                <p className="w-full max-w-[467px] text-white font-outfit text-[16px] md:text-[18px] font-normal leading-[140%] md:leading-[130%] tracking-[-0.32px] md:tracking-[-0.36px] opacity-70">
                   Airway obstruction leading to oxygen desaturation and/or hypercapnia is a common and serious complication during moderate to deep sedation. This risk is particularly pronounced in patients with known airway pathology.
                 </p>
               </div>
 
-              <div className="flex flex-col pl-[181px] gap-2">
+              <div className="flex flex-col md:pl-[181px] gap-2">
                 <div className="h-12 px-6 inline-flex items-center rounded-full border border-white/50 self-start">
                   <Link
                     href="/patients"
@@ -111,14 +116,14 @@ export default function StatisticsSection() {
             </div>
 
             {/* Right statistics - fade in/out based on scroll */}
-            <motion.div className="w-[538px] pl-12 border-l border-white/15 relative h-full flex items-center" aria-live="polite" style={{ opacity: rightColOpacity }}>
+            <motion.div className="w-full max-w-[538px] lg:pl-12 lg:border-l border-white/15 relative overflow-visible h-auto min-h-[420px] md:min-h-[500px] flex-1 min-w-0 flex items-center mt-10 lg:mt-0" aria-live="polite" style={{ opacity: rightColOpacity }}>
               
               {/* Stat 1 - OSA */}
               <motion.div
                 style={{ opacity: stat1Opacity, y: stat1Y, willChange: "opacity, transform" }}
                 className="absolute inset-0 flex flex-col gap-5 justify-center"
               >
-                <h3 className="font-outfit text-[144px] font-normal leading-[100%] tracking-[-2.88px] text-gradient-calm">
+                <h3 className="font-outfit text-[72px] md:text-[100px] lg:text-[122px] font-normal leading-[100%] tracking-[-1.44px] md:tracking-[-2.4px] lg:tracking-[-2.88px] text-gradient-calm">
                   {stats[0].percentage}
                 </h3>
                 <div className="flex flex-col gap-1">
@@ -136,7 +141,7 @@ export default function StatisticsSection() {
                 style={{ opacity: stat2Opacity, y: stat2Y, willChange: "opacity, transform" }}
                 className="absolute inset-0 flex flex-col gap-5 justify-center"
               >
-                <h3 className="font-outfit text-[144px] font-normal leading-[100%] tracking-[-2.88px] text-gradient-calm">
+                <h3 className="font-outfit text-[72px] md:text-[100px] lg:text-[122px] font-normal leading-[100%] tracking-[-1.44px] md:tracking-[-2.4px] lg:tracking-[-2.88px] text-gradient-calm">
                   {stats[1].percentage}
                 </h3>
                 <div className="flex flex-col gap-1">
@@ -154,7 +159,7 @@ export default function StatisticsSection() {
                 style={{ opacity: stat3Opacity, y: stat3Y, willChange: "opacity, transform" }}
                 className="absolute inset-0 flex flex-col gap-5 justify-center"
               >
-                <h3 className="font-outfit text-[144px] font-normal leading-[100%] tracking-[-2.88px] text-gradient-calm">
+                <h3 className="font-outfit text-[72px] md:text-[100px] lg:text-[122px] font-normal leading-[100%] tracking-[-1.44px] md:tracking-[-2.4px] lg:tracking-[-2.88px] text-gradient-calm">
                   {stats[2].percentage}
                 </h3>
                 <div className="flex flex-col gap-1">
@@ -167,9 +172,11 @@ export default function StatisticsSection() {
                 </div>
               </motion.div>
             </motion.div>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

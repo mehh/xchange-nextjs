@@ -56,10 +56,19 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            <motion.div
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-slate font-outfit text-[14px] font-normal leading-[140%] tracking-[-0.32px] opacity-70"
+            >
+              The xchange™ nasal dock by Pneuma is designed for procedures involving moderate to deep sedation in patients with health challenges.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
             >
               <Link
                 href="/contact"
@@ -68,15 +77,6 @@ export default function HeroSection() {
                 Let&apos;s talk
               </Link>
             </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-slate font-outfit text-[14px] font-normal leading-[140%] tracking-[-0.32px] opacity-70"
-            >
-              The xchange™ nasal dock by Pneuma is designed for procedures involving moderate to deep sedation in patients with health challenges.
-            </motion.p>
           </div>
 
           {/* Desktop layout */}

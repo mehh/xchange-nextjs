@@ -403,7 +403,7 @@ export default function Homes() {
               <div>
                 <div className="text-5xl sm:text-6xl lg:text-7xl font-medium mb-4" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>90%</div>
                 <p className="text-xs lg:text-sm leading-relaxed" style={{ fontFamily: 'Montserrat, -apple-system, Roboto, Helvetica, sans-serif' }}>
-                  Effective at capturing airborne particles–CO2, NOx, SOx, and metals–between 3‑10 microns
+                  Effective at capturing airborne particles–CO₂, NOx, SOx, and metals–between 3‑10 microns
                 </p>
               </div>
               <div>

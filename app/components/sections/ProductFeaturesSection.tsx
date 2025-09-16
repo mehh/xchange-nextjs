@@ -19,7 +19,7 @@ interface Feature {
 }
 
 export default function ProductFeaturesSection() {
-  const [activeFeature, setActiveFeature] = useState<string>("co2-monitoring");
+  const [activeFeature, setActiveFeature] = useState<string>("");
   const [isMobile, setIsMobile] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -28,7 +28,7 @@ export default function ProductFeaturesSection() {
   const features: Feature[] = [
     {
       id: "co2-monitoring",
-      title: "End-Tidal CO2 Monitoring",
+      title: "End-Tidal CO₂ Monitoring",
       description: "Exhalation sampling to monitor adequacy of patient ventilation.",
       position: {
         x: "72%",
@@ -55,7 +55,7 @@ export default function ProductFeaturesSection() {
     {
       id: "air-chamber",
       title: "Proprietary Air Chamber",
-      description: "Directs flow to minimize EtCO2 dilution and loss of visual monitoring curve.",
+      description: "Directs flow to minimize EtCO₂ dilution and loss of visual monitoring curve.",
       position: {
         x: "60%",
         y: "80%"
@@ -94,10 +94,12 @@ export default function ProductFeaturesSection() {
   ];
 
   const currentFeatureIndex = features.findIndex(f => f.id === activeFeature);
+  const active = features[currentFeatureIndex] ?? features[0];
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      // Treat widths below 1024px (tablet and below) as slider mode
+      setIsMobile(window.innerWidth < 1024);
     };
 
     checkMobile();
@@ -105,6 +107,19 @@ export default function ProductFeaturesSection() {
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Ensure a visible slide on mobile/tablet; hide by default on desktop
+  useEffect(() => {
+    if (isMobile) {
+      if (!activeFeature) setActiveFeature(features[0].id);
+    } else {
+      // Hide card until user hovers/clicks a dot on desktop
+      if (activeFeature && features.every(f => f.id !== activeFeature)) {
+        setActiveFeature("");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!isMobile) return;
@@ -132,9 +147,8 @@ export default function ProductFeaturesSection() {
   };
 
   const handleDotClick = (featureId: string) => {
-    if (isMobile) {
-      setActiveFeature(featureId);
-    }
+    // Activate on both desktop and mobile
+    setActiveFeature(featureId);
   };
 
   const handleDotHover = (featureId: string) => {
@@ -159,12 +173,13 @@ export default function ProductFeaturesSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true, margin: "-100px" }}
             className="text-slate font-outfit text-[28px] md:text-[40px] font-normal leading-[100%] tracking-[-0.5px] md:tracking-[-0.8px] mb-6 md:mb-10"
-          >
+            onMouseLeave={() => { if (!isMobile) setActiveFeature(""); }}
+        >
             Introducing the xchange nasal dock. The evolution of CPAP devices.
           </motion.h2>
 
           <div className="flex flex-col md:flex-row md:items-start gap-4">
-            <div className="flex items-center justify-center md:w-[165px] pt-2">
+            <div className="flex items-center justify-start md:justify-center md:w-[165px] pt-2">
               <span className="text-slate font-outfit text-[12px] md:text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase opacity-70">
                 The product
               </span>
@@ -188,7 +203,7 @@ export default function ProductFeaturesSection() {
           className="relative w-full mx-auto"
           style={{
             aspectRatio: '1881/1688', // Original image aspect ratio
-            minHeight: '600px'
+            minHeight: isMobile ? '480px' : '600px'
           }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -204,8 +219,8 @@ export default function ProductFeaturesSection() {
             priority
           />
 
-          {/* Interactive dots positioned on the device */}
-          {features.map((feature, index) => (
+          {/* Interactive dots overlay */}
+          {(isMobile ? [active] : features).map((feature, index) => (
             <div key={feature.id}>
               {/* Pulsing dot */}
               <motion.div
@@ -215,116 +230,126 @@ export default function ProductFeaturesSection() {
                   top: feature.position.y,
                   transform: 'translate(-50%, -50%)'
                 }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
+                initial={false}
+                animate={{
+                  scale: activeFeature === feature.id ? 1.04 : 1,
+                  opacity: activeFeature === feature.id ? 1 : 0.85
+                }}
+                transition={{
+                  duration: activeFeature === feature.id ? 0.25 : 0.4,
+                  ease: 'easeOut'
+                }}
                 onClick={() => handleDotClick(feature.id)}
                 onMouseEnter={() => handleDotHover(feature.id)}
               >
-                {/* Simple static background for dot visibility */}
-                <div
-                  className="absolute inset-0 w-[110px] h-[110px] rounded-full opacity-20"
+                {/* Animated background ring for dot visibility */}
+                <motion.div
+                  className="absolute inset-0 w-10 h-10 md:w-[110px] md:h-[110px] rounded-full"
                   style={{
-                    background: 'radial-gradient(circle, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0) 100%)'
+                    background: isMobile
+                      ? 'radial-gradient(circle, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0) 100%)'
+                      : 'radial-gradient(circle, rgba(255, 255, 255, 0.5) 30%, rgba(255, 255, 255, 0) 100%)'
+                  }}
+                  animate={{
+                    opacity: activeFeature === feature.id ? [0.18, 0.35, 0.18] : [0.12, 0.22, 0.12],
+                    scale: activeFeature === feature.id ? [1, 1.08, 1] : [1, 1.04, 1]
+                  }}
+                  transition={{
+                    opacity: { duration: activeFeature === feature.id ? 1.6 : 2.2, repeat: Infinity, ease: 'easeInOut' },
+                    scale: { duration: activeFeature === feature.id ? 1.6 : 2.2, repeat: Infinity, ease: 'easeInOut' }
                   }}
                 />
                 
-                {/* Dot SVG */}
-                <div className="relative w-[110px] h-[110px] flex items-center justify-center">
-                  <svg 
-                    width="110" 
-                    height="110" 
-                    viewBox="0 0 136 136" 
+                {/* Dot SVG matching 5-ellipse ring design with dark center */}
+                <div className="relative w-10 h-10 md:w-[110px] md:h-[110px] flex items-center justify-center z-40">
+                  <svg
+                    width={isMobile ? 40 : 110}
+                    height={isMobile ? 40 : 110}
+                    viewBox="0 0 136 136"
                     fill="none"
-                    className={`transform ${feature.id === 'co2-monitoring' ? 'rotate-[15deg]' : ''}`}
+                    className="transform"
                   >
-                    <path 
-                      opacity="0.3" 
-                      d="M100.507 47.738C103.716 52.8534 105.669 58.6559 106.205 64.6707C106.74 70.6855 105.844 76.7418 103.59 82.3438" 
-                      stroke="#44695A" 
-                      strokeWidth="1.5"
-                    />
-                    <path 
-                      d="M58.3234 31.1193C64.1613 29.5753 70.2818 29.4355 76.1842 30.7113C82.0865 31.987 87.6029 34.6421 92.2821 38.4593" 
-                      stroke="#44695A" 
-                      strokeWidth="1.5"
-                    />
-                    <path 
-                      opacity="0.3" 
-                      d="M29.8949 66.3484C30.1713 60.3161 31.8719 54.435 34.8576 49.1861C37.8434 43.9373 42.0295 39.47 47.0734 36.1497" 
-                      stroke="#44695A" 
-                      strokeWidth="1.5"
-                    />
-                    <g opacity="0.8">
-                      <circle cx="68" cy="68" r="38" fill="url(#paint0_radial)" />
-                    </g>
-                    <motion.circle 
-                      cx="68.104" 
-                      cy="68.0968" 
-                      r="6.75" 
-                      fill="#44695A" 
-                      stroke="#44695A" 
-                      strokeWidth="1.5"
-                      animate={{
-                        scale: activeFeature === feature.id ? [1, 1.2, 1] : 1,
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: activeFeature === feature.id ? Infinity : 0,
-                        ease: "easeInOut"
-                      }}
-                    />
                     <defs>
-                      <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse">
-                        <stop offset="0.302885" stopColor="white"/>
-                        <stop offset="1" stopColor="white" stopOpacity="0"/>
-                      </radialGradient>
+                      <linearGradient id="dotGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stopColor="#ffffff" stopOpacity="0.75" />
+                        <stop offset="100%" stopColor="#ffffff" stopOpacity="0.15" />
+                      </linearGradient>
                     </defs>
+                    {/* Ring made of 5 ellipses positioned around center */}
+                    <motion.g
+                      initial={false}
+                      animate={{ scale: activeFeature === feature.id ? [1, 1.04, 1] : [1, 1.02, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                      {([0, 72, 144, 216, 288] as const).map((deg) => (
+                        <g key={deg} transform={`rotate(${deg} 68 68)`}>
+                          {/* Position ellipse outward on a radius from center */}
+                          <ellipse
+                            cx={68}
+                            cy={isMobile ? 34 : 30}
+                            rx={isMobile ? 3.2 : 4.5}
+                            ry={isMobile ? 6.0 : 8.5}
+                            fill="url(#dotGrad)"
+                          />
+                        </g>
+                      ))}
+                    </motion.g>
+                    {/* Subtle outer stroke ring to bind the shape on desktop */}
+                    {!isMobile && (
+                      <motion.circle
+                        cx="68"
+                        cy="68"
+                        r={52}
+                        stroke="rgba(28,28,32,0.85)"
+                        strokeWidth="1.05"
+                        fill="none"
+                        strokeDasharray="40 20"
+                        strokeLinecap="round"
+                        initial={false}
+                        animate={{ opacity: [0.7, 1, 0.7] }}
+                        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                      />
+                    )}
+                    {/* Dark center dot */}
+                    <circle cx="68" cy="68" r={isMobile ? 5.5 : 7} fill="#1C1C20" />
                   </svg>
                 </div>
               </motion.div>
 
-              {/* Feature card (always mounted; non-animated blur, fading content) */}
-              <motion.div
-                className="absolute z-40 w-[280px] md:w-[334px]"
-                style={{
-                  left: isMobile ? '50%' : feature.cardPosition.x,
-                  top: isMobile ? '15%' : feature.cardPosition.y,
-                  transform: 'translate(-50%, -50%)',
-                  // Pass through clicks when inactive
-                  pointerEvents: activeFeature === feature.id ? 'auto' : 'none'
-                }}
-                initial={false}
-              >
-                <div className="relative rounded-lg min-h-[115px]">
-                  {/* Blur layer (immediate toggle, no delayed paint) */}
-                  <div
-                    className="absolute inset-0 rounded-lg"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.18)',
-                      backdropFilter: 'saturate(140%) blur(18px)',
-                      WebkitBackdropFilter: 'saturate(140%) blur(18px)',
-                      backgroundClip: 'padding-box',
-                      opacity: activeFeature === feature.id ? 1 : 0
-                    }}
-                  />
-
-                  {/* Content layer (fades in over the blur) */}
-                  <motion.div
-                    className="relative p-6 md:p-7 flex flex-col justify-center items-center gap-4 rounded-lg min-h-[115px]"
-                    initial={false}
-                    animate={{ opacity: activeFeature === feature.id ? 1 : 0 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
-                  >
-                    <h3 className="w-full text-[#212527] font-outfit text-[13px] md:text-[14px] font-normal leading-[140%] tracking-[-0.28px] uppercase">
-                      {feature.title}
-                    </h3>
-                    <p className="w-full text-[#212527] font-outfit text-[15px] md:text-[16px] font-normal leading-[140%] tracking-[-0.32px]">
-                      {feature.description}
-                    </p>
-                  </motion.div>
-                </div>
-              </motion.div>
+              {/* Feature card near dot (desktop only, visible when active) */}
+              {!isMobile && (
+                <motion.div
+                  className="absolute z-40 w-[280px] md:w-[334px]"
+                  style={{
+                    left: feature.cardPosition.x,
+                    top: feature.cardPosition.y,
+                    transform: 'translate(-50%, -50%)',
+                    pointerEvents: activeFeature === feature.id ? 'auto' : 'none'
+                  }}
+                  initial={false}
+                  animate={{ opacity: activeFeature === feature.id ? 1 : 0 }}
+                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                >
+                  <div className="relative rounded-lg min-h-[115px] shadow-lg">
+                    {/* Solid background */}
+                    <div className="absolute inset-0 rounded-lg bg-white/90" />
+                    {/* Stroke border */}
+                    <div className="absolute inset-0 rounded-lg border border-slate/20" />
+                    {/* Content */}
+                    <div className="relative p-4">
+                      <div className="text-verdant font-outfit text-[12px] font-normal leading-[140%] tracking-[-0.24px] uppercase mb-1">
+                        {`0${index + 1} / 0${features.length}`}
+                      </div>
+                      <div className="text-slate font-outfit text-[16px] md:text-[18px] font-normal leading-[120%] tracking-[-0.36px]">
+                        {feature.title}
+                      </div>
+                      <div className="text-slate font-outfit text-[14px] font-normal leading-[140%] tracking-[-0.28px] opacity-70 mt-2">
+                        {feature.description}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
           ))}
 
@@ -385,31 +410,44 @@ export default function ProductFeaturesSection() {
             </svg>
           </div>
         </div>
+
+        {/* Mobile/tablet: info panel and pagination dots under image */}
+        {isMobile && (
+          <div className="mt-6 flex flex-col items-center gap-4 px-1">
+            <motion.div
+              key={active.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="w-full max-w-[640px] rounded-2xl border border-slate/20 bg-white p-4"
+            >
+              <div className="text-verdant font-outfit text-[12px] font-normal leading-[140%] tracking-[-0.24px] uppercase mb-1 text-center">
+                {`0${currentFeatureIndex + 1} / 0${features.length}`}
+              </div>
+              <div className="text-slate font-outfit text-[18px] font-normal leading-[120%] tracking-[-0.36px] text-center">
+                {active.title}
+              </div>
+              <div className="text-slate font-outfit text-[14px] font-normal leading-[140%] tracking-[-0.28px] opacity-70 mt-2 text-center">
+                {active.description}
+              </div>
+            </motion.div>
+
+            <div className="flex items-center gap-2">
+              {features.map((f, i) => {
+                const isActive = f.id === activeFeature;
+                return (
+                  <button
+                    key={f.id}
+                    aria-label={`Go to slide ${i + 1}`}
+                    onClick={() => setActiveFeature(f.id)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${isActive ? 'bg-verdant w-6' : 'bg-slate/30 w-2.5'}`}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* Mobile navigation indicators */}
-      {isMobile && (
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3 z-50">
-          {features.map((feature) => (
-            <button
-              key={feature.id}
-              className={`w-3 h-3 rounded-full transition-all duration-300 border border-white/20 ${
-                activeFeature === feature.id ? 'bg-verdant scale-125' : 'bg-white/30'
-              }`}
-              onClick={() => setActiveFeature(feature.id)}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Mobile swipe hint */}
-      {isMobile && (
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-50">
-          <p className="text-slate/60 font-outfit text-xs text-center bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm">
-            Swipe to explore features
-          </p>
-        </div>
-      )}
     </section>
   );
 }

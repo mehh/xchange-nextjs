@@ -42,22 +42,23 @@ export default function PressureChartSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative w-full h-[1119px] bg-off-white overflow-hidden">
-      <div className="px-16 py-26">
+    <section ref={ref} className="relative w-full min-h-[700px] md:h-[1119px] bg-off-white overflow-hidden">
+      <div className="w-full max-w-[1440px] mx-auto px-4 md:px-16 py-26">
         {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-slate font-outfit text-[40px] font-normal leading-[130%] tracking-[-0.8px] max-w-[648px]"
+          className="text-slate font-outfit text-[28px] md:text-[40px] font-normal leading-[130%] tracking-[-0.56px] md:tracking-[-0.8px] max-w-[648px]"
         >
           High risk patients require 12 — 25 cm H2O to perfectly open their airway.
         </motion.h2>
 
         {/* Chart container */}
-        <div className="relative mt-20 ml-12">
+        <div className="relative mt-12 md:mt-20 md:ml-12">
           {/* Chart area background with grid */}
-          <div className="relative w-[1065px] h-[634px]">
+          <div className="relative overflow-x-auto -mx-4 md:mx-0 pb-4">
+            <div className="relative min-w-[1065px] h-[634px]">
             {/* Horizontal grid lines */}
             <div className="absolute left-[200px] top-0 w-[865px] h-full opacity-10">
               {Array.from({ length: 6 }).map((_, i) => (
@@ -76,7 +77,7 @@ export default function PressureChartSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 0.3, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="absolute text-slate font-outfit text-[20px] font-normal leading-[100%] tracking-[-0.4px] text-right"
+                className="absolute text-slate font-outfit text-[16px] md:text-[20px] font-normal leading-[100%] tracking-[-0.32px] md:tracking-[-0.4px] text-right"
                 style={{ 
                   left: "176px", 
                   top: `${label.top - 360}px`, 
@@ -103,7 +104,7 @@ export default function PressureChartSection() {
                       delay: 0.3 + index * 0.2,
                       ease: "easeOut"
                     }}
-                    className="absolute w-56 rounded-[20px] border-t-[3px] border-verdant origin-bottom"
+                    className="absolute w-40 md:w-56 rounded-[20px] border-t-[3px] border-verdant origin-bottom"
                     style={{
                       left: `${barLeft}px`,
                       bottom: "0px",
@@ -116,16 +117,16 @@ export default function PressureChartSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
-                    className="absolute flex flex-col gap-[18px] w-56"
+                    className="absolute flex flex-col gap-[18px] w-40 md:w-56"
                     style={{
                       left: `${barLeft}px`,
                       top: `${barBottom - item.height - 180}px`
                     }}
                   >
-                    <div className="text-slate font-outfit text-[64px] font-normal leading-[100%] tracking-[-1.28px]">
+                    <div className="text-slate font-outfit text-[40px] md:text-[64px] font-normal leading-[100%] tracking-[-0.8px] md:tracking-[-1.28px]">
                       {item.symbol}
                     </div>
-                    <div className="text-slate font-outfit text-[20px] font-normal leading-[100%] tracking-[-0.4px]">
+                    <div className="text-slate font-outfit text-[16px] md:text-[20px] font-normal leading-[100%] tracking-[-0.32px] md:tracking-[-0.4px]">
                       {item.label}
                     </div>
                   </motion.div>
@@ -145,6 +146,7 @@ export default function PressureChartSection() {
                 </div>
               );
             })}
+            </div>
           </div>
         </div>
       </div>

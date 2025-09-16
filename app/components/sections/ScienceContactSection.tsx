@@ -27,7 +27,7 @@ export default function ScienceContactSection() {
   };
 
   return (
-    <section ref={ref} className="relative w-full h-[756px] bg-calm overflow-hidden">
+    <section ref={ref} className="relative w-full min-h-[600px] md:h-[756px] bg-calm overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0">
         {/* Main background pattern */}
@@ -62,13 +62,13 @@ export default function ScienceContactSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex items-center justify-center w-full h-full px-4 py-16">
+      <div className="relative z-10 flex items-center justify-center w-full h-full px-4 py-12 md:py-16">
         <div className="w-full max-w-[443px]">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-white text-center font-outfit text-[80px] font-normal leading-[100%] tracking-[-1.6px] mb-10"
+            className="text-white text-center font-outfit text-[48px] md:text-[80px] font-normal leading-[100%] tracking-[-0.96px] md:tracking-[-1.6px] mb-8 md:mb-10"
           >
             Let&apos;s talk.
           </motion.h2>
@@ -81,7 +81,7 @@ export default function ScienceContactSection() {
             className="flex flex-col gap-3"
           >
             {/* Name fields row */}
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               {/* First Name */}
               <div className="flex h-14 px-3 py-3 flex-col justify-between flex-1 rounded-lg bg-white/5">
                 <label

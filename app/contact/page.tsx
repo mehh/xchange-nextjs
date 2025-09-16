@@ -151,23 +151,23 @@ function ContactForm() {
   return (
     <div className="w-screen min-h-screen bg-white relative">
       {/* Main Content */}
-      <div className="w-full min-h-[1141px] bg-[#43432D] relative overflow-hidden">
+      <div className="w-full min-h-[800px] md:min-h-[1141px] bg-[#43432D] relative overflow-hidden">
         <motion.div
-          className="absolute w-[195px] h-full bg-cover bg-center left-[-42px] top-0 z-[2] transform-origin-center will-change-transform"
+          className="hidden md:block absolute w-[195px] h-full bg-cover bg-center left-[-42px] top-0 z-[2] transform-origin-center will-change-transform"
           style={{
             backgroundImage: `url('${imgGettyImages}')`,
             y: backgroundY,
             scale: backgroundScale
           }}
         ></motion.div>
-        <div className="absolute w-[calc(100%-195px)] h-full bg-[#43432D] left-[153px] top-0 z-[1]"></div>
+        <div className="absolute w-full md:w-[calc(100%-195px)] h-full bg-[#43432D] left-0 md:left-[153px] top-0 z-[1]"></div>
 
         <div className="max-w-[1440px] mx-auto px-4 relative">
-          <div className="relative z-[3] flex flex-col md:flex-row min-h-[1141px] pt-20 pb-20 md:pt-20 md:pb-20">
+          <div className="relative z-[3] flex flex-col md:flex-row min-h-[800px] md:min-h-[1141px] pt-16 md:pt-20 pb-16 md:pb-20">
             {/* Left Side Content */}
-            <div className="flex-1 max-w-[500px] md:pl-[205px] md:pt-28 mb-10 md:mb-0 text-center md:text-left">
+            <div className="flex-1 max-w-[600px] md:pl-[205px] md:pt-28 mb-10 md:mb-0 text-center md:text-left">
               <motion.div
-                className="text-white text-left font-heading text-[19px] font-normal mb-8"
+                className="text-white text-left font-heading text-[16px] md:text-[19px] font-normal mb-6 md:mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -175,7 +175,7 @@ function ContactForm() {
                 CONTACT
               </motion.div>
               <motion.h1
-                className="text-white font-sans text-[36px] md:text-[56px] font-normal leading-normal mb-10 md:mb-[88px] w-auto md:w-[242px]"
+                className="text-white font-sans text-[32px] md:text-[56px] font-normal leading-normal mb-8 md:mb-[88px] w-auto md:w-[242px]"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -184,7 +184,7 @@ function ContactForm() {
                 started
               </motion.h1>
               <motion.div
-                className="text-white font-sans text-[19px] font-normal leading-normal w-auto md:w-[281px] text-left"
+                className="text-white font-sans text-[16px] md:text-[19px] font-normal leading-normal w-auto md:w-[281px] text-left"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}

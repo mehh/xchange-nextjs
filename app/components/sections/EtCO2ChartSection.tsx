@@ -19,7 +19,7 @@ const yAxisLabels = [
 const chartLines = [
   {
     color: "#FF0000",
-    label: "Exhaled CO2 from lung",
+    label: "Exhaled CO₂ from lung",
     strokeDasharray: "11.17 17.86"
   },
   {
@@ -44,43 +44,42 @@ export default function EtCO2ChartSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative w-full bg-[#F7F6F3] overflow-hidden py-32">
-      <div className="px-16">
+    <section ref={ref} className="relative w-full bg-[#F7F6F3] overflow-hidden py-16 md:py-32">
+      <div className="w-full max-w-[1440px] mx-auto px-4 md:px-16">
         {/* Title and Superior info row */}
-        <div className="flex justify-between items-start mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-12 mb-10 md:mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-slate font-outfit text-[40px] font-normal leading-[130%] tracking-[-0.8px] max-w-[648px]"
+            className="text-slate font-outfit text-[28px] md:text-[40px] font-normal leading-[130%] tracking-[-0.56px] md:tracking-[-0.8px] max-w-[648px]"
           >
-            XChange Provides More Consistent and Reliable EtCO2 Sampling
+            XChange Provides More Consistent and Reliable EtCO₂ Sampling
           </motion.h2>
+          {/* Superior EtCO2 info box - responsive width */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="w-full md:w-[451px] md:ml-auto"
+          >
+            <h3 className="text-slate font-outfit text-[22px] md:text-[28px] font-normal leading-[130%] tracking-[-0.44px] md:tracking-[-0.56px] mb-4 md:mb-6">
+              Superior EtCO₂ Sampling Capability
+            </h3>
+            <p className="text-slate font-outfit text-[14px] md:text-[16px] font-normal leading-[130%] tracking-[-0.28px] md:tracking-[-0.32px] opacity-60">
+              - Greater consistency in trace display due to ability to maintain seal<br/>
+              - Higher accuracy and reliability of readings throughout procedure
+            </p>
+          </motion.div>
         </div>
 
-        {/* Superior EtCO2 info box - moved higher */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-16 ml-auto w-[451px]"
-        >
-          <h3 className="text-slate font-outfit text-[28px] font-normal leading-[130%] tracking-[-0.56px] mb-6">
-            Superior EtCO2 Sampling Capability
-          </h3>
-          <p className="text-slate font-outfit text-[16px] font-normal leading-[130%] tracking-[-0.32px] opacity-60">
-            - Greater consistency in trace display due to ability to maintain seal<br/>
-            - Higher accuracy and reliability of readings throughout procedure
-          </p>
-        </motion.div>
-
-        <div className="flex gap-16">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           {/* Legend */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-col justify-between w-[229px] pt-10 h-[588px]"
+            className="order-2 lg:order-1 flex flex-col justify-between w-full lg:w-[229px] pt-6 lg:pt-10 h-auto lg:h-[588px]"
           >
             <div className="flex flex-col gap-8">
               {chartLines.map((line, index) => (
@@ -92,7 +91,7 @@ export default function EtCO2ChartSection() {
                   className="flex flex-col gap-1"
                 >
                   <div
-                    className="font-outfit text-[18px] font-normal leading-[120%]"
+                    className="font-outfit text-[16px] md:text-[18px] font-normal leading-[120%]"
                     style={{ color: line.color }}
                   >
                     {line.label}
@@ -107,12 +106,13 @@ export default function EtCO2ChartSection() {
               transition={{ duration: 0.6, delay: 1.1 }}
               className="text-slate font-outfit text-[18px] font-normal leading-[120%] opacity-80 text-left"
             >
-              mmHg CO2
+              mmHg CO₂
             </motion.div>
           </motion.div>
 
           {/* Chart container */}
-          <div className="relative w-[918px] h-[588px]">
+          <div className="order-1 lg:order-2 relative overflow-x-auto -mx-4 lg:mx-0 pb-4">
+            <div className="relative min-w-[940px] w-[940px] h-[588px]">
             {/* Y-axis labels */}
             {yAxisLabels.map((label, index) => (
               <motion.div
@@ -298,6 +298,7 @@ export default function EtCO2ChartSection() {
                   fill="none"
                 />
               </motion.svg>
+            </div>
             </div>
           </div>
         </div>

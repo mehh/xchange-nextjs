@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "respiratory support",
     "CPAP devices",
     "nasal interface",
-    "end-tidal CO2 monitoring",
+    "end-tidal CO₂ monitoring",
     "pneuma technology"
   ],
   openGraph: {

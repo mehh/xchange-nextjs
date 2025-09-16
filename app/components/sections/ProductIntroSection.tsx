@@ -51,7 +51,7 @@ export default function ProductIntroSection() {
             <div className="max-w-[573px] text-center px-4">
               <div className="font-outfit text-[clamp(18px,4vw,40px)] font-normal leading-[130%] tracking-[-0.5px] md:tracking-[-0.8px]">
                 {/* First line: "Positive pressure perfected." */}
-                <div className="block whitespace-nowrap">
+                <div className="block whitespace-normal md:whitespace-nowrap">
                   {(() => {
                     let letterIndex = 0;
                     return line1Words.map((word, wordIndex) => {
@@ -81,7 +81,7 @@ export default function ProductIntroSection() {
                 </div>
 
                 {/* Second line: "For patients who need it the most." */}
-                <div className="block whitespace-nowrap">
+                <div className="block whitespace-normal md:whitespace-nowrap">
                   {(() => {
                     let letterIndex = line1Text.length; // Continue from first line
                     return line2Words.map((word, wordIndex) => {
