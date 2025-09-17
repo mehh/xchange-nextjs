@@ -50,31 +50,42 @@ export default function WhitepaperClient() {
           {/* Two-column layout with vertical accent rule on large screens */}
           <div className="grid md:grid-cols-[1fr] lg:grid-cols-[1fr] gap-12">
             <div className="relative">
-              <div className="absolute left-[calc(50%-1px)] top-0 bottom-0 hidden md:block w-px bg-verdant/50" aria-hidden="true" />
-
               <div className="space-y-8">
                 <Section title="Introduction">
-                  An estimated 30 million Americans suffer from obstructive sleep apnea (OSA). Roughly 26 million remain undiagnosed—meaning care is limited to those who have been diagnosed.
+                An estimated 30 million Americans suffer from obstructive sleep apnea (OSA), though 24 million remain undiagnosed—meaning only about 6 million have formal diagnoses.
+                OSA is associated with hypertension, cardiac events, metabolic disorders (diabetes, dyslipidemia), and stroke.
+Obesity underlies roughly 60 % of OSA prevalence—up to 40 % in males with BMI &gt;30 and nearly 90 % in those with BMI &gt;40 . Over 42 % of U.S. adults are obese.
                 </Section>
 
                 <Section title="CPAP Use and Adherence">
-                  Approximately 9 million Americans use CPAP therapy—the remainder do not receive ideal care or fail adherence.
+                Approximately 6 million Americans use CPAP therapy—this represents the diagnosed population .
+                CPAP adherence rates vary widely; around 72 % meet CMS criteria, though younger adults and women are less compliant .
                 </Section>
 
                 <Section title="Sedation in Colonoscopies: Scope and Risk">
-                  19M+ colonoscopies occur yearly. Moderate to deep sedation is common; patients with OSA or obesity are at greater risk of airway obstruction and oxygen desaturation.
+                Annually, 14–16 million colonoscopies are performed in the U.S. for screening and surveillance .
+                While specific data on OSA prevalence in these patients is scarce, general adult prevalence of moderate to severe OSA is around 10–20 % —implying potentially 1.4–3.2 million colonoscopy patients with undiagnosed OSA each year.
                 </Section>
 
                 <Section title="Physiological Challenges Under Sedation">
-                  Sedation depresses respiratory drive and airway tone; obese airways, macroglossia, and reduced chest wall compliance compound risk. Positive pressure support can counter these effects and improve oxygenation and ventilation.
+                Sedation (moderate to deep) depresses respiratory drive, relaxes upper airway muscles, and increases OSA risk.
+Obese patients with OSA are prone to hypoxemia from airway collapse, decreased functional residual capacity, and alveolar ventilation.
+Consequences include arrhythmias, myocardial ischemia, hypertension spikes, stroke, and even arrest—amplified by comorbid cardiac and metabolic disease.
                 </Section>
 
                 <Section title="Current Airway Management Tools in GI Suite">
-                  Conventional nasal cannula delivers oxygen but provides no meaningful positive pressure. Oral airways are reactive interventions and can complicate procedures.
+                Nasal cannula and basic face masks are standard but cannot provide continuous positive airway pressure (PAP).
+Invasive maneuvers—jaw thrust, chin lift, oral airway insertion—need constant maintenance throughout the procedure. These require skill and hinder procedural access.
+Anesthesia machines with PAP are usually unavailable in outpatient GI suites, limiting options when airway collapse occurs.
                 </Section>
 
                 <Section title="Proposed Enhancement: Accessible PAP in GI Settings">
-                  Integrate low-profile, comfortable positive airway pressure (PAP) interfaces (e.g., xchange nasal dock) to maintain airway patency and reduce hypoxic events.
+                 <ul>
+                      <li>1. Maintains baseline airway patency—reduces hypoxemic events.</li>
+                      <li>2. Supports alveolar ventilation—better EtCO2 control.</li>
+                      <li>3. Stabilizes thoracoabdominal pressures—easing scope passage.</li>
+                      <li>4. Decreases need for invasive airway maneuvers—improving workflow and patient safety.</li>
+                    </ul>
                 </Section>
 
                 <h3 className="text-slate font-outfit text-[20px] md:text-[22px] font-normal tracking-[-0.4px]">Scope of Unmet need</h3>
@@ -107,16 +118,27 @@ export default function WhitepaperClient() {
                         <td className="px-4 md:px-6 py-3 text-slate font-outfit text-[14px] md:text-[16px]">Adult Obesity rate</td>
                         <td className="px-4 md:px-6 py-3 text-slate font-outfit text-[14px] md:text-[16px]">~42%</td>
                       </tr>
+                      <tr>
+                        <td className="px-4 md:px-6 py-3 text-slate font-outfit text-[14px] md:text-[16px]">OSA Prevalence in obese</td>
+                        <td className="px-4 md:px-6 py-3 text-slate font-outfit text-[14px] md:text-[16px]">Up to 40% (BMI&gt;30) to 90% (BMI &gt;40)</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
 
                 <Section title="Conclusion and Recommendations">
-                  Enabling comfortable PAP during moderate to deep sedation may reduce desaturation and hypercapnic events, simplify procedures, and improve patient safety—particularly in patients with obesity or suspected OSA.
+                The combination of obesity, undiagnosed OSA, and deep sedation during high-volume procedures like colonoscopy creates a significant clinical risk.
+Provision of non-invasive PAP-capable devices in GI suites could enhance airway safety, reduce hypoxemia, simplify procedures, and potentially diminish cardiopulmonary complications.
+Further research should evaluate cost-electiveness, workflow integration, and outcome metrics (e.g., hypoxemic event rate, arrhythmia incidence, procedure eIiciency).
                 </Section>
 
                 <Section title="Key References">
-                  Links cover: prevalence, diagnostics, OSA comorbidities, colonoscopy statistics, and PAP evidence.
+                  <ul>
+                    <li>1. Sleep apnea prevalence, diagnosis rates, comorbidities</li>
+                    <li>2. Obesity–OSA link</li>
+                    <li>3. Annual colonoscopies</li>
+                    <li>4. Undiagnosed OSA proportions</li>
+                  </ul>
                 </Section>
               </div>
             </div>

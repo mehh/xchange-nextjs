@@ -182,7 +182,7 @@ export default function BenefitsSection() {
             </motion.h2>
 
             {/* Animated text with clean transitions */}
-          <div className="w-full max-w-[450px] relative h-[60px] md:h-[80px] lg:h-[100px] overflow-hidden">
+          <div className="inline-block w-auto max-w-none relative h-[60px] md:h-[80px] lg:h-[100px] overflow-visible">
             <motion.div
               key={currentTextIndex}
               initial={{ y: 100, opacity: 0 }}
@@ -194,7 +194,7 @@ export default function BenefitsSection() {
               }}
               className="absolute inset-0"
             >
-                <p className="text-calm font-outfit text-[40px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-0.8px] md:tracking-[-1.6px]">
+                <p className="text-calm font-outfit text-[40px] md:text-[64px] lg:text-[80px] font-normal leading-[100%] tracking-[-0.8px] md:tracking-[-1.6px] whitespace-nowrap">
                   {textItems[currentTextIndex]}
                 </p>
             </motion.div>

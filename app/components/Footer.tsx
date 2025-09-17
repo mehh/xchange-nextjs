@@ -19,6 +19,9 @@ export default function Footer() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <div className="relative h-12 w-[240px] md:h-16 md:w-[310px]">
+            <Link
+              href="/"
+            >
               <Image
                 src={logoSrc}
                 alt="Pneuma logo"
@@ -26,6 +29,7 @@ export default function Footer() {
                 className="object-contain object-left"
                 sizes="(max-width: 768px) 240px, 310px"
               />
+            </Link>
             </div>
           </div>
 

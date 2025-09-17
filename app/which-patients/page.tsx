@@ -61,7 +61,7 @@ function ConditionItem({ condition }: { condition: string }) {
 
 export default function WhichPatientsPage() {
   return (
-    <main className="pt-20 md:pt-24" id="main">
+    <main className="" id="main">
       {/* Hero Section */}
       <section className="relative min-h-[681px] bg-[#E3E6E9] overflow-hidden">
         {/* Background Decorative SVG */}

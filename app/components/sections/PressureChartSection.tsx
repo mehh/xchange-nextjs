@@ -42,7 +42,7 @@ export default function PressureChartSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative w-full min-h-[700px] md:h-[1119px] bg-off-white overflow-hidden">
+    <section ref={ref} className="relative w-full min-h-[700px] md:h-[1119px] bg-off-white">
       <div className="w-full max-w-[1440px] mx-auto px-4 md:px-16 py-26">
         {/* Title */}
         <motion.h2
@@ -51,13 +51,13 @@ export default function PressureChartSection() {
           transition={{ duration: 0.8 }}
           className="text-slate font-outfit text-[28px] md:text-[40px] font-normal leading-[130%] tracking-[-0.56px] md:tracking-[-0.8px] max-w-[648px]"
         >
-          High risk patients require 12 — 25 cm H2O to perfectly open their airway.
+          High risk patients require 12 — 25 cm H₂O to perfectly open their airway.
         </motion.h2>
 
         {/* Chart container */}
-        <div className="relative mt-12 md:mt-20 md:ml-12">
+        <div className="relative mt-12 md:mt-20 flex justify-center">
           {/* Chart area background with grid */}
-          <div className="relative overflow-x-auto -mx-4 md:mx-0 pb-4">
+          <div className="relative overflow-visible mx-0 pb-4">
             <div className="relative min-w-[1065px] h-[634px]">
             {/* Horizontal grid lines */}
             <div className="absolute left-[200px] top-0 w-[865px] h-full opacity-10">

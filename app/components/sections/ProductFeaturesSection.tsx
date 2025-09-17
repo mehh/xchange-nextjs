@@ -35,8 +35,8 @@ export default function ProductFeaturesSection() {
         y: "33%"
       },
       cardPosition: {
-        x: "72%",
-        y: "33%"
+        x: "52%",
+        y: "35%"
       }
     },
     {
@@ -48,8 +48,8 @@ export default function ProductFeaturesSection() {
         y: "58%"
       },
       cardPosition: {
-        x: "5%",
-        y: "58%"
+        x: "25%",
+        y: "78%"
       }
     },
     {
@@ -75,7 +75,7 @@ export default function ProductFeaturesSection() {
       },
       cardPosition: {
         x: "30%",
-        y: "75%"
+        y: "85%"
       }
     },
     {
@@ -87,7 +87,7 @@ export default function ProductFeaturesSection() {
         y: "78%"
       },
       cardPosition: {
-        x: "72%",
+        x: "52%",
         y: "84%"
       }
     }
@@ -192,7 +192,7 @@ export default function ProductFeaturesSection() {
               viewport={{ once: true, margin: "-100px" }}
               className="max-w-[467px] text-slate font-outfit text-[16px] md:text-[18px] font-normal leading-[130%] tracking-[-0.36px] opacity-70"
             >
-              Engineered to perfect positive pressure to deliver high inspired oxygen (FiO2) continuously throughout the procedure and extend its use into the recovery period if clinically indicated.
+              Engineered to perfect positive pressure to deliver high inspired oxygen (FiO₂) continuously throughout the procedure and extend its use into the recovery period if clinically indicated.
             </motion.p>
           </div>
         </div>

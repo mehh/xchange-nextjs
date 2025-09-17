@@ -1,120 +1,77 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function ProductIntroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.3, 1, 1, 0.8]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -180]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -30]);
-
-  // Letter-by-letter animation for two lines
   const line1Text = "Positive pressure perfected.";
   const line2Text = "For patients who need it the most.";
   const line1Words = line1Text.split(" ");
   const line2Words = line2Text.split(" ");
-  // Simple per-letter timing using variants and delays (viewport based)
-  const LETTER_DELAY = 0.02;
+
+  const linesVariants = {
+    hidden: {},
+    show: {
+      transition: { staggerChildren: 0.5 }
+    }
+  } as const;
+
+  const lineVariants = {
+    hidden: { opacity: 0, y: 6 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut", staggerChildren: 0.1 }
+    }
+  } as const;
+
+  const wordVariants = {
+    hidden: { opacity: 0, y: 8 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } }
+  } as const;
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-off-white overflow-hidden">
+    <section
+      className="relative w-full bg-off-white bg-no-repeat bg-bottom bg-contain overflow-visible overscroll-none"
+      style={{ backgroundImage: "url('/assets/large-cpap.png')" }}
+    >
       <div className="max-w-[1440px] mx-auto px-4 md:px-16 w-full">
-
-        {/* Container with image and overlaid text */}
-        <div className="relative w-full flex justify-center items-start">
-
-          {/* Product image - centered */}
+        <div className="w-full flex items-center justify-center py-40 md:py-64 lg:py-80 min-h-[70vh]">
           <motion.div
-            className="relative w-full max-w-[1194px]"
-            style={{ opacity: imageOpacity, y: imageY }}
+            variants={linesVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-center px-4"
           >
-            <Image
-              src="https://api.builder.io/api/v1/image/assets/TEMP/993353e31db87e0e701cab7447c3eb9f6a34e0aa?width=2388"
-              alt="Pneuma xchange nasal dock device"
-              width={1194}
-              height={1397}
-              className="w-full h-auto object-contain"
-              sizes="(max-width: 768px) 90vw, (max-width: 1200px) 80vw, 1194px"
-              priority
-            />
-          </motion.div>
-
-          {/* Overlaid text in center of image */}
-          <motion.div className="absolute inset-0 flex items-center justify-center" style={{ y: textY }}>
-            <div className="max-w-[573px] text-center px-4">
-              <div className="font-outfit text-[clamp(18px,4vw,40px)] font-normal leading-[130%] tracking-[-0.5px] md:tracking-[-0.8px]">
-                {/* First line: "Positive pressure perfected." */}
-                <div className="block whitespace-normal md:whitespace-nowrap">
-                  {(() => {
-                    let letterIndex = 0;
-                    return line1Words.map((word, wordIndex) => {
-                      const wordLetters = word.split("");
-                      return (
-                        <span key={`word1-${wordIndex}`} className="inline-block whitespace-nowrap">
-                          {wordLetters.map((letter, letterIndexInWord) => {
-                            const currentIndex = letterIndex++;
-                            return (
-                              <motion.span
-                                key={`line1-${wordIndex}-${letterIndexInWord}`}
-                                className="text-verdant"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ delay: currentIndex * LETTER_DELAY, duration: 0.3 }}
-                              >
-                                {letter}
-                              </motion.span>
-                            );
-                          })}
-                          {wordIndex < line1Words.length - 1 && <span className="text-verdant">&nbsp;</span>}
-                        </span>
-                      );
-                    });
-                  })()}
-                </div>
-
-                {/* Second line: "For patients who need it the most." */}
-                <div className="block whitespace-normal md:whitespace-nowrap">
-                  {(() => {
-                    let letterIndex = line1Text.length; // Continue from first line
-                    return line2Words.map((word, wordIndex) => {
-                      const wordLetters = word.split("");
-                      return (
-                        <span key={`word2-${wordIndex}`} className="inline-block whitespace-nowrap">
-                          {wordLetters.map((letter, letterIndexInWord) => {
-                            const currentIndex = letterIndex++;
-                            return (
-                              <motion.span
-                                key={`line2-${wordIndex}-${letterIndexInWord}`}
-                                className="text-verdant opacity-40"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 0.4 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ delay: currentIndex * LETTER_DELAY, duration: 0.3 }}
-                              >
-                                {letter}
-                              </motion.span>
-                            );
-                          })}
-                          {wordIndex < line2Words.length - 1 && <span className="text-verdant opacity-40">&nbsp;</span>}
-                        </span>
-                      );
-                    });
-                  })()}
-                </div>
-              </div>
+            <div className="inline-block font-outfit text-[clamp(18px,4vw,40px)] font-normal leading-[130%] tracking-[-0.5px] md:tracking-[-0.8px] whitespace-nowrap">
+              <motion.div variants={lineVariants} className="text-verdant whitespace-nowrap">
+                {line1Words.map((word, i) => (
+                  <span key={`l1-wrap-${i}`} className="inline-block">
+                    <motion.span
+                      variants={wordVariants}
+                      className={`inline-block ${i < line1Words.length - 1 ? 'mr-[0.5ch]' : ''}`}
+                    >
+                      {word}
+                    </motion.span>
+                  </span>
+                ))}
+              </motion.div>
+              <motion.div variants={lineVariants} className="text-verdant opacity-40 whitespace-nowrap">
+                {line2Words.map((word, i) => (
+                  <span key={`l2-wrap-${i}`} className="inline-block">
+                    <motion.span
+                      variants={wordVariants}
+                      className={`inline-block ${i < line2Words.length - 1 ? 'mr-[0.5ch]' : ''}`}
+                    >
+                      {word}
+                    </motion.span>
+                  </span>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </div>
-
     </section>
   );
 }

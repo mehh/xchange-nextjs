@@ -29,7 +29,7 @@ const chartLines = [
   },
   {
     color: "#595959",
-    label: "SuperNO2VA Et = 78% of actual end tidal value", 
+    label: "SuperNO₂VA Et = 78% of actual end tidal value", 
     strokeDasharray: "11.17 17.86"
   },
   {
@@ -44,7 +44,7 @@ export default function EtCO2ChartSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative w-full bg-[#F7F6F3] overflow-hidden py-16 md:py-32">
+    <section ref={ref} className="relative w-full bg-[#F7F6F3] py-16 md:py-32">
       <div className="w-full max-w-[1440px] mx-auto px-4 md:px-16">
         {/* Title and Superior info row */}
         <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-12 mb-10 md:mb-12">
@@ -111,8 +111,8 @@ export default function EtCO2ChartSection() {
           </motion.div>
 
           {/* Chart container */}
-          <div className="order-1 lg:order-2 relative overflow-x-auto -mx-4 lg:mx-0 pb-4">
-            <div className="relative min-w-[940px] w-[940px] h-[588px]">
+          <div className="order-1 lg:order-2 relative pb-4 flex justify-center">
+            <div className="relative min-w-[940px] w-[940px] h-[588px] overflow-visible mx-0">
             {/* Y-axis labels */}
             {yAxisLabels.map((label, index) => (
               <motion.div
