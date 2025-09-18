@@ -127,7 +127,7 @@ export default function BenefitsSection() {
     },
     {
       title: "Rapid Effective Performance",
-      description: "Delivers high FiO2 and continuous airway pressure within 20 seconds of application.",
+      description: "Delivers high FiO₂ and continuous airway pressure within 20 seconds of application.",
       icon: (
         <svg width="170" height="171" viewBox="0 0 170 171" fill="none">
           <path d="M103.664 21.6538H66.2064C64.668 21.6538 63.4209 22.9009 63.4209 24.4393V53.2755C63.4209 54.8139 64.668 56.061 66.2064 56.061H103.664C105.203 56.061 106.45 54.8139 106.45 53.2755V24.4393C106.45 22.9009 105.203 21.6538 103.664 21.6538Z" fill="#3A5261"/>
@@ -150,7 +150,7 @@ export default function BenefitsSection() {
     },
     {
       title: "Quick and Intuitive Application",
-      description: "Delivers high FiO2 and continuous airway pressure within 20 seconds of application.",
+      description: "Delivers high FiO₂ and continuous airway pressure within 20 seconds of application.",
       icon: (
         <svg width="170" height="171" viewBox="0 0 170 171" fill="none">
           <path d="M103.664 21.6538H66.2064C64.668 21.6538 63.4209 22.9009 63.4209 24.4393V53.2755C63.4209 54.8139 64.668 56.061 66.2064 56.061H103.664C105.203 56.061 106.45 54.8139 106.45 53.2755V24.4393C106.45 22.9009 105.203 21.6538 103.664 21.6538Z" fill="#3A5261"/>
@@ -254,7 +254,7 @@ export default function BenefitsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className="flex flex-col justify-between p-6 md:p-8 rounded-3xl bg-black/3 w-[280px] md:w-[316px] h-[350px] md:h-[427px] hover:bg-black/5 transition-all duration-300"
+                className="flex flex-col justify-between p-6 md:p-8 rounded-3xl bg-white border border-slate/10 shadow-sm w-[280px] md:w-[316px] h-[350px] md:h-[427px] hover:shadow-md hover:border-slate/20 hover:-translate-y-1 transition-all duration-300"
               >
                 <h3 className="text-slate font-outfit text-[18px] md:text-[20px] lg:text-[24px] font-normal leading-[100%] tracking-[-0.4px] md:tracking-[-0.48px]">
                   {benefit.title}

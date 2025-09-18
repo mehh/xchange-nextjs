@@ -31,7 +31,7 @@ export default function ProductIntroSection() {
 
   return (
     <section
-      className="relative w-full bg-off-white bg-no-repeat bg-bottom bg-contain overflow-visible overscroll-none"
+      className="relative w-full bg-off-white bg-no-repeat bg-center overflow-visible overscroll-none bg-[length:70%_auto] md:bg-[length:80%_auto] lg:bg-[length:90%_auto]"
       style={{ backgroundImage: "url('/assets/large-cpap.png')" }}
     >
       <div className="max-w-[1440px] mx-auto px-4 md:px-16 w-full">
@@ -72,6 +72,24 @@ export default function ProductIntroSection() {
           </motion.div>
         </div>
       </div>
+      {/* Top fade/blur overlay with gradient mask to soften into content */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-20 md:h-28 lg:h-36 z-10 bg-gradient-to-b from-off-white/95 to-transparent backdrop-blur-[3px] md:backdrop-blur"
+        style={{
+          WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)"
+        }}
+      />
+      {/* Bottom fade/blur overlay with gradient mask to soften into content */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-20 md:h-28 lg:h-36 z-10 bg-gradient-to-t from-off-white/95 to-transparent backdrop-blur-[3px] md:backdrop-blur"
+        style={{
+          WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
+          maskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)"
+        }}
+      />
     </section>
   );
 }

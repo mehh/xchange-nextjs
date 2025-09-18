@@ -116,12 +116,12 @@ export default function StatisticsSection() {
             </div>
 
             {/* Right statistics - fade in/out based on scroll */}
-            <motion.div className="w-full max-w-[538px] lg:pl-12 lg:border-l border-white/15 relative overflow-visible h-auto min-h-[420px] md:min-h-[500px] flex-1 min-w-0 flex items-center mt-10 lg:mt-0" aria-live="polite" style={{ opacity: rightColOpacity }}>
+            <motion.div className="w-full max-w-[538px] lg:pl-24 xl:pl-36 lg:ml-4 lg:border-l border-white/15 relative overflow-visible h-auto min-h-[420px] md:min-h-[500px] flex-1 min-w-0 flex items-center mt-10 lg:mt-0" aria-live="polite" style={{ opacity: rightColOpacity }}>
               
               {/* Stat 1 - OSA */}
               <motion.div
                 style={{ opacity: stat1Opacity, y: stat1Y, willChange: "opacity, transform" }}
-                className="absolute inset-0 flex flex-col gap-5 justify-center"
+                className="absolute inset-y-0 left-0 right-0 lg:left-16 xl:left-28 flex flex-col gap-5 justify-center pr-4 lg:pr-6"
               >
                 <h3 className="font-outfit text-[72px] md:text-[100px] lg:text-[122px] font-normal leading-[100%] tracking-[-1.44px] md:tracking-[-2.4px] lg:tracking-[-2.88px] text-gradient-calm">
                   {stats[0].percentage}
@@ -139,7 +139,7 @@ export default function StatisticsSection() {
               {/* Stat 2 - Obesity */}
               <motion.div
                 style={{ opacity: stat2Opacity, y: stat2Y, willChange: "opacity, transform" }}
-                className="absolute inset-0 flex flex-col gap-5 justify-center"
+                className="absolute inset-y-0 left-0 right-0 lg:left-16 xl:left-28 flex flex-col gap-5 justify-center pr-4 lg:pr-6"
               >
                 <h3 className="font-outfit text-[72px] md:text-[100px] lg:text-[122px] font-normal leading-[100%] tracking-[-1.44px] md:tracking-[-2.4px] lg:tracking-[-2.88px] text-gradient-calm">
                   {stats[1].percentage}
@@ -157,7 +157,7 @@ export default function StatisticsSection() {
               {/* Stat 3 - Chronic Conditions */}
               <motion.div
                 style={{ opacity: stat3Opacity, y: stat3Y, willChange: "opacity, transform" }}
-                className="absolute inset-0 flex flex-col gap-5 justify-center"
+                className="absolute inset-y-0 left-0 right-0 lg:left-16 xl:left-28 flex flex-col gap-5 justify-center pr-4 lg:pr-6"
               >
                 <h3 className="font-outfit text-[72px] md:text-[100px] lg:text-[122px] font-normal leading-[100%] tracking-[-1.44px] md:tracking-[-2.4px] lg:tracking-[-2.88px] text-gradient-calm">
                   {stats[2].percentage}
