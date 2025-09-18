@@ -111,8 +111,8 @@ export default function EtCO2ChartSection() {
           </motion.div>
 
           {/* Chart container */}
-          <div className="order-1 lg:order-2 relative pb-4 flex justify-center">
-            <div className="relative min-w-[940px] w-[940px] h-[588px] overflow-visible mx-0">
+          <div className="order-1 lg:order-2 relative pb-4 flex justify-center w-full overflow-x-auto md:overflow-visible -mx-4 px-4">
+            <div className="relative min-w-[720px] sm:min-w-[900px] md:min-w-[940px] h-[588px] overflow-visible scale-50 sm:scale-75 md:scale-100 origin-top-left">
             {/* Y-axis labels */}
             {yAxisLabels.map((label, index) => (
               <motion.div
@@ -120,7 +120,7 @@ export default function EtCO2ChartSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 0.3, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.05 }}
-                className="absolute text-slate font-outfit text-[20px] font-normal leading-[100%] tracking-[-0.4px] text-right"
+                className="absolute text-slate font-outfit text-[14px] md:text-[20px] font-normal leading-[100%] tracking-[-0.28px] md:tracking-[-0.4px] text-right"
                 style={{ top: `${label.top}px`, left: "-27px", width: "36px" }}
               >
                 {label.value}
@@ -299,11 +299,11 @@ export default function EtCO2ChartSection() {
                 />
               </motion.svg>
             </div>
-            </div>
           </div>
         </div>
-
       </div>
+
+    </div>
     </section>
   );
 }

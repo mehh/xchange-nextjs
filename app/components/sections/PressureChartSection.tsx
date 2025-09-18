@@ -57,8 +57,8 @@ export default function PressureChartSection() {
         {/* Chart container */}
         <div className="relative mt-12 md:mt-20 flex justify-center">
           {/* Chart area background with grid */}
-          <div className="relative overflow-visible mx-0 pb-4">
-            <div className="relative min-w-[1065px] h-[634px]">
+          <div className="relative pb-4 w-full overflow-x-auto md:overflow-visible -mx-4 px-4">
+            <div className="relative min-w-[720px] sm:min-w-[900px] md:min-w-[1065px] h-[634px] scale-50 sm:scale-75 md:scale-100 origin-top-left">
             {/* Horizontal grid lines */}
             <div className="absolute left-[200px] top-0 w-[865px] h-full opacity-10">
               {Array.from({ length: 6 }).map((_, i) => (
@@ -77,7 +77,7 @@ export default function PressureChartSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 0.3, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="absolute text-slate font-outfit text-[16px] md:text-[20px] font-normal leading-[100%] tracking-[-0.32px] md:tracking-[-0.4px] text-right"
+                className="absolute text-slate font-outfit text-[12px] sm:text-[14px] md:text-[20px] font-normal leading-[100%] tracking-[-0.24px] sm:tracking-[-0.28px] md:tracking-[-0.4px] text-right"
                 style={{ 
                   left: "176px", 
                   top: `${label.top - 360}px`, 

@@ -5,14 +5,15 @@ import { motion } from "framer-motion";
 
 interface LogoDrawProps {
   src?: string; // path to svg asset
-  width?: number;
-  height?: number;
+  width?: number; // optional legacy props, ignored for responsive layout
+  height?: number; // optional legacy props, ignored for responsive layout
   stroke?: string;
   strokeWidth?: number;
   drawMs?: number; // duration for stroke draw for each path
   staggerMs?: number; // delay between each path
   fillMs?: number; // duration for fill after draw
   startDelayMs?: number; // delay before any anim starts
+  className?: string; // responsive container classes
 }
 
 /**
@@ -29,6 +30,7 @@ export default function LogoDraw({
   staggerMs = 20,
   fillMs = 400,
   startDelayMs = 0,
+  className,
 }: LogoDrawProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = React.useState(false);
@@ -48,8 +50,11 @@ export default function LogoDraw({
           if (!svg) return;
           // Ensure viewBox scales nicely
           svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-          svg.setAttribute("width", `${width}`);
-          svg.setAttribute("height", `${height}`);
+          // Let CSS control sizing responsively
+          svg.removeAttribute("width");
+          svg.removeAttribute("height");
+          (svg as SVGSVGElement).style.width = "100%";
+          (svg as SVGSVGElement).style.height = "auto";
           // Collect drawable elements
           const paths = Array.from(svg.querySelectorAll("path"));
           // Apply baseline styles and staggered delays
@@ -82,9 +87,16 @@ export default function LogoDraw({
       animate={{ opacity: loaded ? 1 : 0 }}
       transition={{ duration: 0.2 }}
       aria-label="Animated logo"
-      style={{ width, height }}
+      className={
+        [
+          // Responsive container: fills up to max widths without overflow
+          "w-[85vw] sm:w-[70vw] md:w-[60vw] lg:w-[640px] max-w-[640px]",
+          "h-auto",
+          className || "",
+        ].join(" ")
+      }
     >
-      <div ref={ref} style={{ width, height }} />
+      <div ref={ref} style={{ width: "100%", height: "auto" }} />
       <style jsx global>{`
         @keyframes logo-draw { to { stroke-dashoffset: 0; } }
         @keyframes logo-fill { to { fill: #ffffff; } }

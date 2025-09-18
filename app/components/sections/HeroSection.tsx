@@ -5,14 +5,15 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full h-screen min-h-[810px] bg-gradient-hero">
+    <section className="relative w-full h-[75vh] md:h-screen min-h-[560px] md:min-h-[810px] bg-gradient-hero">
 
       {/* Woman background image layer */}
+      {/* Background image layer - mobile uses cover with top position to avoid tiny image; md+ stays center cover */}
       <div
         className="absolute inset-0 w-full h-full z-10"
         style={{
           backgroundImage: 'url(/Container-2.png)',
-          backgroundPosition: 'center center',
+          backgroundPosition: 'top center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
         }}
@@ -32,7 +33,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 w-full h-full bg-gradient-overlay z-30" />
 
       {/* Content - responsive positioning */}
-      <div className="relative z-40 w-full h-full flex flex-col justify-end pb-16 md:pb-24">
+      <div className="relative z-40 w-full h-full flex flex-col justify-end pb-10 md:pb-24">
         <div className="max-w-[1440px] mx-auto px-4 md:px-16 w-full">
           
           {/* Mobile layout */}

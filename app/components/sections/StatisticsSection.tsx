@@ -77,7 +77,48 @@ export default function StatisticsSection() {
   return (
     <section className="relative w-full bg-calm-dark overflow-hidden">
       <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 md:px-16">
-        <div ref={containerRef} className="relative">
+
+        {/* Mobile: simplified static layout showing all stats at once */}
+        <div className="md:hidden py-24">
+          <div className="flex flex-col gap-8 w-full">
+            {/* Heading and copy */}
+            <div className="w-full flex flex-col gap-6">
+              <h2 className="text-white font-outfit text-[28px] font-normal leading-[110%] tracking-[-0.56px]">
+                Patients with medical issues that directly affect their breathing during procedures are on the rise.
+              </h2>
+              <p className="text-white font-outfit text-[16px] font-normal leading-[140%] tracking-[-0.32px] opacity-70">
+                Airway obstruction leading to oxygen desaturation and/or hypercapnia is a common and serious complication during moderate to deep sedation. This risk is particularly pronounced in patients with known airway pathology.
+              </p>
+              <div className="h-12 px-6 inline-flex items-center rounded-full border border-white/50 self-start">
+                <Link href="/patients" className="text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:opacity-80 transition-opacity duration-300">
+                  see full list
+                </Link>
+              </div>
+            </div>
+
+            {/* Stats stacked */}
+            <div className="flex flex-col divide-y divide-white/10 rounded-xl border border-white/10 overflow-hidden">
+              {stats.map((s, idx) => (
+                <div key={idx} className="p-6 bg-white/5 backdrop-blur-sm">
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-outfit text-[64px] font-normal leading-[100%] tracking-[-1.2px] text-gradient-calm">
+                      {s.percentage}
+                    </h3>
+                    <p className="text-white font-outfit text-[16px] font-normal leading-[130%] tracking-[-0.32px]">
+                      {s.title}
+                    </p>
+                    <p className="text-white font-outfit text-[12px] font-normal leading-[130%] tracking-[-0.24px] opacity-80">
+                      {s.source}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop/Tablet: original pinned animated layout */}
+        <div ref={containerRef} className="relative hidden md:block">
           <div ref={pinRef} className="relative z-20">
             <motion.div
               className="flex justify-center items-center min-h-screen pt-[120px] md:pt-[176px] pb-[80px] md:pb-[104px]"

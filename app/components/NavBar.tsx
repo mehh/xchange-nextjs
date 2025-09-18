@@ -103,7 +103,7 @@ export default function NavBar() {
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
-          className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md border border-slate/30 text-slate hover:bg-slate/10 hover:border-slate/60 transition-all duration-200"
+          className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md border border-slate/30 text-slate bg-white hover:bg-white hover:border-slate/60 shadow-sm transition-all duration-200"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             {menuOpen ? (

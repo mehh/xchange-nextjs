@@ -35,9 +35,9 @@ export default function ScienceHeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="absolute left-1/2 -translate-x-1/2 top-24 md:left-16 md:translate-x-0 md:top-[168px] px-4"
+          className="absolute left-4 top-24 md:left-16 md:top-[168px] px-4"
         >
-          <h1 className="text-slate font-outfit text-[48px] md:text-[80px] font-normal leading-[110%] tracking-[-0.96px] md:tracking-[-1.6px] text-center md:text-left">
+          <h1 className="text-slate font-outfit text-[48px] md:text-[80px] font-normal leading-[110%] tracking-[-0.96px] md:tracking-[-1.6px] text-left">
             The science
           </h1>
         </motion.div>

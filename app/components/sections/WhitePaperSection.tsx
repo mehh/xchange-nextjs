@@ -94,8 +94,8 @@ export default function WhitePaperSection() {
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center gap-4 flex-shrink-0 w-full sm:w-auto justify-center sm:justify-start">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4 flex-shrink-0 w-full sm:w-auto">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
               <Link
                 href="/whitepaper"
                 className="flex h-12 px-6 justify-center items-center gap-2 rounded-full bg-slate text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/90 transition-all duration-300 w-full sm:w-auto"
@@ -103,7 +103,7 @@ export default function WhitePaperSection() {
                 learn more
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
               <Link
                 href="/files/xchange-whitepaper.pdf"
                 target="_blank"
