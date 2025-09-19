@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type React from "react";
 
 type Testimonial = {
   badge: string;
@@ -18,6 +19,9 @@ type Testimonial = {
 
 export default function TeamSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const isSwiping = useRef<boolean>(false);
 
   const testimonials: Testimonial[] = [
     {
@@ -87,6 +91,46 @@ export default function TeamSection() {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  // Touch handlers for swipe navigation
+  const SWIPE_THRESHOLD = 50; // px
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
+    isSwiping.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - touchStartX.current;
+    const dy = touch.clientY - touchStartY.current;
+    // If horizontal movement is greater than vertical, consider it a swipe gesture
+    if (Math.abs(dx) > Math.abs(dy)) {
+      isSwiping.current = true;
+      // prevent the page from scrolling horizontally while swiping
+      e.preventDefault();
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - touchStartX.current;
+    if (Math.abs(dx) > SWIPE_THRESHOLD) {
+      if (dx < 0) {
+        // Swiped left -> next
+        nextTestimonial();
+      } else {
+        // Swiped right -> prev
+        prevTestimonial();
+      }
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+    isSwiping.current = false;
+  };
+
   // Auto-advance testimonials on an interval
   useEffect(() => {
     const id = setInterval(() => {
@@ -107,6 +151,9 @@ export default function TeamSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true, margin: "-100px" }}
             className="relative rounded-3xl bg-verdant p-6 md:p-8 min-h-[400px] md:min-h-[472px] w-full"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -135,7 +182,7 @@ export default function TeamSection() {
                   </p>
                 </div>
 
-                {/* Doctor info, pagination dots, and navigation */}
+                {/* Doctor info and pagination dots */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 w-full">
                   <div className="flex items-center gap-4 sm:gap-6 flex-1">
                     {/* Avatar(s) */}
@@ -203,35 +250,6 @@ export default function TeamSection() {
                         }`}
                       />
                     ))}
-                  </div>
-
-                  {/* Navigation arrows */}
-                  <div className="flex items-center justify-center sm:justify-start gap-3">
-                    <button
-                      type="button"
-                      onClick={prevTestimonial}
-                      className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-                      aria-label="Previous testimonial"
-                    >
-                      <div className="w-6 h-6 md:w-7 md:h-7 flex items-center justify-center" style={{ transform: 'rotateX(180deg)' }}>
-                        <svg className="block" width="24" height="18" viewBox="0 0 24 18" fill="none" preserveAspectRatio="xMidYMid meet">
-                          <path d="M2.78516 9.38232C5.91076 10.552 8.42866 13.6394 9.66797 17.5981L9.12109 17.769C7.5715 12.8191 4.03466 9.4458 0 9.4458V8.72607C4.03096 8.72593 7.56917 5.28631 9.12012 0.230956L9.66699 0.398925C8.41243 4.48806 5.8462 7.66756 2.66211 8.82471L24 8.82471V9.38232L2.78516 9.38232Z" fill="white"/>
-                        </svg>
-                      </div>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={nextTestimonial}
-                      className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-                      aria-label="Next testimonial"
-                    >
-                      <div className="w-6 h-6 md:w-7 md:h-7 flex items-center justify-center">
-                        <svg className="block" width="24" height="18" viewBox="0 0 24 18" fill="none" preserveAspectRatio="xMidYMid meet">
-                          <path d="M21.2148 8.61767C18.0892 7.44803 15.5713 4.36064 14.332 0.401855L14.8789 0.230956C16.4285 5.18092 19.9653 8.5542 24 8.5542V9.27392C19.969 9.27407 16.4308 12.7137 14.8799 17.769L14.333 17.6011C15.5876 13.5119 18.1538 10.3324 21.3379 9.17529L0 9.17529L0 8.61768L21.2148 8.61767Z" fill="white"/>
-                        </svg>
-                      </div>
-                    </button>
                   </div>
                 </div>
               </motion.div>

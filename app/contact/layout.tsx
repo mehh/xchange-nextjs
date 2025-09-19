@@ -1,36 +1,36 @@
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pneuma.health";
 
 export const metadata: Metadata = {
-  title: "Contact Us - Let's Get Started",
-  description: "Ready to start your TMOD home journey? Contact us today to learn about our precision-engineered, affordable homes. We're excited to be on this journey together.",
+  title: "Contact Us | Pneuma",
+  description:
+    "Have questions about Pneuma? Tell us a little about yourself and we’ll get back to you shortly.",
   keywords: [
-    "contact TMOD",
-    "affordable homes inquiry",
-    "precision engineered homes contact",
-    "home building consultation",
-    "sustainable homes quote",
-    "TMOD contact form",
-    "affordable housing inquiry",
-    "get started with TMOD",
-    "home building contact",
-    "sustainable living consultation"
+    "Pneuma contact",
+    "contact Pneuma",
+    "Pneuma health",
+    "medical technology contact",
+    "get in touch",
+    "sales inquiry",
+    "support inquiry",
   ],
   openGraph: {
-    title: "Contact Us - Let's Get Started | TMOD",
-    description: "Ready to start your TMOD home journey? Contact us today to learn about our precision-engineered, affordable homes.",
+    title: "Contact Us | Pneuma",
+    description:
+      "Have questions about Pneuma? Tell us a little about yourself and we’ll get back to you shortly.",
     url: `${siteUrl}/contact`,
     images: [
       {
         url: "/assets/408db099393db085014ca7f79a9c688bded8623d.png",
-        alt: "Contact TMOD - Let's Get Started",
+        alt: "Contact Pneuma",
       },
     ],
   },
   twitter: {
-    title: "Contact Us - Let's Get Started | TMOD",
-    description: "Ready to start your affordable, sustainable home journey? Contact TMOD today for a consultation.",
+    title: "Contact Us | Pneuma",
+    description:
+      "Have questions about Pneuma? Tell us a little about yourself and we’ll get back to you shortly.",
   },
   alternates: {
     canonical: "/contact",

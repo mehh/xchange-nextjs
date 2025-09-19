@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-// Using the white logo version from the Figma design
-const logoSrc = "https://api.builder.io/api/v1/image/assets/TEMP/ade10ca9ee41942e99d3f5acec3438f026183112?width=621";
+// Use local footer logo asset
+const logoSrc = "/assets/Logo Footer.png";
 
 export default function Footer() {
   const pathname = usePathname();

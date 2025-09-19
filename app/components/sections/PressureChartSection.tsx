@@ -60,7 +60,7 @@ export default function PressureChartSection() {
           <div className="relative pb-4 w-full overflow-x-auto md:overflow-visible -mx-4 px-4">
             <div className="relative min-w-[720px] sm:min-w-[900px] md:min-w-[1065px] h-[634px] scale-50 sm:scale-75 md:scale-100 origin-top-left">
             {/* Horizontal grid lines */}
-            <div className="absolute left-[200px] top-0 w-[865px] h-full opacity-10">
+            <div className="absolute left-0 top-0 w-[865px] h-full opacity-10">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
@@ -79,7 +79,7 @@ export default function PressureChartSection() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="absolute text-slate font-outfit text-[12px] sm:text-[14px] md:text-[20px] font-normal leading-[100%] tracking-[-0.24px] sm:tracking-[-0.28px] md:tracking-[-0.4px] text-right"
                 style={{ 
-                  left: "176px", 
+                  left: "0px", 
                   top: `${label.top - 360}px`, 
                   width: "32px" 
                 }}
@@ -90,8 +90,16 @@ export default function PressureChartSection() {
 
             {/* Chart bars - properly spaced */}
             {chartData.map((item, index) => {
-              const barLeft = 224 + (index * 272); // Proper spacing between bars
+              const barLeft = 24 + (index * 272); // Proper spacing between bars (shifted left)
               const barBottom = 634; // Chart bottom
+              // Keep the label within the visible chart area
+              const labelTopBase = barBottom - item.height - 120;
+              let labelTop = Math.max(180, labelTopBase);
+              // Raise the label for the tallest bar (xchange nasal dock)
+              if (index === 2) {
+                // Place label much higher (closer to chart top)
+                labelTop = Math.max(20, barBottom - item.height - 60);
+              }
               
               return (
                 <div key={item.label}>
@@ -120,7 +128,7 @@ export default function PressureChartSection() {
                     className="absolute flex flex-col gap-[18px] w-40 md:w-56"
                     style={{
                       left: `${barLeft}px`,
-                      top: `${barBottom - item.height - 180}px`
+                      top: `${labelTop}px`
                     }}
                   >
                     <div className="text-slate font-outfit text-[40px] md:text-[64px] font-normal leading-[100%] tracking-[-0.8px] md:tracking-[-1.28px]">

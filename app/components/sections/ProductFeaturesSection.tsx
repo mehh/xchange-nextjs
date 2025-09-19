@@ -163,7 +163,7 @@ export default function ProductFeaturesSection() {
       <div className="absolute left-0 top-0 w-full h-[400px] bg-gradient-fade-bottom pointer-events-none z-10" />
 
       {/* Main content container */}
-      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 md:px-0">
+      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 md:px-16">
         
         {/* Section header - positioned outside image container */}
         <div className="relative mb-8 md:mb-12 max-w-[648px] z-30">
@@ -217,6 +217,11 @@ export default function ProductFeaturesSection() {
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1440px) 100vw, 1440px"
             priority
+          />
+
+          {/* Top gradient/blur overlay to soften the image edge */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 w-full h-24 md:h-32 z-40 bg-gradient-to-b from-off-white/95 to-off-white/40 md:from-off-white md:to-transparent backdrop-blur-[2px]"
           />
 
           {/* Interactive dots overlay */}

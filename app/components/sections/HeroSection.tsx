@@ -8,9 +8,21 @@ export default function HeroSection() {
     <section className="relative w-full h-[75vh] md:h-screen min-h-[560px] md:min-h-[810px] bg-gradient-hero">
 
       {/* Woman background image layer */}
-      {/* Background image layer - mobile uses cover with top position to avoid tiny image; md+ stays center cover */}
+      {/* Background image layer - mobile uses dedicated asset; md+ uses existing image */}
+      {/* Mobile background */}
       <div
-        className="absolute inset-0 w-full h-full z-10"
+        className="absolute inset-0 w-full h-full z-10 md:hidden"
+        style={{
+          backgroundImage: 'url(/assets/home-hero-mobile.jpg)',
+          backgroundPosition: 'top center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
+      {/* Desktop and larger background */}
+      <div
+        className="absolute inset-0 w-full h-full z-10 hidden md:block"
         style={{
           backgroundImage: 'url(/Container-2.png)',
           backgroundPosition: 'top center',

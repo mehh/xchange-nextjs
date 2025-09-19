@@ -19,15 +19,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const site = process.env.NEXT_PUBLIC_SITE_URL || "https://tmod.com";
+    const site = process.env.NEXT_PUBLIC_SITE_URL || "https://pneuma.health";
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
     const RESEND_TO = process.env.RESEND_TO; // destination inbox
-    const RESEND_FROM = process.env.RESEND_FROM || "noreply@tmod.com";
+    const RESEND_FROM = process.env.RESEND_FROM || "noreply@pneuma.health";
 
     // If Resend is configured, send email via API; otherwise, accept without send
     if (RESEND_API_KEY && RESEND_TO) {
-      const subject = `New TMOD Contact: ${name}`;
+      const subject = `New Pneuma Contact: ${name}`;
       const html = `
         <div>
           <h2>New Contact Submission</h2>

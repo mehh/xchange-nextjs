@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 
-// Using the logo from the Figma design
-const logoSrc = "https://api.builder.io/api/v1/image/assets/TEMP/63edb6c922bf9e76a96e81957e4b978960b1f9ce?width=315";
+// Use local logo asset for the main navigation
+const logoSrc = "/assets/Logo Nav.png";
 
 export default function NavBar() {
   const pathname = usePathname();
