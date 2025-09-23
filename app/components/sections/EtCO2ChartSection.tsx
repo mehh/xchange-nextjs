@@ -54,14 +54,14 @@ export default function EtCO2ChartSection() {
             transition={{ duration: 0.8 }}
             className="text-slate font-outfit text-[28px] md:text-[40px] font-normal leading-[130%] tracking-[-0.56px] md:tracking-[-0.8px] max-w-[648px]"
           >
-            XChange Provides More Consistent and Reliable EtCO₂ Sampling
+            XChange Provides More Consistent and Reliable EtCO₂ Sampling.
           </motion.h2>
           {/* Superior EtCO2 info box - responsive width */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="w-full md:w-[451px] md:ml-auto"
+            className="hidden lg:block w-full md:w-[451px] md:ml-auto"
           >
             <h3 className="text-slate font-outfit text-[22px] md:text-[28px] font-normal leading-[130%] tracking-[-0.44px] md:tracking-[-0.56px] mb-4 md:mb-6">
               Superior EtCO₂ Sampling Capability

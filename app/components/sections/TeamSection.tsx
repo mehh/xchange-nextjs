@@ -7,7 +7,6 @@ import type React from "react";
 
 type Testimonial = {
   badge: string;
-  title: string;
   content: string;
   name: string;
   title_role: string;
@@ -22,63 +21,58 @@ export default function TeamSection() {
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const isSwiping = useRef<boolean>(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const testimonials: Testimonial[] = [
     {
-      badge: "Key Opinion Leader",
-      title: "THE CONTINUUM OF CARE WITH FOCUS",
+      badge: "Advisory Board Member",
       content:
-        "Dr. Jon Clapp, a prominent physiatrist, specializes in high-risk pain management. He meticulously manages patients before, during and after procedures, integrating xchange for sustained oxygenation and reduced complications. He educates healthcare professionals globally and advocates for xchange adoption in his U.S. lectures and practice.",
+        "Dr. Jon Clapp, a distinguished Physiatrist, manages high-risk patients' care before, during, and after procedures. The xchange will provide sustained oxygenation, minimizing pain. As an educator, he will integrate the xchange into his lectures, championing its adoption across the market.",
       name: "Dr. Jonathan Clapp",
       title_role: "Pain Management",
       image: "/assets/test-jonathan-clapp.png",
     },
     {
-      badge: "Anesthesiologist",
-      title: "ENHANCED PATIENT SAFETY PROTOCOLS",
+      badge: "Advisory Board Member",
       content:
-        "Dr. Sarah Mitchell has integrated the xchange device into her anesthesia practice, seeing remarkable improvements in patient outcomes during complex procedures. Her focus on airway management and patient safety has made her a leading advocate for innovative respiratory support technologies.",
-      name: "Dr. Sarah Mitchell",
-      title_role: "Anesthesiology",
-      image: "/assets/test-michael.png", // temporary mapping until exact asset provided
-    },
-    {
-      badge: "Gastroenterology",
-      title: "OPTIMIZING SEDATION WORKFLOWS",
-      content:
-        "In endoscopy suites, consistent oxygenation improves visualization and reduces interventions. xchange helps maintain airway patency and reliable EtCO₂ sampling throughout procedures.",
-      name: "Dr. Carlos Ramirez",
-      title_role: "Gastroenterology",
-      image: "/assets/test-stephen-garber.png",
-      image2: "/assets/test-stephen.png",
-      name2: "Dr. Stephen Garber",
-      title_role2: "Gastroenterology",
-    },
-    {
-      badge: "CRNA",
-      title: "RELIABLE EtCO₂ AND AIRWAY CONTROL",
-      content:
-        "Reliable capnography and a comfortable seal are critical during moderate to deep sedation. xchange provides a stable interface for monitoring and positive pressure support.",
-      name: "Jamie Lee, CRNA",
-      title_role: "Nurse Anesthetist",
+        "Laura, a CRNA, offers unique insights into airway obstruction and oxygen desaturation. Her expertise with the predecessor device, innovative approach  and commitment to improving patient outcomes make her a valued Pneuma team member, crucial for driving xchange adoption.",
+      name: "Laura Villabla",
+      title_role: "CRNA",
       image: "/assets/test-laura.png", // temporary mapping until exact asset provided
     },
     {
-      badge: "Pulmonology",
-      title: "BETTER OUTCOMES FOR HIGH‑RISK PATIENTS",
+      badge: "Advisory Board Member",
       content:
-        "For patients with OSA and obesity, maintaining airway tone and oxygenation reduces desaturation events. xchange enables proactive management rather than reactive rescue.",
-      name: "Dr. Jamal Akbar",
-      title_role: "Pulmonology",
-      image: "/assets/test-mazen.png", // temporary mapping until exact asset provided
+        "As Pneuma’s Medical Director, Dr. Garber leads our Advisory Board, advancing our mission to deliver comprehensive education and clinical expertise on the xchange. His unparalleled insight into leveraging a Positive Pressure Device (PPD) enhances patient safety and outcomes, making him an invaluable resource for referring clinicians optimizing results with xchange.",
+      name: "Dr. Stephen Garber",
+      title_role: "Anesthesiologist",
+      image: "/assets/test-stephen-garber.png",
     },
     {
-      badge: "Nursing Leadership",
-      title: "SCALABLE, SAFE, AND TRAINABLE",
+      badge: "Advisory Board Member",
       content:
-        "Highly standardized devices guide nursing leaders and VHC staff to deliver consistent care. xchange’s ease of use and clear workflow integration support better team adoption and training results.",
-      name: "Mindy Patterson, RN",
-      title_role: "Clinical Operations",
+        "As Pneuma’s Medical Director, Dr. Garber leads our Advisory Board, advancing our mission to deliver comprehensive education and clinical expertise on the xchange. His unparalleled insight into leveraging a Positive Pressure Device (PPD) enhances patient safety and outcomes, making him an invaluable resource for referring clinicians optimizing results with xchange.",
+      name: "Dr. Stephen Cataldo",
+      title_role: "Anesthesiologist",
+      image: "/assets/test-stephen.png",
+      image2: "/assets/test-michael.png",
+      name2: "Dr. Michael Pedro",
+      title_role2: "Anesthesiologist",
+    },
+    {
+      badge: "Advisory Board Member",
+      content:
+        "Dr. Jamal, a leader in GI care, manages patients with airway obstruction during procedures. This complication affects safety and outcomes. Passionate about advancing patient care, Dr. Jamal champions the xchange as a crucial step toward best practices, aiming to improve patient safety and procedural success.",
+      name: "Dr. Mazen Jamal",
+      title_role: "Gastroenterologist",
+      image: "/assets/test-michael.png", // temporary mapping until exact asset provided
+    },   
+    {
+      badge: "Advisory Board Member",
+      content:
+        "Mindy, a seasoned clinician, leverages her expertise in critical care, nursing leadership, and hospital administration to guide nursing leaders and VAC stakeholders on standardized protocols for the xchange across the continuum of care. Her ability to bridge best practices with operational leadership will drive large-scale improvements in patient outcomes and workflow.",
+      name: "Mindy Luebs",
+      title_role: "MSN, RN, CMSRN, OCN",
       image: "/assets/test-mindy.png",
     },
   ];
@@ -133,11 +127,12 @@ export default function TeamSection() {
 
   // Auto-advance testimonials on an interval
   useEffect(() => {
+    if (isPaused) return;
     const id = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 6000); // 6s cycle; adjust to taste
     return () => clearInterval(id);
-  }, [testimonials.length]);
+  }, [isPaused, testimonials.length]);
 
   return (
     <section className="w-full bg-sage py-16 md:py-24 lg:py-32">
@@ -154,6 +149,8 @@ export default function TeamSection() {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -174,7 +171,7 @@ export default function TeamSection() {
                 {/* Main content */}
                 <div className="flex flex-col justify-center items-center gap-4 md:gap-6 flex-1 px-2 md:px-8 lg:px-11 pt-3">
                   <h3 className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase text-center">
-                    {testimonials[currentTestimonial].title}
+                    {testimonials[currentTestimonial].title_role}
                   </h3>
 
                   <p className="text-off-white text-center font-outfit text-[16px] md:text-[20px] lg:text-[24px] xl:text-[28px] font-normal leading-[130%] tracking-[-0.3px] md:tracking-[-0.56px]">
@@ -216,22 +213,13 @@ export default function TeamSection() {
                             {testimonials[currentTestimonial].name}
                           </p>
                           <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
-                            {testimonials[currentTestimonial].title_role}
-                          </p>
-                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
                             {testimonials[currentTestimonial].name2}
-                          </p>
-                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
-                            {testimonials[currentTestimonial].title_role2}
                           </p>
                         </>
                       ) : (
                         <>
                           <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
                             {testimonials[currentTestimonial].name}
-                          </p>
-                          <p className="text-off-white font-outfit text-[10px] md:text-[12px] font-normal leading-[100%] tracking-[-0.24px] uppercase">
-                            {testimonials[currentTestimonial].title_role}
                           </p>
                         </>
                       )}
