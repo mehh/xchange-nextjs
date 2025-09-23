@@ -80,6 +80,9 @@
 .link-underline {
   position: relative;
   text-decoration: none; /* remove default underline */
+  display: inline-block; /* ensure the element only takes up the text width */
+  width: -moz-fit-content;
+  width: fit-content; /* prevent stretching in flex containers */
 }
 
 .link-underline::after {

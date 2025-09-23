@@ -76,8 +76,8 @@ export default function Footer() {
               |
             </span>
             <Link
-              href="/terms"
-              className={`text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase hover:opacity-80 transition-opacity link-underline link-underline-hover ${pathname === "/terms" ? "link-underline-active" : ""}`}
+              href="/tos"
+              className={`text-white font-outfit text-[12px] md:text-[14px] font-normal leading-[100%] tracking-[-0.28px] uppercase hover:opacity-80 transition-opacity link-underline link-underline-hover ${pathname === "/tos" ? "link-underline-active" : ""}`}
             >
               Terms of Service
             </Link>
