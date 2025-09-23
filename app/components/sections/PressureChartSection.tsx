@@ -23,7 +23,7 @@ const chartData = [
     label: "xchange nasal dock",
     symbol: "≥ 20", 
     value: 20,
-    height: 540,
+    height: 520,
     left: 880
   }
 ];
@@ -58,102 +58,104 @@ export default function PressureChartSection() {
         <div className="relative mt-12 md:mt-20 flex justify-center">
           {/* Chart area background with grid */}
           <div className="relative pb-4 w-full overflow-x-auto md:overflow-visible -mx-4 px-4">
-            <div className="relative min-w-[720px] sm:min-w-[900px] md:min-w-[1065px] h-[634px] scale-50 sm:scale-75 md:scale-100 origin-top-left">
-            {/* Horizontal grid lines */}
-            <div className="absolute left-0 top-0 w-[865px] h-full opacity-10">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-full h-px bg-slate"
-                  style={{ top: `${127 * i}px` }}
-                />
-              ))}
-            </div>
+            <div className="relative h-[317px] sm:h-[476px] md:h-[634px]">
+              <div className="relative min-w-[720px] sm:min-w-[900px] md:min-w-[1065px] h-[634px] scale-50 sm:scale-75 md:scale-100 origin-top-left">
+                {/* Horizontal grid lines */}
+                <div className="absolute left-0 top-0 w-[865px] h-full opacity-10">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-full h-px bg-slate"
+                      style={{ top: `${127 * i}px` }}
+                    />
+                  ))}
+                </div>
 
-            {/* Y-axis labels on the LEFT */}
-            {yAxisLabels.map((label, index) => (
-              <motion.div
-                key={label.value}
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 0.3, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="absolute text-slate font-outfit text-[12px] sm:text-[14px] md:text-[20px] font-normal leading-[100%] tracking-[-0.24px] sm:tracking-[-0.28px] md:tracking-[-0.4px] text-right"
-                style={{ 
-                  left: "0px", 
-                  top: `${label.top - 360}px`, 
-                  width: "32px" 
-                }}
-              >
-                {label.value}
-              </motion.div>
-            ))}
-
-            {/* Chart bars - properly spaced */}
-            {chartData.map((item, index) => {
-              const barLeft = 24 + (index * 272); // Proper spacing between bars (shifted left)
-              const barBottom = 634; // Chart bottom
-              // Keep the label within the visible chart area
-              const labelTopBase = barBottom - item.height - 120;
-              let labelTop = Math.max(180, labelTopBase);
-              // Raise the label for the tallest bar (xchange nasal dock)
-              if (index === 2) {
-                // Place label much higher (closer to chart top)
-                labelTop = Math.max(20, barBottom - item.height - 60);
-              }
-              
-              return (
-                <div key={item.label}>
-                  {/* Bar */}
+                {/* Y-axis labels on the LEFT */}
+                {yAxisLabels.map((label, index) => (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={isInView ? { height: item.height, opacity: 1 } : {}}
-                    transition={{ 
-                      duration: 1.2, 
-                      delay: 0.3 + index * 0.2,
-                      ease: "easeOut"
-                    }}
-                    className="absolute w-40 md:w-56 rounded-[20px] border-t-[3px] border-verdant origin-bottom"
-                    style={{
-                      left: `${barLeft}px`,
-                      bottom: "0px",
-                      background: "linear-gradient(180deg, #44695A 0%, rgba(68, 105, 90, 0.20) 100%)"
-                    }}
-                  />
-
-                  {/* Label and symbol below bar */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
-                    className="absolute flex flex-col gap-[18px] w-40 md:w-56"
-                    style={{
-                      left: `${barLeft}px`,
-                      top: `${labelTop}px`
+                    key={label.value}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 0.3, x: 0 } : {}}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="absolute text-slate font-outfit text-[12px] sm:text-[14px] md:text-[20px] font-normal leading-[100%] tracking-[-0.24px] sm:tracking-[-0.28px] md:tracking-[-0.4px] text-right"
+                    style={{ 
+                      left: "0px", 
+                      top: `${label.top - 360}px`, 
+                      width: "32px" 
                     }}
                   >
-                    <div className="text-slate font-outfit text-[40px] md:text-[64px] font-normal leading-[100%] tracking-[-0.8px] md:tracking-[-1.28px]">
-                      {item.symbol}
-                    </div>
-                    <div className="text-slate font-outfit text-[16px] md:text-[20px] font-normal leading-[100%] tracking-[-0.32px] md:tracking-[-0.4px]">
-                      {item.label}
-                    </div>
+                    {label.value}
                   </motion.div>
+                ))}
 
-                  {/* Gradient line extending from bar */}
-                  <motion.div
-                    initial={{ width: 0, opacity: 0 }}
-                    animate={isInView ? { width: `${144 + index * 126}px`, opacity: 0.3 } : {}}
-                    transition={{ duration: 1, delay: 1.2 + index * 0.2 }}
-                    className="absolute h-px"
-                    style={{
-                      left: `${barLeft}px`,
-                      top: `${barBottom - 50}px`,
-                      background: "linear-gradient(90deg, #44695A 42.31%, #E8ECE6 100%)"
-                    }}
-                  />
-                </div>
-              );
-            })}
+                {/* Chart bars - properly spaced */}
+                {chartData.map((item, index) => {
+                  const barLeft = 24 + (index * 272); // Proper spacing between bars (shifted left)
+                  const barBottom = 634; // Chart bottom
+                  // Keep the label within the visible chart area
+                  const labelTopBase = barBottom - item.height - 120;
+                  let labelTop = Math.max(180, labelTopBase);
+                  // Raise the label for the tallest bar (xchange nasal dock)
+                  if (index === 2) {
+                    // Place label much higher (closer to chart top)
+                    labelTop = Math.max(20, barBottom - item.height - 80);
+                  }
+                  
+                  return (
+                    <div key={item.label}>
+                      {/* Bar */}
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={isInView ? { height: item.height, opacity: 1 } : {}}
+                        transition={{ 
+                          duration: 1.2, 
+                          delay: 0.3 + index * 0.2,
+                          ease: "easeOut"
+                        }}
+                        className="absolute w-40 md:w-56 rounded-[20px] border-t-[3px] border-verdant origin-bottom"
+                        style={{
+                          left: `${barLeft}px`,
+                          bottom: "0px",
+                          background: "linear-gradient(180deg, #44695A 0%, rgba(68, 105, 90, 0.20) 100%)"
+                        }}
+                      />
+
+                      {/* Label and symbol below bar */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
+                        className={`absolute flex flex-col gap-[18px] w-40 md:w-56 ${index === 2 ? '-translate-y-[15px] sm:translate-y-0' : ''}`}
+                        style={{
+                          left: `${barLeft}px`,
+                          top: `${labelTop}px`
+                        }}
+                      >
+                        <div className="text-slate font-outfit text-[40px] md:text-[64px] font-normal leading-[100%] tracking-[-0.8px] md:tracking-[-1.28px]">
+                          {item.symbol}
+                        </div>
+                        <div className="text-slate font-outfit text-[16px] md:text-[20px] font-normal leading-[100%] tracking-[-0.32px] md:tracking-[-0.4px]">
+                          {item.label}
+                        </div>
+                      </motion.div>
+
+                      {/* Gradient line extending from bar */}
+                      <motion.div
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={isInView ? { width: `${144 + index * 126}px`, opacity: 0.3 } : {}}
+                        transition={{ duration: 1, delay: 1.2 + index * 0.2 }}
+                        className="absolute h-px"
+                        style={{
+                          left: `${barLeft}px`,
+                          top: `${barBottom - 50}px`,
+                          background: "linear-gradient(90deg, #44695A 42.31%, #E8ECE6 100%)"
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

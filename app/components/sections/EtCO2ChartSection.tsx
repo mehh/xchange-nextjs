@@ -112,7 +112,8 @@ export default function EtCO2ChartSection() {
 
           {/* Chart container */}
           <div className="order-1 lg:order-2 relative pb-4 flex justify-center w-full overflow-x-auto md:overflow-visible -mx-4 px-4">
-            <div className="relative min-w-[720px] sm:min-w-[900px] md:min-w-[940px] h-[588px] overflow-visible scale-50 sm:scale-75 md:scale-100 origin-top-left">
+            <div className="relative h-[294px] sm:h-[441px] md:h-[588px] w-full">
+              <div className="relative min-w-[720px] sm:min-w-[900px] md:min-w-[940px] h-[588px] overflow-visible scale-50 sm:scale-75 md:scale-100 origin-top-left">
             {/* Y-axis labels */}
             {yAxisLabels.map((label, index) => (
               <motion.div
@@ -302,8 +303,8 @@ export default function EtCO2ChartSection() {
           </div>
         </div>
       </div>
-
-    </div>
+      </div>
+      </div>
     </section>
   );
 }
