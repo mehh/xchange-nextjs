@@ -103,7 +103,7 @@ export default function NavBar() {
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
-          className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md border border-slate/30 text-slate bg-white hover:bg-white hover:border-slate/60 shadow-sm transition-all duration-200"
+          className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md text-slate bg-white hover:bg-white shadow-sm transition-all duration-200"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             {menuOpen ? (
@@ -126,7 +126,7 @@ export default function NavBar() {
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setMenuOpen(false)}
-                className="absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/60 text-white/90 hover:bg-white/10 transition-colors"
+                className="absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-md text-white/90 hover:bg-white/10 transition-colors"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M18 6L6 18M6 6l12 12" />

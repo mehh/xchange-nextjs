@@ -121,6 +121,19 @@ export default function ProductFeaturesSection() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
+  // Auto-advance on mobile/tablet
+  useEffect(() => {
+    if (!isMobile) return;
+    const timer = window.setTimeout(() => {
+      const idx = features.findIndex((f) => f.id === activeFeature);
+      const nextId = features[(idx + 1) % features.length].id;
+      setActiveFeature(nextId);
+    }, 5000); // 5s per slide
+
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile, activeFeature]);
+
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!isMobile) return;
     setTouchStart(e.targetTouches[0].clientX);

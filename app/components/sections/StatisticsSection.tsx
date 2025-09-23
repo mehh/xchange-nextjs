@@ -89,11 +89,6 @@ export default function StatisticsSection() {
               <p className="text-white font-outfit text-[16px] font-normal leading-[140%] tracking-[-0.32px] opacity-70">
                 Airway obstruction leading to oxygen desaturation and/or hypercapnia is a common and serious complication during moderate to deep sedation. This risk is particularly pronounced in patients with known airway pathology.
               </p>
-              <div className="h-12 px-6 inline-flex items-center rounded-full border border-white/50 self-start">
-                <Link href="/patients" className="text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:opacity-80 transition-opacity duration-300">
-                  see full list
-                </Link>
-              </div>
             </div>
 
             {/* Stats stacked */}
@@ -113,6 +108,15 @@ export default function StatisticsSection() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* CTA below stats on mobile */}
+            <div className="mt-6">
+              <div className="h-12 px-6 inline-flex items-center rounded-full border border-white/50 self-start">
+                <Link href="/patients" className="text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:opacity-80 transition-opacity duration-300">
+                  see full list
+                </Link>
+              </div>
             </div>
           </div>
         </div>

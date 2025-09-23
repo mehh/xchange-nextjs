@@ -217,7 +217,7 @@ export default function BenefitsSection() {
                 The xchange is a single-use nasal CPAP device designed to perfect continuous positive airway pressure quickly and effectively throughout both the intraprocedural and post- procedural periods.
               </p>
               <Link
-                href="/learn-more"
+                href="/the-science"
                 className="inline-flex items-center justify-center h-12 px-6 rounded-full border border-slate/50 text-slate font-outfit text-[14px] md:text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:bg-slate/10 hover:border-slate/70 hover:scale-105 transition-all duration-300"
               >
                 learn more
