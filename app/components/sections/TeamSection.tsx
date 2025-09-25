@@ -51,7 +51,7 @@ export default function TeamSection() {
     {
       badge: "Advisory Board Member",
       content:
-        "As Pneuma’s Medical Director, Dr. Garber leads our Advisory Board, advancing our mission to deliver comprehensive education and clinical expertise on the xchange. His unparalleled insight into leveraging a Positive Pressure Device (PPD) enhances patient safety and outcomes, making him an invaluable resource for referring clinicians optimizing results with xchange.",
+        "DRs. Catalado and Pedro pioneered the Positive Pressure Device (PPD), creating the SuperNova™. Their innovative design sealed the nose, generating pressure to open obstructed airways. With over a decade of experience, their unmatched expertise leads to superior clinical outcomes, revolutionizing airway management.",
       name: "Dr. Stephen Cataldo",
       title_role: "Anesthesiologist",
       image: "/assets/test-stephen.png",
@@ -65,7 +65,7 @@ export default function TeamSection() {
         "Dr. Jamal, a leader in GI care, manages patients with airway obstruction during procedures. This complication affects safety and outcomes. Passionate about advancing patient care, Dr. Jamal champions the xchange as a crucial step toward best practices, aiming to improve patient safety and procedural success.",
       name: "Dr. Mazen Jamal",
       title_role: "Gastroenterologist",
-      image: "/assets/test-michael.png", // temporary mapping until exact asset provided
+      image: "/assets/test-mazen.png", // temporary mapping until exact asset provided
     },   
     {
       badge: "Advisory Board Member",
