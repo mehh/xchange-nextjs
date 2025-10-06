@@ -36,7 +36,7 @@ export default function TeamSection() {
       badge: "Advisory Board Member",
       content:
         "Laura, a CRNA, offers unique insights into airway obstruction and oxygen desaturation. Her expertise with the predecessor device, innovative approach  and commitment to improving patient outcomes make her a valued Pneuma team member, crucial for driving xchange adoption.",
-      name: "Laura Villabla",
+      name: "Laura Gallagher",
       title_role: "CRNA",
       image: "/assets/test-laura.png", // temporary mapping until exact asset provided
     },

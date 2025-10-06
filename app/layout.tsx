@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import PageFade from "./components/PageFade";
+import { defaultMetadata } from "./seo";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -17,11 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Pneuma - Advanced Nasal CPAP Technology",
-    template: "%s | Pneuma"
-  },
-  description: "The xchange™ nasal dock by Pneuma is designed for procedures involving moderate to deep sedation in patients with health challenges. Significantly reduce oxygen desaturation and hypercapnia.",
+  ...defaultMetadata,
   keywords: [
     "nasal CPAP",
     "xchange nasal dock",
@@ -32,7 +29,7 @@ export const metadata: Metadata = {
     "airway management",
     "procedural sedation",
     "patient safety",
-    "respiratory support"
+    "respiratory support",
   ],
   authors: [{ name: "Pneuma Technology Inc." }],
   creator: "Pneuma Technology Inc.",
@@ -41,31 +38,6 @@ export const metadata: Metadata = {
     email: false,
     address: false,
     telephone: false,
-  },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://pneuma.com"),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://pneuma.com",
-    title: "Pneuma - Advanced Nasal CPAP Technology",
-    description: "The xchange™ nasal dock - perfecting positive pressure for patients who need it the most.",
-    siteName: "Pneuma",
-    images: [
-      {
-        url: "/api/placeholder/1200/630",
-        alt: "Pneuma - xchange nasal dock",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Pneuma - Advanced Nasal CPAP Technology",
-    description: "Patient safety starts with perfecting positive pressure. The xchange™ nasal dock by Pneuma.",
-    images: ["/api/placeholder/1200/630"],
-    creator: "@pneuma",
   },
   robots: {
     index: true,
