@@ -21,10 +21,13 @@ const nextConfig: NextConfig = {
       "default-src 'self'",
       "base-uri 'self'",
       "frame-ancestors 'none'",
+      // Allow embedding YouTube iframes
+      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https:",
       "style-src 'self' 'unsafe-inline'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",
+      // Allow YouTube/Google player scripts
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://www.gstatic.com",
       "connect-src 'self' https:",
       "form-action 'self'",
     ].join('; ');

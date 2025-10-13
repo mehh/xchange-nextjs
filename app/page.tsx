@@ -5,6 +5,7 @@ import StatisticsSection from "./components/sections/StatisticsSection";
 import ProductFeaturesSection from "./components/sections/ProductFeaturesSection";
 import BenefitsSection from "./components/sections/BenefitsSection";
 import TeamSection from "./components/sections/TeamSection";
+import VideoSection from "./components/sections/VideoSection";
 import LetsTalkSection from "./components/LetsTalkSection";
 
 export const metadata: Metadata = {
@@ -78,7 +79,12 @@ export default function Home() {
       <div className="section-spacing">
         <TeamSection />
       </div>
-      
+
+      {/* Video Section - The xchange in action */}
+      <div className="section-spacing">
+        <VideoSection />
+      </div>
+
       {/* Contact Section */}
       <div className="section-spacing">
         <LetsTalkSection backgroundClass="bg-calm" />
