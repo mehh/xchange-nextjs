@@ -113,7 +113,7 @@ export default function StatisticsSection() {
             {/* CTA below stats on mobile */}
             <div className="mt-6">
               <div className="h-12 px-6 inline-flex items-center rounded-full border border-white/50 self-start">
-                <Link href="/patients" className="text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:opacity-80 transition-opacity duration-300">
+                <Link href="/which-patients" className="text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:opacity-80 transition-opacity duration-300">
                   see full list
                 </Link>
               </div>
@@ -151,7 +151,7 @@ export default function StatisticsSection() {
               <div className="flex flex-col md:pl-[181px] gap-2">
                 <div className="h-12 px-6 inline-flex items-center rounded-full border border-white/50 self-start">
                   <Link
-                    href="/patients"
+                    href="/which-patients"
                     className="text-white font-outfit text-[16px] font-normal leading-[100%] tracking-[-0.32px] uppercase hover:opacity-80 transition-opacity duration-300"
                   >
                     see full list
