@@ -63,13 +63,13 @@ export default function NavBar() {
       <div className="flex w-full max-w-[1440px] mx-auto px-4 md:px-16 py-6 md:py-10 justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <div className="relative h-6 w-[120px] md:h-8 md:w-[157px]">
+          <div className="relative h-7 w-[140px] md:h-10 md:w-[196px]">
             <Image
               src={logoSrc}
               alt="Pneuma logo"
               fill
               className="object-contain"
-              sizes="(max-width: 768px) 120px, 157px"
+              sizes="(max-width: 768px) 140px, 196px"
               priority
             />
           </div>
